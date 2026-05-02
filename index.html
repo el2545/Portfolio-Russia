@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="El Ghali Sany — Russian scholarship portfolio: constructivist design, academic research, SUMO/Leaflet urban analytics, and hidden cultural Easter eggs." />
+<title>El Ghali Sany | Russian Scholarship Portfolio</title>
+
+<!--
+══════════════════════════════════════════════════════════════════
+  КОД ЛОМОНОСОВА / THE LOMONOSOV SOURCE CODE
+  ─────────────────────────────────────────────────────────────
+  «Честь российского народа требует, чтобы показать способность
+   и остроту его в науках.»
+  "The honor of the Russian people demands that they should show
+   their ability and sharpness in science."
+   — Михаил Васильевич Ломоносов (1711–1765)
+
+  Я готов внести свой вклад в это наследие.
+  I am ready to contribute to this legacy.
+══════════════════════════════════════════════════════════════════
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — Modern Russian Constructivism
+   ═══════════════════════════════════════════════ */
+:root {
+  --red:        #CC1B22;
+  --red-deep:   #8C0D13;
+  --red-glow:   rgba(204,27,34,.22);
+  --black:      #080808;
+  --ink:        #1E1E1E;
+  --paper:      #F5F0E4;
+  --cream:      #EDE8D8;
+  --birch:      #D9CEBC;
+  --white:      #FAFAFA;
+  --gold:       #C4982A;
+  --gold-light: #E8C869;
+  --steel:      #5A6470;
+
+  --font-display: 'Oswald', 'Impact', sans-serif;
+  --font-serif:   'Playfair Display', 'Georgia', serif;
+  --font-body:    'Crimson Pro', 'Georgia', serif;
+  --font-mono:    'JetBrains Mono', 'Consolas', monospace;
+
+  --shadow-heavy: 0 28px 80px rgba(0,0,0,.20), 0 8px 24px rgba(0,0,0,.12);
+  --shadow-mid:   0 12px 36px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08);
+  --shadow-soft:  0 4px 16px rgba(0,0,0,.07);
+  --r-lg: 24px; --r-md: 14px; --r-sm: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.05rem; color: var(--ink);
+  background: var(--paper); overflow-x: hidden; min-height: 100vh;
+}
+
+/* ── Language fade transition ── */
+body { transition: opacity .15s ease; }
+body.lang-switching { opacity: 0; }
+
+/* ── Birch forest background ── */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Cg fill='none' stroke='%23C4982A' stroke-opacity='.06'%3E%3Cpath d='M60 800V90c0-35 14-62 32-88M110 800V120c0-30 12-54 28-76M175 800V70c0-28 10-50 30-72M240 800V110c0-26 10-48 26-66M920 800V100c0-32-14-56-32-84M980 800V150c0-30-12-54-28-76M1050 800V80c0-26-10-50-28-72M1110 800V115c0-28-10-50-26-68'/%3E%3C/g%3E%3Cg fill='%23080808' fill-opacity='.05'%3E%3Cellipse cx='88' cy='190' rx='5' ry='26'/%3E%3Cellipse cx='150' cy='310' rx='5' ry='28'/%3E%3Cellipse cx='210' cy='460' rx='5' ry='24'/%3E%3Cellipse cx='950' cy='210' rx='5' ry='26'/%3E%3Cellipse cx='1020' cy='360' rx='5' ry='28'/%3E%3Cellipse cx='1080' cy='490' rx='5' ry='24'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover; background-position: bottom center; opacity: .6;
+}
+
+/* ── Constructivist diagonal overlay ── */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    linear-gradient(124deg, transparent 0 40%, rgba(204,27,34,.055) 40% 44%, transparent 44% 100%),
+    repeating-linear-gradient(135deg, rgba(8,8,8,.028) 0 1px, transparent 1px 24px);
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font: inherit; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: var(--r-sm); }
+.skip { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip:focus { left: 20px; top: 20px; width: auto; height: auto; background: var(--black); color: #fff; padding: 10px 16px; border-radius: var(--r-sm); z-index: 999; }
+
+/* ══════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════ */
+.nav {
+  position: sticky; top: 0; z-index: 90;
+  background: rgba(245,240,228,.94);
+  border-bottom: 1px solid rgba(8,8,8,.12);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 6px 24px rgba(0,0,0,.07);
+}
+.nav-inner {
+  max-width: 1440px; margin: auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 72px;
+}
+.logo {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; flex-shrink: 0;
+}
+.logo-mark {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  background: var(--red); color: #fff; font-size: 1rem; font-weight: 700;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0 78%);
+  box-shadow: 0 8px 24px rgba(204,27,34,.30);
+}
+.nav-links { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+.nav-links a {
+  padding: 7px 11px; border-radius: 999px; border: 1px solid transparent;
+  font-family: var(--font-display); font-weight: 600; font-size: .76rem;
+  text-transform: uppercase; letter-spacing: .04em; transition: all .2s;
+}
+.nav-links a:hover { border-color: rgba(204,27,34,.3); background: rgba(204,27,34,.08); text-decoration: none; }
+.nav-cta { background: var(--black) !important; color: #fff !important; border-color: var(--black) !important; padding: 7px 14px !important; }
+.nav-cta:hover { background: var(--red) !important; border-color: var(--red) !important; }
+
+/* ── Language Toggle ── */
+.lang-toggle {
+  display: flex; align-items: center; gap: 0;
+  border: 1.5px solid rgba(8,8,8,.18); border-radius: 999px;
+  overflow: hidden; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.lang-btn {
+  padding: 7px 13px; border: none; background: transparent;
+  font-family: var(--font-display); font-weight: 700; font-size: .75rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--steel); transition: all .22s; cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+}
+.lang-btn .flag { font-size: .95rem; line-height: 1; }
+.lang-btn.active {
+  background: var(--red); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+}
+.lang-btn:not(.active):hover { background: rgba(8,8,8,.06); color: var(--black); }
+
+/* ══════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════ */
+.container { max-width: 1440px; margin: auto; padding: 0 24px; }
+.section { padding: 56px 0; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: .72rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+}
+.section-label::before { content: ""; width: 24px; height: 2px; background: var(--red); }
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 4.8rem);
+  line-height: .94; text-transform: uppercase; letter-spacing: -.02em; color: var(--black);
+}
+h3 { font-family: var(--font-display); font-size: 1.2rem; text-transform: uppercase; letter-spacing: .02em; color: var(--black); margin-bottom: 10px; }
+.section-intro { font-family: var(--font-body); font-size: 1.12rem; line-height: 1.85; color: #4a4a4a; max-width: 760px; }
+.section-head { margin-bottom: 32px; }
+.tag { display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; background: rgba(204,27,34,.08); border: 1px solid rgba(204,27,34,.20); color: var(--red-deep); font-family: var(--font-display); font-size: .7rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+
+/* ══════════════════════════════════════
+   ROCKET EASTER EGG
+   ══════════════════════════════════════ */
+.rocket { position: fixed; bottom: -100px; left: -60px; font-size: 3.2rem; z-index: 9999; pointer-events: none; filter: drop-shadow(0 0 16px rgba(255,200,60,.8)); transform: rotate(45deg); }
+.rocket.fly { animation: rocketFly 2.8s cubic-bezier(.25,.46,.45,.94) forwards; }
+@keyframes rocketFly {
+  0%   { bottom: -80px; left: -60px; opacity: 1; transform: rotate(45deg) scale(1); }
+  85%  { opacity: 1; }
+  100% { bottom: 110vh; left: 110vw; opacity: 0; transform: rotate(45deg) scale(1.4); }
+}
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; min-height: 700px; padding: 24px 0 32px; }
+.hero-copy {
+  position: relative; isolation: isolate; padding: 48px 52px 44px;
+  background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(245,240,228,.88));
+  border: 1px solid rgba(8,8,8,.13); border-radius: var(--r-lg); box-shadow: var(--shadow-heavy);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.hero-copy::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; border-radius: var(--r-lg) var(--r-lg) 0 0; background: linear-gradient(90deg, var(--black) 0%, var(--red) 45%, var(--cream) 100%); z-index: 1; }
+.hero-copy::after { content: ""; position: absolute; right: -80px; bottom: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, var(--red-glow), transparent 66%); z-index: -1; pointer-events: none; }
+.hero-eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 7px 14px; border-radius: 999px; background: rgba(204,27,34,.10); border: 1px solid rgba(204,27,34,.22); font-family: var(--font-display); font-weight: 600; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red-deep); margin-bottom: 22px; width: fit-content; }
+h1 { font-family: var(--font-display); font-size: clamp(3rem, 6.5vw, 7.6rem); line-height: .88; text-transform: uppercase; letter-spacing: -.04em; color: var(--black); margin-bottom: 24px; }
+h1 .accent { color: var(--red); }
+.hero-lead { font-family: var(--font-body); font-size: clamp(1.05rem, 1.5vw, 1.22rem); line-height: 1.9; color: #363636; margin-bottom: 28px; max-width: 860px; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 13px 22px; font-family: var(--font-display); font-weight: 600; font-size: .84rem; letter-spacing: .06em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%); transition: filter .2s, transform .2s; }
+.cta:hover { filter: brightness(1.1); transform: translateX(2px); text-decoration: none; }
+.cta-primary { background: var(--red); color: #fff; box-shadow: 0 12px 32px rgba(204,27,34,.28); }
+.cta-secondary { background: var(--black); color: #fff; }
+
+.evidence-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(8,8,8,.10); }
+.evidence { position: relative; padding: 16px 14px 14px 20px; background: rgba(245,240,228,.82); border: 1px solid rgba(8,8,8,.09); border-radius: var(--r-sm); overflow: hidden; }
+.evidence::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--red); }
+.evidence b { display: block; font-family: var(--font-display); font-size: .84rem; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 6px; color: var(--black); }
+.evidence span { display: block; font-size: .85rem; line-height: 1.55; color: #555; }
+
+.hero-visual { position: relative; background: linear-gradient(145deg, #0C0C0C, #180306 55%, #0A0A0A); border-radius: var(--r-lg); border: 1px solid rgba(255,255,255,.08); box-shadow: var(--shadow-heavy); overflow: hidden; display: grid; grid-template-rows: 1fr auto; color: #fff; }
+.hero-visual::before { content: ""; position: absolute; right: -40px; top: 90px; width: 140%; height: 90px; background: var(--red); transform: rotate(-16deg); opacity: .95; z-index: 1; }
+.hero-visual::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 1px, transparent 1px 36px); z-index: 0; }
+.portrait-area { position: relative; z-index: 2; display: grid; place-items: center; padding: 32px 28px; }
+.portrait-frame { position: relative; width: min(300px, 88%); aspect-ratio: 3/4; background: linear-gradient(145deg, #ddd, #bbb); clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%); box-shadow: 0 40px 100px rgba(0,0,0,.55); display: grid; place-items: center; text-align: center; padding: 28px; cursor: default; overflow: hidden; }
+.portrait-inner { color: var(--black); position: relative; z-index: 1; }
+.portrait-inner strong { display: block; font-family: var(--font-display); font-size: 2rem; line-height: .96; text-transform: uppercase; letter-spacing: -.02em; }
+.portrait-inner em { display: block; margin-top: 12px; font-family: var(--font-mono); font-style: normal; font-size: .72rem; color: #555; letter-spacing: .06em; text-transform: uppercase; }
+.tyutchev-overlay { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; padding: 24px; background: rgba(8,8,8,.86); color: var(--cream); opacity: 0; transition: opacity .40s ease, transform .40s ease; transform: scale(1.04); font-family: var(--font-serif); font-style: italic; font-size: 1rem; line-height: 1.85; }
+.portrait-frame:hover .tyutchev-overlay,
+.portrait-frame:focus .tyutchev-overlay { opacity: 1; transform: scale(1); }
+.tyutchev-overlay cite { display: block; margin-top: 12px; font-family: var(--font-display); font-style: normal; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); }
+.hero-stats { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(255,255,255,.12); }
+.stat { padding: 18px 16px; background: rgba(0,0,0,.6); }
+.stat:not(:last-child) { border-right: 1px solid rgba(255,255,255,.08); }
+.stat b { display: block; font-family: var(--font-display); font-size: 1.9rem; color: #fff; line-height: 1; }
+.stat span { display: block; margin-top: 6px; color: #aaa; font-size: .78rem; font-weight: 600; line-height: 1.4; }
+
+/* ══════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════ */
+.about-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.about-panel { padding: 28px 28px 28px 36px; background: rgba(255,255,255,.88); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); position: relative; overflow: hidden; }
+.about-panel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, var(--red), var(--black)); }
+.about-panel p { font-size: 1rem; line-height: 1.78; color: #4a4a4a; margin-bottom: 0; }
+
+/* ══════════════════════════════════════
+   RESEARCH
+   ══════════════════════════════════════ */
+.research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.research-card { padding: 30px; background: rgba(255,255,255,.90); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); position: relative; }
+.research-card.feature { grid-row: span 2; background: linear-gradient(145deg, #0E0E0E, #060606); color: #fff; border-color: rgba(255,255,255,.06); box-shadow: var(--shadow-heavy); }
+.research-card.feature h3 { color: #fff; font-size: 1.6rem; }
+.research-card.feature p, .research-card.feature li { color: #d5d5d5; }
+.research-card ul { margin-top: 14px; padding-left: 18px; display: grid; gap: 10px; }
+.research-card li { line-height: 1.72; color: #4f4f4f; font-size: 1rem; }
+.research-card.feature li { color: #d5d5d5; }
+.research-axis { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 20px; }
+.axis { padding: 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: var(--r-sm); }
+.axis b { display: block; color: var(--gold-light); font-family: var(--font-display); text-transform: uppercase; font-size: .86rem; margin-bottom: 5px; }
+.axis span { display: block; color: #ccc; font-size: .85rem; line-height: 1.55; }
+.research-number { position: absolute; top: 20px; right: 20px; font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: rgba(8,8,8,.05); line-height: 1; user-select: none; }
+.research-card.feature .research-number { color: rgba(255,255,255,.04); }
+
+/* ══════════════════════════════════════
+   MATRYOSHKA — SPLIT-OPEN ANIMATION
+   ══════════════════════════════════════ */
+.skill-stage { padding: 32px; background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(245,240,228,.88)); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-lg); box-shadow: var(--shadow-mid); }
+.skill-layout { display: grid; grid-template-columns: 440px 1fr; gap: 32px; align-items: start; }
+
+/* ── Outer wrapper / stage ── */
+.matryoshka-stage {
+  position: relative; height: 520px;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 65%, rgba(204,27,34,.12), transparent 60%);
+  border: 1px solid rgba(8,8,8,.10); border-radius: var(--r-md);
+  overflow: hidden;
+}
+.matryoshka-stage::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(135deg, rgba(8,8,8,.022) 0 1px, transparent 1px 28px);
+}
+
+/* ── "Click to open" hint ── */
+.doll-hint {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(8,8,8,.35); pointer-events: none; white-space: nowrap;
+  transition: opacity .3s;
+}
+.matryoshka-stage.opened .doll-hint { opacity: 0; }
+
+/* ── Each doll is a self-contained unit with top + bottom halves ── */
+.doll-wrap {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  /* stacking: doll 1 on top by default */
+}
+.doll-wrap[data-level="1"] { z-index: 40; }
+.doll-wrap[data-level="2"] { z-index: 30; }
+.doll-wrap[data-level="3"] { z-index: 20; }
+.doll-wrap[data-level="4"] { z-index: 10; }
+
+/* Each half is an absolutely-positioned SVG-shaped div */
+.doll-half {
+  position: absolute; left: 50%;
+  transform-origin: center bottom; /* top half pivots upward */
+  overflow: hidden;
+  transition: transform .55s cubic-bezier(.4, 0, .2, 1),
+              opacity  .4s ease;
+}
+.doll-top {
+  top: 0; transform: translateX(-50%);
+  transform-origin: center bottom;
+  border-radius: 50% 50% 0 0;
+  border-top: 3px solid rgba(8,8,8,.85);
+  border-left: 3px solid rgba(8,8,8,.85);
+  border-right: 3px solid rgba(8,8,8,.85);
+  border-bottom: none;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 12px;
+}
+.doll-bottom {
+  transform: translateX(-50%);
+  transform-origin: center top;
+  border-radius: 0 0 42% 42%;
+  border-bottom: 3px solid rgba(8,8,8,.85);
+  border-left: 3px solid rgba(8,8,8,.85);
+  border-right: 3px solid rgba(8,8,8,.85);
+  border-top: none;
+}
+/* The seam line between top and bottom */
+.doll-seam {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  height: 3px; background: rgba(8,8,8,.85);
+  border-radius: 999px;
+}
+
+/* Label lives inside top half */
+.doll-label-inner {
+  text-align: center; font-family: var(--font-display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em; line-height: 1.2;
+  pointer-events: none;
+}
+.doll-sub-inner {
+  font-family: var(--font-mono); font-size: .56rem; opacity: .65;
+  font-weight: 400; margin-top: 4px; display: block;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+
+/* ── DOLL SIZE DEFINITIONS ── */
+.doll-wrap[data-level="1"] .doll-top    { width: 280px; height: 210px; }
+.doll-wrap[data-level="1"] .doll-bottom { width: 280px; height: 165px; top: 210px; }
+.doll-wrap[data-level="1"] .doll-seam  { width: 274px; top: 208px; }
+.doll-wrap[data-level="1"] { width: 280px; height: 375px; margin-top: -188px; margin-left: -140px; }
+.doll-wrap[data-level="1"] .doll-label-inner { font-size: .9rem; color: #fff; }
+
+.doll-wrap[data-level="2"] .doll-top    { width: 214px; height: 163px; }
+.doll-wrap[data-level="2"] .doll-bottom { width: 214px; height: 127px; top: 163px; }
+.doll-wrap[data-level="2"] .doll-seam  { width: 208px; top: 162px; }
+.doll-wrap[data-level="2"] { width: 214px; height: 290px; margin-top: -145px; margin-left: -107px; }
+.doll-wrap[data-level="2"] .doll-label-inner { font-size: .82rem; color: #fff; }
+
+.doll-wrap[data-level="3"] .doll-top    { width: 156px; height: 118px; }
+.doll-wrap[data-level="3"] .doll-bottom { width: 156px; height: 94px;  top: 118px; }
+.doll-wrap[data-level="3"] .doll-seam  { width: 150px; top: 116px; }
+.doll-wrap[data-level="3"] { width: 156px; height: 212px; margin-top: -106px; margin-left: -78px; }
+.doll-wrap[data-level="3"] .doll-label-inner { font-size: .74rem; color: var(--black); }
+
+.doll-wrap[data-level="4"] .doll-top    { width: 104px; height: 78px; }
+.doll-wrap[data-level="4"] .doll-bottom { width: 104px; height: 62px; top: 78px; }
+.doll-wrap[data-level="4"] .doll-seam  { width: 98px; top: 76px; }
+.doll-wrap[data-level="4"] { width: 104px; height: 140px; margin-top: -70px; margin-left: -52px; }
+.doll-wrap[data-level="4"] .doll-label-inner { font-size: .64rem; color: #fff; }
+
+/* ── DOLL COLOURS ── */
+.doll-wrap[data-level="1"] .doll-top,
+.doll-wrap[data-level="1"] .doll-bottom { background: linear-gradient(160deg, #CC1B22, #8B0A10); }
+.doll-wrap[data-level="1"] .doll-seam  { background: #6A0008; }
+
+.doll-wrap[data-level="2"] .doll-top,
+.doll-wrap[data-level="2"] .doll-bottom { background: linear-gradient(160deg, #2a2a2a, #1C1C1C); }
+.doll-wrap[data-level="2"] .doll-seam  { background: #111; }
+
+.doll-wrap[data-level="3"] .doll-top,
+.doll-wrap[data-level="3"] .doll-bottom { background: linear-gradient(160deg, #F5F0E4, #D8D0BC); }
+.doll-wrap[data-level="3"] .doll-seam  { background: #b0a890; }
+
+.doll-wrap[data-level="4"] .doll-top,
+.doll-wrap[data-level="4"] .doll-bottom { background: linear-gradient(160deg, #C4982A, #8A6A10); }
+.doll-wrap[data-level="4"] .doll-seam  { background: #6A4E08; }
+
+/* ── Decorative face dot on each doll ── */
+.doll-face {
+  position: absolute; top: 22%; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  pointer-events: none;
+}
+.doll-eyes { display: flex; gap: 10px; }
+.doll-eye { width: 6px; height: 7px; background: rgba(0,0,0,.55); border-radius: 50%; }
+.doll-wrap[data-level="3"] .doll-eye,
+.doll-wrap[data-level="4"] .doll-eye { width: 4px; height: 5px; gap: 6px; }
+.doll-mouth { width: 14px; height: 5px; border-bottom: 2px solid rgba(0,0,0,.45); border-radius: 0 0 10px 10px; }
+
+/* ── OPEN STATE: top flies up, bottom slides down, then whole doll drifts ── */
+.doll-wrap.is-open .doll-top {
+  transform: translateX(-50%) translateY(-115%) rotate(-12deg);
+}
+.doll-wrap.is-open .doll-bottom {
+  transform: translateX(-50%) translateY(60px);
+}
+/* opened doll floats to the side */
+.doll-wrap[data-level="1"].is-open { transform: translate(calc(-50% - 170px), -50%) scale(.78); opacity: .55; }
+.doll-wrap[data-level="2"].is-open { transform: translate(calc(-50% + 140px), -50%) scale(.82); opacity: .55; }
+.doll-wrap[data-level="3"].is-open { transform: translate(calc(-50% - 120px), calc(-50% + 50px)) scale(.88); opacity: .6; }
+
+/* Glow on the currently active (front) doll */
+.doll-wrap.is-active {
+  filter: drop-shadow(0 0 18px rgba(196,152,42,.55));
+  transform: translate(-50%, -50%) scale(1.04);
+  z-index: 50 !important;
+}
+
+/* ── Skill panel (right column) ── */
+.skill-info-panel { display: flex; flex-direction: column; gap: 10px; }
+.skill-btn { padding: 16px 20px; text-align: left; background: rgba(255,255,255,.9); border: 1px solid rgba(8,8,8,.13); border-radius: var(--r-md); font-family: var(--font-display); font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; box-shadow: var(--shadow-soft); transition: all .22s; display: flex; align-items: center; gap: 12px; color: var(--black); }
+.skill-btn:hover { border-color: var(--red); background: rgba(204,27,34,.06); }
+.skill-btn.active { background: var(--red); color: #fff; border-color: var(--red); box-shadow: 0 8px 24px rgba(204,27,34,.26); }
+.skill-btn .skill-icon { font-size: 1.2rem; }
+.skill-detail-card { padding: 20px 22px; background: rgba(255,255,255,.96); border: 1px solid rgba(8,8,8,.12); border-radius: var(--r-md); box-shadow: var(--shadow-soft); display: none; animation: fadeSlideIn .3s ease; }
+.skill-detail-card.visible { display: block; }
+.skill-detail-card p { font-size: 1rem; line-height: 1.78; color: #4a4a4a; }
+.skill-detail-card strong { color: var(--black); }
+.skill-depth-bar { display: flex; gap: 4px; margin-top: 12px; }
+.skill-depth-pip { height: 5px; border-radius: 999px; flex: 1; background: rgba(8,8,8,.12); transition: background .3s; }
+.skill-depth-pip.filled { background: var(--red); }
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══════════════════════════════════════
+   SUMO / LEAFLET
+   ══════════════════════════════════════ */
+.sumo-shell { overflow: hidden; border-radius: var(--r-lg); border: 1px solid rgba(8,8,8,.14); box-shadow: var(--shadow-heavy); background: #050808; color: #E2FCED; font-family: var(--font-mono); font-size: .82rem; }
+.sumo-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #060D0A; border-bottom: 1px solid #0E3520; }
+.sumo-header b { color: #00E676; letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; }
+.sumo-header span { color: #4A7A5A; font-size: .74rem; }
+.sumo-toolbar { display: flex; border-bottom: 1px solid #0E3520; }
+.sumo-mode-btn { flex: 1; padding: 10px 14px; border: none; border-right: 1px solid #0E3520; background: transparent; color: #4A7A5A; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; transition: all .2s; text-transform: uppercase; }
+.sumo-mode-btn:last-child { border-right: none; }
+.sumo-mode-btn:hover { background: rgba(0,230,118,.08); color: #00E676; }
+.sumo-mode-btn.active { background: rgba(0,230,118,.14); color: #00E676; border-bottom: 2px solid #00E676; }
+.sumo-zones { display: flex; flex-wrap: wrap; border-bottom: 1px solid #0E3520; background: #050808; }
+.sumo-zone-btn { padding: 8px 12px; border: none; border-right: 1px solid #0E3520; background: transparent; color: #4A7A5A; font-family: var(--font-mono); font-size: .7rem; transition: all .2s; cursor: pointer; }
+.sumo-zone-btn:hover { color: var(--tc, #00E676); background: rgba(255,255,255,.04); }
+.sumo-zone-btn.active { color: var(--tc, #00E676); background: rgba(255,255,255,.08); border-bottom: 2px solid var(--tc, #00E676); }
+.sumo-body { display: grid; grid-template-columns: 1fr 260px; min-height: 480px; }
+.sumo-map-wrap { position: relative; min-height: 480px; }
+#sumoLeafletMap { position: absolute; inset: 0; z-index: 1; min-height: 480px; }
+#sumoCanvas { position: absolute; inset: 0; z-index: 500; pointer-events: none; }
+.sumo-badge { position: absolute; z-index: 600; top: 10px; left: 10px; background: rgba(4,14,8,.88); border: 1px solid #0E3520; border-radius: 4px; padding: 6px 10px; pointer-events: none; }
+.sumo-badge strong { display: block; color: #00E676; font-size: .75rem; margin-bottom: 2px; }
+.sumo-badge span { display: block; color: #4A7A5A; font-size: .66rem; line-height: 1.4; }
+.sumo-legend { position: absolute; z-index: 600; bottom: 10px; left: 10px; background: rgba(4,14,8,.88); border: 1px solid #0E3520; border-radius: 4px; padding: 6px 10px; display: flex; gap: 10px; flex-wrap: wrap; font-size: .65rem; color: #4A7A5A; pointer-events: none; }
+.sumo-dot { display: inline-block; width: 8px; height: 8px; border-radius: 99px; margin-right: 3px; vertical-align: -1px; }
+.sumo-dot.green { background: #00E676; } .sumo-dot.yellow { background: #FFD700; } .sumo-dot.red { background: #FF3355; }
+.sumo-legend-hidden { display: none !important; }
+.sumo-sidebar { background: #050808; border-left: 1px solid #0E3520; display: flex; flex-direction: column; }
+.sumo-kpis { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #0E3520; }
+.sumo-kpi { padding: 10px 8px; border-right: 1px solid #0E3520; border-bottom: 1px solid #0E3520; text-align: center; }
+.sumo-kpi:nth-child(2n) { border-right: none; }
+.sumo-kpi-label { color: #3A6040; font-size: .64rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+.sumo-kpi-val { color: #00E676; font-size: 1.3rem; font-weight: 700; line-height: 1; }
+.sumo-ctrl-section { padding: 10px; border-bottom: 1px solid #0E3520; }
+.sumo-ctrl-row { margin-bottom: 8px; }
+.sumo-ctrl-row label { display: block; color: #4A7A5A; font-size: .64rem; margin-bottom: 3px; text-transform: uppercase; }
+.sumo-ctrl-row input[type="range"] { width: 100%; accent-color: #00E676; }
+.sumo-ctrl-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
+.sumo-ctrl-btn { padding: 6px 8px; border: 1px solid #0E3520; background: transparent; color: #00E676; font-family: var(--font-mono); font-size: .68rem; border-radius: 3px; transition: all .18s; cursor: pointer; text-transform: uppercase; }
+.sumo-ctrl-btn:hover { background: rgba(0,230,118,.12); }
+.sumo-note { padding: 10px; color: #3A6040; font-size: .68rem; line-height: 1.6; overflow-y: auto; flex: 1; }
+.sumo-tags { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; border-top: 1px solid #0E3520; }
+.sumo-tag { border: 1px solid #0E3520; color: #3A6040; padding: 2px 6px; border-radius: 2px; font-size: .62rem; }
+.sumo-hidden { display: none !important; }
+
+/* ══════════════════════════════════════
+   BOOKSHELF
+   ══════════════════════════════════════ */
+.bookshelf { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; }
+.book { min-height: 280px; padding: 24px 20px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #fff, #F0EAD8); border: 1px solid rgba(8,8,8,.12); border-radius: var(--r-md); border-bottom: 10px solid var(--red); box-shadow: var(--shadow-soft); transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; }
+.book:nth-child(2n) { border-bottom-color: var(--black); }
+.book:nth-child(3n) { border-bottom-color: var(--gold); }
+.book:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: var(--shadow-mid); }
+.book h3 { font-size: 1.1rem; }
+.book p { font-size: .92rem; line-height: 1.7; color: #555; margin-top: 8px; }
+.book small { display: block; color: var(--red); font-family: var(--font-display); font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.book:nth-child(2n) small { color: var(--black); }
+.book:nth-child(3n) small { color: var(--gold); }
+
+/* ══════════════════════════════════════
+   EASTER EGGS
+   ══════════════════════════════════════ */
+.easter-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.easter-card { padding: 24px 22px; background: rgba(255,255,255,.90); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-md); box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform .2s; }
+.easter-card:hover { transform: translateY(-4px); }
+.easter-card::before { content: attr(data-num); position: absolute; right: 14px; top: 10px; font-family: var(--font-display); font-size: 3.5rem; font-weight: 700; color: rgba(8,8,8,.05); line-height: 1; user-select: none; }
+.easter-card h3 { margin-bottom: 10px; font-size: 1rem; }
+.easter-card p { font-size: .92rem; line-height: 1.72; color: #4a4a4a; }
+
+/* ══════════════════════════════════════
+   PALETTE
+   ══════════════════════════════════════ */
+.palette { display: grid; grid-template-columns: repeat(7,1fr); gap: 10px; margin-top: 16px; }
+.swatch { min-height: 100px; border: 1px solid rgba(8,8,8,.14); border-radius: var(--r-sm); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; background: var(--c); color: var(--t, #fff); }
+.swatch b { font-family: var(--font-display); font-size: .78rem; text-transform: uppercase; }
+.swatch code { font-size: .72rem; opacity: .85; }
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.footer-section { padding: 48px 0 64px; }
+.footer-card { padding: 48px 52px; background: linear-gradient(145deg, var(--black), #180204); border: 1px solid rgba(255,255,255,.06); border-radius: var(--r-lg); box-shadow: var(--shadow-heavy); color: #fff; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.footer-card .section-label { color: var(--gold-light); }
+.footer-card .section-label::before { background: var(--gold-light); }
+.footer-card h2 { color: #fff; font-size: clamp(2rem, 3.5vw, 3.8rem); margin: 14px 0 20px; }
+.footer-card p { font-size: 1.05rem; line-height: 1.85; color: #c0c0c0; }
+.footer-card p + p { margin-top: 12px; }
+.source-note { font-family: var(--font-mono); font-size: .72rem !important; color: #666 !important; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
+.clock-wrap { text-align: center; flex-shrink: 0; }
+.clock { width: 120px; height: 120px; border: 3px solid rgba(255,255,255,.18); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: #fff; background: radial-gradient(circle, rgba(255,255,255,.06), transparent); box-shadow: 0 0 40px rgba(204,27,34,.25), inset 0 0 20px rgba(0,0,0,.4); cursor: help; position: relative; margin: 0 auto 12px; transition: box-shadow .3s; }
+.clock:hover { box-shadow: 0 0 60px rgba(204,27,34,.5), inset 0 0 20px rgba(0,0,0,.4); }
+.clock-tooltip { display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); width: 240px; background: rgba(8,8,8,.94); color: #ddd; font-family: var(--font-body); font-size: .8rem; line-height: 1.65; padding: 12px 14px; border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.08); pointer-events: none; z-index: 10; }
+.clock-tooltip::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: rgba(8,8,8,.94); }
+.clock:hover .clock-tooltip { display: block; }
+.clock-wrap small { display: block; color: #555; font-family: var(--font-mono); font-size: .65rem; line-height: 1.5; max-width: 130px; margin: 0 auto; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-visual { min-height: 400px; }
+  .skill-layout { grid-template-columns: 1fr; }
+  .matryoshka-visual { height: 320px; }
+  .matryoshka-stage { height: 360px; }
+  .doll-wrap[data-level="1"] { transform: translate(-50%, -50%) scale(.75); }
+  .sumo-body { grid-template-columns: 1fr; }
+  .sumo-sidebar { border-left: none; border-top: 1px solid #0E3520; }
+  .footer-card { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .about-grid, .research-grid { grid-template-columns: 1fr; }
+  .research-card.feature { grid-row: span 1; }
+  .bookshelf { grid-template-columns: repeat(2,1fr); }
+  .easter-grid { grid-template-columns: repeat(2,1fr); }
+  .evidence-strip { grid-template-columns: repeat(2,1fr); }
+  .palette { grid-template-columns: repeat(4,1fr); }
+  .hero-copy { padding: 32px 28px; }
+  .footer-card { padding: 32px 28px; }
+  .nav-links a { display: none; }
+  .nav-links .nav-cta { display: flex; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="rocket" id="rocketEl" aria-hidden="true">🚀</div>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<header class="nav" role="banner">
+  <nav class="nav-inner" aria-label="Primary navigation">
+    <a class="logo" href="#top" aria-label="El Ghali Sany portfolio">
+      <span class="logo-mark" aria-hidden="true">ЭС</span>
+      <span data-ru="Эль Гали Сани · Российская стипендия">El Ghali Sany · Russian Scholarship</span>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="#about" role="listitem" data-ru="Обо мне">About</a>
+      <a href="#research" role="listitem" data-ru="Исследования">Research</a>
+      <a href="#skills" role="listitem" data-ru="Навыки">Skills</a>
+      <a href="#analytics" role="listitem" data-ru="SUMO Лаб">SUMO Lab</a>
+      <a href="#reading" role="listitem" data-ru="Чтение">Reading</a>
+      <a href="#easter" role="listitem" data-ru="Пасхалки">Easter Eggs</a>
+      <a class="nav-cta" href="#contact" role="listitem" data-ru="Тезис вклада">Contribution Thesis</a>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle" role="group" aria-label="Language selection">
+      <button class="lang-btn active" id="btnEn" aria-pressed="true" lang="en">
+        <span class="flag" aria-hidden="true">🇬🇧</span> EN
+      </button>
+      <button class="lang-btn" id="btnRu" aria-pressed="false" lang="ru">
+        <span class="flag" aria-hidden="true">🇷🇺</span> РУ
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══════ MAIN ═══════ -->
+<main id="main" class="container" tabindex="-1">
+
+  <!-- ── HERO ── -->
+  <section id="top" class="hero" aria-labelledby="heroTitle">
+    <div class="hero-copy">
+      <div>
+        <div class="hero-eyebrow"
+             data-ru="Современный конструктивизм · Русская душа · Академические амбиции">
+          Modern Constructivism · Russian Soul · Academic Ambition
+        </div>
+        <h1 id="heroTitle">
+          <span data-ru="От аналитики<br>Касабланки к<br>будущему в<br>">From Casablanca<br>data work to a<br></span><span class="accent" data-ru="российской науке.">Russian research</span><span data-ru=""> future.</span>
+        </h1>
+        <p class="hero-lead"
+           data-ru="Я подаю заявление в ведущий российский университет с чёткой целью: аналитическая дисциплина, городские данные и финансовое моделирование могут помочь создать более умную инфраструктуру, более сильные институты и технологически суверенное академическое будущее. Мои работы объединяют управление цепочками поставок, бизнес-анализ, симуляцию трафика и инвестиционную оценку в единую практическую исследовательскую траекторию.">
+          I am applying to a leading Russian university with a clear thesis: analytical discipline, urban data, and financial modelling can help build smarter infrastructure, stronger institutions, and a technologically sovereign academic future. My work connects supply chain thinking, business analysis, traffic simulation, and investment evaluation into one practical research trajectory.
+        </p>
+        <div class="cta-row">
+          <a class="cta cta-primary" href="#research"
+             data-ru="Посмотреть исследования ›">View research thesis ›</a>
+          <a class="cta cta-secondary" href="#analytics"
+             data-ru="Открыть SUMO Лаб ›">Open SUMO Lab ›</a>
+        </div>
+      </div>
+
+      <div class="evidence-strip" aria-label="Applicant evidence summary">
+        <div class="evidence">
+          <b data-ru="Городская аналитика">Urban analytics</b>
+          <span data-ru="Симуляция трафика SUMO, ГИС-анализ и оценка эффективности расположения.">SUMO traffic simulation, GIS reasoning, and location-based performance evaluation.</span>
+        </div>
+        <div class="evidence">
+          <b data-ru="Финансовое моделирование">Financial modelling</b>
+          <span data-ru="ROI, CAPEX, OPEX, TCO и логика индекса потенциальной доходности.">ROI, CAPEX, OPEX, TCO, and Potential Profitability Index logic.</span>
+        </div>
+        <div class="evidence">
+          <b data-ru="Профиль учёного">Scholar profile</b>
+          <span data-ru="Закупки, цепочки поставок, бизнес-анализ и поддержка принятия решений.">Procurement, supply chain, business analysis, and decision-support orientation.</span>
+        </div>
+        <div class="evidence">
+          <b data-ru="Культурная грамотность">Cultural literacy</b>
+          <span data-ru="Российские научные, литературные, исторические и символические отсылки вписаны в интерфейс.">Russian scientific, literary, historical, and symbolic references embedded in this interface.</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-visual" aria-label="Applicant portrait with cultural Easter egg">
+      <div class="portrait-area">
+        <div class="portrait-frame" tabindex="0" role="img"
+             aria-label="Portrait placeholder — hover to reveal Tyutchev quotation">
+          <div class="portrait-inner">
+            <strong>El Ghali<br>Sany</strong>
+            <em data-ru="Бизнес-анализ · Логистика · Городские данные">Business Analysis<br>Supply Chain · Urban Data</em>
+          </div>
+          <div class="tyutchev-overlay" aria-hidden="true">
+            <span data-ru="«Умом Россию не понять,<br>Аршином общим не измерить…<br>В Россию можно только верить.»">"Russia cannot be understood<br>with the mind…<br>In Russia one can only believe."</span>
+            <cite data-ru="— Фёдор Тютчев">— Fyodor Tyutchev</cite>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <b>1961</b>
+          <span data-ru="Наберите этот код, чтобы запустить пасхалку «Космическая гонка»">Type this to launch the Space Race Easter egg</span>
+        </div>
+        <div class="stat">
+          <b>IRP</b>
+          <span data-ru="Индекс потенциальной рентабельности: трафик, затраты и расположение">Potential Profitability Index from traffic, cost &amp; location</span>
+        </div>
+        <div class="stat">
+          <b>2:10</b>
+          <span data-ru="Часы Зимнего дворца — смотри подвал страницы">Winter Palace clock — see footer</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="section" aria-labelledby="aboutTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Обо мне · Стойкость и находчивость">About Me · Resilience &amp; Resourcefulness</div>
+      <h2 id="aboutTitle"
+          data-ru="Готов к серьёзной<br>академической<br>работе, а не к<br>формальной заявке.">Prepared for rigorous<br>academia, not<br>symbolic application.</h2>
+    </div>
+    <div class="about-grid">
+      <article class="about-panel">
+        <h3 data-ru="Стойкость как метод">Resilience as method</h3>
+        <p data-ru="Мой академический путь построен на постоянном труде, а не на амбициях ради амбиций. Я подхожу к трудностям как к задаче моделирования: определить ограничение, выявить переменные, проверить сценарии и выдать результат, пригодный для принятия решений. Именно такой трудовой этики требует российская академическая культура.">My academic path is built on sustained work rather than surface-level ambition. I approach difficulty as a modelling problem: define the constraint, identify the variables, test scenarios, and produce a decision-ready output. This is the work ethic that Russian academic culture demands.</p>
+        <div class="tag-row">
+          <span class="tag" data-ru="Трудолюбие">Work ethic</span>
+          <span class="tag" data-ru="Терпение">Patience</span>
+          <span class="tag" data-ru="Дисциплина">Discipline</span>
+        </div>
+      </article>
+      <article class="about-panel">
+        <h3 data-ru="Находчивость в условиях ограничений">Resourcefulness under limits</h3>
+        <p data-ru="Используя доступные инструменты — Excel, QGIS, SUMO, структурированные дашборды — я научился создавать аналитическую ценность без идеальных условий. Это отражает великую российскую научную традицию: делать серьёзную работу с тем, что есть, доверяя методу, а не ресурсам.">Using accessible tools — Excel, QGIS, SUMO, structured dashboards — I learned to build analytical value without waiting for perfect conditions. This mirrors Russia's great scientific tradition: doing serious work with what is available, trusting in method over resources.</p>
+        <div class="tag-row">
+          <span class="tag">Excel</span><span class="tag">SUMO</span>
+          <span class="tag">QGIS</span><span class="tag">Power BI</span>
+        </div>
+      </article>
+      <article class="about-panel">
+        <h3 data-ru="Профиль-мост">A bridge profile</h3>
+        <p data-ru="Я несу марокканскую аналитическую базу, европейскую академическую траекторию и исследовательский интерес, совпадающий с российской традицией научной глубины, инженерной серьёзности и цивилизационных амбиций. Я прихожу не с пустыми руками — я прихожу с инструментами и направлением.">I bring a Moroccan analytical background, a European academic trajectory, and a research interest aligned with Russia's tradition of scientific depth, engineering seriousness, and civilizational ambition. I do not arrive empty-handed — I arrive with tools and direction.</p>
+        <div class="tag-row">
+          <span class="tag" data-ru="Марокко">Morocco</span>
+          <span class="tag" data-ru="Франция">France</span>
+          <span class="tag" data-ru="Россия">Russia</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── RESEARCH ── -->
+  <section id="research" class="section" aria-labelledby="researchTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Академические проекты и исследовательский тезис">Academic Projects &amp; Research Thesis</div>
+      <h2 id="researchTitle"
+          data-ru="Исследования для<br>многополярного и<br>технологически суверенного<br>будущего.">Research for a multipolar<br>and technologically<br>sovereign future.</h2>
+    </div>
+
+    <div class="research-grid">
+      <article class="research-card feature">
+        <div class="research-number">01</div>
+        <h3 data-ru="Основной исследовательский тезис">Core research thesis</h3>
+        <p data-ru="Моё исследовательское направление — создание моделей поддержки принятия решений, связывающих физические потоки, финансовую эффективность и территориальную стратегию. Цель — не описывать городские и логистические системы, а сделать их измеримыми, сопоставимыми и управляемыми стратегически.">My research direction is to build decision-support models that connect physical flows, financial performance, and territorial strategy. The objective is not only to describe urban or supply chain systems, but to make them measurable, comparable, and strategically governable.</p>
+        <ul>
+          <li data-ru="<strong>Городской интеллект:</strong> перевод данных о трафике и расположении в инвестиционные решения."><strong>Urban intelligence:</strong> translate traffic and location data into investment decisions.</li>
+          <li data-ru="<strong>Финансовая дисциплина:</strong> оценка проектов через ROI, CAPEX, OPEX, TCO и анализ сценариев."><strong>Financial discipline:</strong> evaluate projects through ROI, CAPEX, OPEX, TCO, and scenario comparison.</li>
+          <li data-ru="<strong>Технологический суверенитет:</strong> создание аналитических инструментов, снижающих зависимость от интуиции и укрепляющих местные решения."><strong>Technological sovereignty:</strong> design analytical tools that reduce dependence on intuition and strengthen local decision capacity.</li>
+        </ul>
+        <div class="research-axis">
+          <div class="axis">
+            <b data-ru="Наука">Science</b>
+            <span data-ru="Измерение, моделирование и воспроизводимость.">Measurement, modelling, and reproducibility.</span>
+          </div>
+          <div class="axis">
+            <b data-ru="Инженерия">Engineering</b>
+            <span data-ru="Инструменты, которые можно тестировать, адаптировать и переиспользовать.">Tools that can be tested, adapted, and reused.</span>
+          </div>
+          <div class="axis">
+            <b data-ru="Стратегия">Strategy</b>
+            <span data-ru="Результаты, поддерживающие распределение капитала и инфраструктуры.">Outputs that support allocation of capital and infrastructure.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="research-card">
+        <div class="research-number">02</div>
+        <h3 data-ru="Проект 01 · Модель экспозиции Касабланки">Project 01 · Casablanca Exposure Model</h3>
+        <p data-ru="Исследовательский проект по оценке прибыльности наружной рекламы через симуляцию трафика и финансовое моделирование. Демонстрирует, как данные о мобильности могут поддерживать инвестиционные решения в городской инфраструктуре.">A research project evaluating outdoor advertising profitability through traffic simulation and financial modelling. It demonstrates how mobility data can support investment decisions in urban infrastructure and commercial placement.</p>
+        <ul>
+          <li data-ru="Построен на основе выходных данных SUMO FCD и логики производительности расположения.">Built around SUMO traffic outputs and location-performance logic.</li>
+          <li data-ru="Использует логику ROI, CAPEX, OPEX и TCO.">Uses ROI, CAPEX, OPEX, and TCO reasoning.</li>
+          <li data-ru="Конвертирует городскую видимость в измеримую структуру рентабельности.">Converts urban visibility into a measurable profitability framework.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">SUMO</span><span class="tag">GIS</span>
+          <span class="tag" data-ru="Финансовая модель">Financial Model</span>
+        </div>
+      </article>
+
+      <article class="research-card">
+        <div class="research-number">03</div>
+        <h3 data-ru="Проект 02 · Логика решений в цепочке поставок">Project 02 · Supply Chain Decision Logic</h3>
+        <p data-ru="Мой опыт в закупках и цепочках поставок учит оценивать потоки, затраты, ограничения поставщиков, риски и эффективность. В российской академической среде я расширю эту логику до промышленной устойчивости и оптимизации инфраструктуры.">My supply chain and procurement background trains me to evaluate flows, costs, supplier constraints, risk, and service performance. In a Russian academic environment, I would extend this logic toward industrial resilience and infrastructure optimization.</p>
+        <ul>
+          <li data-ru="Стоимость обслуживания и общая стоимость владения.">Cost-to-serve and total-cost reasoning.</li>
+          <li data-ru="Архитектура KPI для операционной эффективности.">KPI architecture for operational performance.</li>
+          <li data-ru="Поддержка принятия решений на основе сценариев.">Scenario-based decision support.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">TCO</span><span class="tag">KPI</span>
+          <span class="tag" data-ru="Анализ рисков">Risk Analysis</span>
+        </div>
+      </article>
+
+      <article class="research-card">
+        <div class="research-number">04</div>
+        <h3 data-ru="Проект 03 · Академические амбиции">Project 03 · Academic Ambition</h3>
+        <p data-ru="Вдохновлённый научной культурой России — от институционального видения Ломоносова до системного мышления Менделеева — моя цель — вносить вклад в строгие и практичные исследования: интеллектуально серьёзные, технически обоснованные и практически значимые.">Inspired by Russia's scientific culture — from Lomonosov's institutional vision to Mendeleev's systematic thinking — my objective is to contribute research that is both rigorous and useful: intellectually serious, technically grounded, and practically relevant.</p>
+        <ul>
+          <li data-ru="От описательной отчётности к предиктивному моделированию.">From descriptive reporting to predictive modelling.</li>
+          <li data-ru="От учебного проекта к многоразовой аналитической платформе.">From student project to reusable analytical framework.</li>
+          <li data-ru="От локального кейса к универсальному городскому и промышленному методу.">From local case study to transferable urban and industrial method.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag" data-ru="Ломоносов">Lomonosov</span>
+          <span class="tag" data-ru="Менделеев">Mendeleev</span>
+          <span class="tag" data-ru="Прикладная наука">Applied Science</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── SKILLS: MATRYOSHKA ── -->
+  <section id="skills" class="section" aria-labelledby="skillsTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Набор навыков — Матрёшка">The Matryoshka Skill Set</div>
+      <h2 id="skillsTitle"
+          data-ru="Широкий навык,<br>вложенная глубина,<br>операционное доказательство.">Broad skill,<br>nested depth,<br>operational proof.</h2>
+      <p class="section-intro" style="margin-top:14px;"
+         data-ru="Нажмите на навык, чтобы открыть следующий слой. Как матрёшка — поверхностная простота скрывает сложную внутреннюю глубину.">Click a skill to open the next layer. Like the matryoshka — surface simplicity conceals intricate internal depth.</p>
+    </div>
+
+    <div class="skill-stage">
+      <div class="skill-layout">
+        <!-- ═══ MATRYOSHKA SPLIT-OPEN STAGE ═══ -->
+        <div class="matryoshka-stage" id="matryoshkaStage" aria-hidden="true">
+
+          <!-- DOLL 1 — DATA ANALYSIS (outermost, red) -->
+          <div class="doll-wrap is-active" data-level="1" data-skill="data" id="mDoll1" title="Click to open">
+            <div class="doll-top">
+              <div class="doll-label-inner">
+                <span data-ru="Анализ<br>данных">Data<br>Analysis</span>
+                <span class="doll-sub-inner" data-ru="Внешняя оболочка">Outer shell</span>
+              </div>
+              <div class="doll-face">
+                <div class="doll-eyes"><div class="doll-eye"></div><div class="doll-eye"></div></div>
+                <div class="doll-mouth"></div>
+              </div>
+            </div>
+            <div class="doll-seam"></div>
+            <div class="doll-bottom"></div>
+          </div>
+
+          <!-- DOLL 2 — FINANCIAL MODEL (black) -->
+          <div class="doll-wrap" data-level="2" data-skill="finance" id="mDoll2">
+            <div class="doll-top">
+              <div class="doll-label-inner">
+                <span data-ru="Финансовая<br>модель">Financial<br>Model</span>
+                <span class="doll-sub-inner" data-ru="Слой 2">Layer 2</span>
+              </div>
+              <div class="doll-face">
+                <div class="doll-eyes"><div class="doll-eye" style="background:rgba(255,255,255,.6)"></div><div class="doll-eye" style="background:rgba(255,255,255,.6)"></div></div>
+                <div class="doll-mouth" style="border-color:rgba(255,255,255,.4)"></div>
+              </div>
+            </div>
+            <div class="doll-seam"></div>
+            <div class="doll-bottom"></div>
+          </div>
+
+          <!-- DOLL 3 — URBAN SIMULATION (cream) -->
+          <div class="doll-wrap" data-level="3" data-skill="urban" id="mDoll3">
+            <div class="doll-top">
+              <div class="doll-label-inner">
+                <span data-ru="Городская<br>симуляция">Urban<br>Simulation</span>
+                <span class="doll-sub-inner" data-ru="Слой 3">Layer 3</span>
+              </div>
+              <div class="doll-face">
+                <div class="doll-eyes"><div class="doll-eye"></div><div class="doll-eye"></div></div>
+                <div class="doll-mouth"></div>
+              </div>
+            </div>
+            <div class="doll-seam"></div>
+            <div class="doll-bottom"></div>
+          </div>
+
+          <!-- DOLL 4 — STRATEGY (gold, innermost) -->
+          <div class="doll-wrap" data-level="4" data-skill="strategy" id="mDoll4">
+            <div class="doll-top">
+              <div class="doll-label-inner">
+                <span data-ru="Стратегия">Strategy</span>
+                <span class="doll-sub-inner" data-ru="Ядро">Core</span>
+              </div>
+              <div class="doll-face">
+                <div class="doll-eyes"><div class="doll-eye" style="background:rgba(255,255,255,.7)"></div><div class="doll-eye" style="background:rgba(255,255,255,.7)"></div></div>
+                <div class="doll-mouth" style="border-color:rgba(255,255,255,.5)"></div>
+              </div>
+            </div>
+            <div class="doll-seam"></div>
+            <div class="doll-bottom"></div>
+          </div>
+
+          <div class="doll-hint" id="dollHint" data-ru="↑ Кликните, чтобы открыть">↑ Click to open</div>
+        </div>
+
+        <div class="skill-info-panel" role="tablist">
+          <button class="skill-btn active" type="button" role="tab" aria-selected="true"
+                  aria-controls="skillData" data-skill="data" data-doll="1"
+                  data-ru="📊 Анализ данных">
+            <span class="skill-icon" aria-hidden="true">📊</span>
+            Data Analysis
+          </button>
+          <div class="skill-detail-card visible" id="skillData" role="tabpanel">
+            <p data-ru="<strong>Внешняя оболочка — видимая дисциплина.</strong> Структурированные наборы данных, логика KPI, дашборды и управленческая отчётность. Результат — не сырые данные, а ясность принятия решений. Инструменты: расширенный Excel, Power BI / DAX, Python для обработки данных."><strong>Outer shell — the visible discipline.</strong> Structured datasets, KPI logic, dashboards, and management reporting. The output is not raw data but decision clarity. Tools: Excel advanced, Power BI / DAX, Python for data wrangling.</p>
+            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div></div>
+          </div>
+
+          <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                  aria-controls="skillFinance" data-skill="finance" data-doll="2"
+                  data-ru="📈 Финансовое моделирование">
+            <span class="skill-icon" aria-hidden="true">📈</span>
+            Financial Modelling
+          </button>
+          <div class="skill-detail-card" id="skillFinance" role="tabpanel">
+            <p data-ru="<strong>Слой 2 — оценочный движок.</strong> ROI, CAPEX, OPEX, TCO, логика безубыточности, сравнение сценариев и инвестиционные рекомендации. Создан для реального принятия решений в условиях неопределённости."><strong>Layer 2 — the valuation engine.</strong> ROI, CAPEX, OPEX, TCO, breakeven logic, scenario comparison, and investment recommendation. Built for real decision-making under uncertainty, not academic exercises.</p>
+            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div></div>
+          </div>
+
+          <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                  aria-controls="skillUrban" data-skill="urban" data-doll="3"
+                  data-ru="🏙️ Городская симуляция">
+            <span class="skill-icon" aria-hidden="true">🏙️</span>
+            Urban Simulation
+          </button>
+          <div class="skill-detail-card" id="skillUrban" role="tabpanel">
+            <p data-ru="<strong>Слой 3 — пространственный интеллект.</strong> Выходные данные SUMO, интерпретация детекторов, пространственный анализ QGIS, моделирование экспозиции и анализ умного города. Проверено на 5 городских зонах Касабланки с реальными данными FCD."><strong>Layer 3 — the spatial intelligence.</strong> SUMO traffic outputs, detector interpretation, QGIS spatial reasoning, exposure modelling, and smart-city analysis. Proven on 5 Casablanca urban zones with real FCD data.</p>
+            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div></div>
+          </div>
+
+          <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                  aria-controls="skillStrategy" data-skill="strategy" data-doll="4"
+                  data-ru="🎯 Стратегический синтез">
+            <span class="skill-icon" aria-hidden="true">🎯</span>
+            Strategic Synthesis
+          </button>
+          <div class="skill-detail-card" id="skillStrategy" role="tabpanel">
+            <p data-ru="<strong>Внутреннее ядро — интеллект решений.</strong> Перевод технического анализа на институциональный язык: риски, приоритеты, компромиссы, логика реализации и исполнительные рекомендации. Слой, где данные становятся управлением."><strong>Inner core — the decision intelligence.</strong> Turning technical analysis into institutional language: risks, priorities, trade-offs, implementation logic, and executive recommendations. The layer where data becomes governance.</p>
+            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PALETTE ── -->
+  <section class="section" aria-labelledby="paletteTitle">
+    <div class="section-head">
+      <div class="section-label" data-ru="Визуальная идентичность">Visual Identity</div>
+      <h2 id="paletteTitle" data-ru="Конструктивистская<br>цветовая система.">Constructivist<br>color system.</h2>
+    </div>
+    <div class="palette" aria-label="Design palette">
+      <div class="swatch" style="--c:#CC1B22"><b data-ru="Конструктивистский красный">Constructivist Red</b><code>#CC1B22</code></div>
+      <div class="swatch" style="--c:#8C0D13"><b data-ru="Тёмно-красный">Deep Red</b><code>#8C0D13</code></div>
+      <div class="swatch" style="--c:#080808"><b data-ru="Чёрный">Black</b><code>#080808</code></div>
+      <div class="swatch" style="--c:#F5F0E4;--t:#111"><b data-ru="Бумажный">Paper</b><code>#F5F0E4</code></div>
+      <div class="swatch" style="--c:#D9CEBC;--t:#111"><b data-ru="Берёзовый">Birch</b><code>#D9CEBC</code></div>
+      <div class="swatch" style="--c:#5A6470"><b data-ru="Стальной">Steel</b><code>#5A6470</code></div>
+      <div class="swatch" style="--c:#C4982A;--t:#111"><b data-ru="Приглушённое золото">Muted Gold</b><code>#C4982A</code></div>
+    </div>
+  </section>
+
+  <!-- ── SUMO / LEAFLET ── -->
+  <section id="analytics" class="section" aria-labelledby="analyticsTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Лаборатория городской аналитики">Urban Analytics Transfer Lab</div>
+      <h2 id="analyticsTitle"
+          data-ru="SUMO + Leaflet:<br>дашборд городского<br>интеллекта.">SUMO + Leaflet<br>urban intelligence<br>dashboard.</h2>
+      <p class="section-intro" style="margin-top:14px;"
+         data-ru="Пять районов Касабланки смоделированы с помощью выходных данных SUMO FCD и отображены как интерактивные тепловые карты и симуляции транспортных средств на реальном базовом слое OpenStreetMap.">
+        Five Casablanca districts modelled through SUMO FCD outputs, displayed as interactive heatmaps and vehicle simulations on a real OpenStreetMap base layer.
+      </p>
+    </div>
+
+    <div class="sumo-shell" id="sumoDashboard">
+      <div class="sumo-header">
+        <b data-ru="🚗 Анализ трафика · Тепловая карта и симуляция в реальном времени">🚗 Traffic Simulation Analysis · Heatmap &amp; Real-time Simulation</b>
+        <span>OpenStreetMap · SUMO FCD · 5 <span data-ru="зон Касабланки">Casablanca zones</span></span>
+      </div>
+
+      <div class="sumo-toolbar" role="tablist">
+        <button class="sumo-mode-btn active" data-sumo-mode="heatmap"
+                data-ru="Тепловая карта">Heatmap</button>
+        <button class="sumo-mode-btn" data-sumo-mode="simulation"
+                data-ru="Симуляция">Simulation</button>
+      </div>
+
+      <div class="sumo-zones">
+        <button class="sumo-zone-btn active" data-sumo-zone="maarif" style="--tc:#FF3355;">Maârif</button>
+        <button class="sumo-zone-btn" data-sumo-zone="hay_hassani" style="--tc:#FFB830;">Hay Hassani</button>
+        <button class="sumo-zone-btn" data-sumo-zone="ben_msick" style="--tc:#00E676;">Ben M'Sick</button>
+        <button class="sumo-zone-btn" data-sumo-zone="sidi_maarouf" style="--tc:#BF5AF2;">Sidi Maârouf</button>
+        <button class="sumo-zone-btn" data-sumo-zone="bd_mohammed_v" style="--tc:#00B4D8;">Bd. Mohammed V</button>
+      </div>
+
+      <div class="sumo-body">
+        <div class="sumo-map-wrap">
+          <div id="sumoLeafletMap"></div>
+          <canvas id="sumoCanvas"></canvas>
+          <div class="sumo-badge">
+            <strong id="sumoZoneTitle">Maârif</strong>
+            <span id="sumoStatusText" data-ru="Загрузка тепловой карты SUMO…">Loading SUMO heatmap…</span>
+          </div>
+          <div class="sumo-legend" id="sumoHeatLegend">
+            <div><span class="sumo-dot green"></span><span data-ru="Низкая концентрация">Low concentration</span></div>
+            <div><span class="sumo-dot yellow"></span><span data-ru="Средняя">Medium</span></div>
+            <div><span class="sumo-dot red"></span><span data-ru="Высокая">High</span></div>
+          </div>
+          <div class="sumo-legend sumo-legend-hidden" id="sumoSimLegend">
+            <div><span class="sumo-dot red"></span><span data-ru="Медленно">Slow</span></div>
+            <div><span class="sumo-dot yellow"></span><span data-ru="Средне">Medium</span></div>
+            <div><span class="sumo-dot green"></span><span data-ru="Быстро">Fast</span></div>
+          </div>
+        </div>
+
+        <div class="sumo-sidebar">
+          <div class="sumo-kpis">
+            <div class="sumo-kpi"><div class="sumo-kpi-label" id="sumoMainLabel" data-ru="Точки">Points</div><div class="sumo-kpi-val" id="sumoKpiMain">—</div></div>
+            <div class="sumo-kpi"><div class="sumo-kpi-label" data-ru="Транспорт">Vehicles</div><div class="sumo-kpi-val" id="sumoKpiVehicles">—</div></div>
+            <div class="sumo-kpi"><div class="sumo-kpi-label" data-ru="Шаги">Steps</div><div class="sumo-kpi-val" id="sumoKpiSteps">—</div></div>
+            <div class="sumo-kpi"><div class="sumo-kpi-label" data-ru="Ср. скорость">Avg Speed</div><div class="sumo-kpi-val" id="sumoKpiSpeed">—</div></div>
+          </div>
+
+          <div class="sumo-ctrl-section" id="sumoHeatCtrl">
+            <div class="sumo-ctrl-row"><label data-ru="Радиус тепла">Heat radius</label><input id="sumoRadius" type="range" min="4" max="30" value="10"></div>
+            <div class="sumo-ctrl-row"><label data-ru="Размытие">Blur</label><input id="sumoBlur" type="range" min="3" max="30" value="8"></div>
+            <div class="sumo-ctrl-row"><label data-ru="Интенсивность">Intensity</label><input id="sumoIntensity" type="range" min="1" max="10" value="3"></div>
+            <button class="sumo-ctrl-btn" id="sumoRecenterHeat" type="button" data-ru="Центрировать">Recenter</button>
+          </div>
+
+          <div class="sumo-ctrl-section sumo-hidden" id="sumoSimCtrl">
+            <div class="sumo-ctrl-btns">
+              <button class="sumo-ctrl-btn" id="sumoPlay" data-ru="Играть">Play</button>
+              <button class="sumo-ctrl-btn" id="sumoPause" data-ru="Пауза">Pause</button>
+              <button class="sumo-ctrl-btn" id="sumoRestart" data-ru="Начало">Restart</button>
+              <button class="sumo-ctrl-btn" id="sumoRecenterSim" data-ru="Центр">Recenter</button>
+            </div>
+            <div class="sumo-ctrl-row"><label data-ru="Скорость">Speed</label><input id="sumoSpeed" type="range" min="1" max="12" value="6"></div>
+            <div class="sumo-ctrl-row"><label data-ru="Размер транспорта">Vehicle size</label><input id="sumoVehicleSize" type="range" min="2" max="10" value="6"></div>
+          </div>
+
+          <div class="sumo-note" id="sumoAnalysisText"
+               data-ru="Тепловая карта основана на геокорректированных выходных данных SUMO FCD. Переключитесь на «Симуляцию», чтобы отобразить транспортные средства пошагово.">
+            Heatmap based on geo-corrected SUMO FCD outputs. Switch to Simulation to display vehicles step-by-step.
+          </div>
+
+          <div class="sumo-tags">
+            <span class="sumo-tag">FCD → GPS</span>
+            <span class="sumo-tag">SUMO .net.xml</span>
+            <span class="sumo-tag">5 <span data-ru="зон">zones</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── READING ── -->
+  <section id="reading" class="section" aria-labelledby="readingTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Интеллект · Интерактивная книжная полка">The Intellect · Interactive Bookshelf</div>
+      <h2 id="readingTitle"
+          data-ru="Технические журналы,<br>системное мышление<br>и русская литературная душа.">Technical journals,<br>systems thinking,<br>and the Russian literary soul.</h2>
+    </div>
+    <div class="bookshelf">
+      <article class="book">
+        <div>
+          <h3>Достоевский</h3>
+          <p data-ru="Психологическая глубина, моральное напряжение и неустранимая сложность человеческого сердца.">Psychological depth, moral tension, and the irreducible complexity of the human heart.</p>
+        </div>
+        <small data-ru="Русская душа">Russian Soul</small>
+      </article>
+      <article class="book">
+        <div>
+          <h3>Толстой</h3>
+          <p data-ru="Исторический масштаб, социальные системы, этическая ответственность и дисциплинированное наблюдение за человеческим поведением.">Historical scale, social systems, ethical responsibility, and disciplined observation of human behavior.</p>
+        </div>
+        <small data-ru="Человеческие системы">Human Systems</small>
+      </article>
+      <article class="book">
+        <div>
+          <h3>Пушкин</h3>
+          <p data-ru="Язык как культурный фундамент — изящество, национальное воображение и поэзия цивилизационной идентичности.">Language as cultural foundation — elegance, national imagination, and the poetry of civilizational identity.</p>
+        </div>
+        <small data-ru="Культура">Culture</small>
+      </article>
+      <article class="book">
+        <div>
+          <h3 data-ru="Исследование операций">Operations Research</h3>
+          <p data-ru="Оптимизация, ограничения, распределение ресурсов и строгая структура науки о принятии решений.">Optimization, constraints, resource allocation, and the rigorous framework of decision science.</p>
+        </div>
+        <small data-ru="Метод">Method</small>
+      </article>
+      <article class="book">
+        <div>
+          <h3 data-ru="Городская аналитика">Urban Analytics</h3>
+          <p data-ru="Данные о мобильности, пространственный интеллект, моделирование экспозиции и архитектура умного города.">Mobility data, spatial intelligence, exposure modelling, and the architecture of smart-city reasoning.</p>
+        </div>
+        <small data-ru="Применение">Application</small>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── EASTER EGGS ── -->
+  <section id="easter" class="section" aria-labelledby="easterTitle">
+    <div class="section-head">
+      <div class="section-label"
+           data-ru="Интерактивные пасхалки">Interactive Easter Eggs</div>
+      <h2 id="easterTitle"
+          data-ru="Скрытые культурные сигналы<br>для оценщиков,<br>которые смотрят глубже.">Hidden cultural signals<br>for evaluators<br>who look deeper.</h2>
+    </div>
+    <div class="easter-grid">
+      <article class="easter-card" data-num="01">
+        <h3 data-ru="Код 1961 — Космос">1961 Space Code</h3>
+        <p data-ru="Наберите <strong>1961</strong> на клавиатуре, чтобы запустить ракету через экран — в честь Юрия Гагарина и космического наследия России.">Type <strong>1961</strong> anywhere on your keyboard to launch a rocket animation — in honour of Yuri Gagarin and Russia's pioneering space legacy.</p>
+      </article>
+      <article class="easter-card" data-num="02">
+        <h3 data-ru="Наведение Тютчева">Tyutchev Hover</h3>
+        <p data-ru="Наведите курсор на портрет, чтобы увидеть знаменитую поэтическую фразу Тютчева о России — доказательство понимания того, что российская культура укоренена в душе, а не в метриках.">Hover over the portrait in the hero to reveal Tyutchev's famous poetic phrase — proof that the applicant understands Russian culture is rooted in the soul, not metrics.</p>
+      </article>
+      <article class="easter-card" data-num="03">
+        <h3 data-ru="Источник Ломоносова">Lomonosov Source</h3>
+        <p data-ru="Откройте исходный код HTML, чтобы найти скрытый комментарий с призывом Ломоносова к научному превосходству и личным обязательством.">Open the HTML source code of this page to find a hidden comment containing Lomonosov's call to scientific excellence and a personal commitment statement.</p>
+      </article>
+      <article class="easter-card" data-num="04">
+        <h3 data-ru="Часы Зимнего дворца">Winter Palace Clock</h3>
+        <p data-ru="Часы в нижней части страницы навсегда остановлены на 2:10. Наведите курсор, чтобы узнать их историческое значение.">The clock in the footer is fixed permanently at 2:10 AM. Hover over it to reveal its historical significance — a nuanced reference to a Russian turning point.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <section id="contact" class="footer-section" aria-labelledby="contactTitle">
+    <div class="footer-card">
+      <div>
+        <div class="section-label"
+             data-ru="Итоговый тезис вклада">Final Contribution Thesis</div>
+        <h2 id="contactTitle"
+            data-ru="Я подаю заявление<br>не только чтобы учиться.<br>Я подаю заявление,<br>чтобы внести вклад.">I do not apply only<br>to study. I apply<br>to contribute.</h2>
+        <p data-ru="Моя цель — превратить аналитическую дисциплину в исследовательскую ценность: модели, которые проясняют решения, укрепляют инфраструктурное мышление и служат серьёзной академической среде. Российское научное и литературное наследие делает эту цель не только технической, но и интеллектуальной.">My goal is to transform analytical discipline into research value: models that clarify decisions, strengthen infrastructure thinking, and serve a serious academic environment. Russia's scientific and literary heritage makes this objective not only technical, but intellectual.</p>
+        <p data-ru="Вдохновлённый Ломоносовым, Менделеевым и традицией, согласно которой наука должна служить цивилизации, — я готов принести тот же уровень серьёзности в российское исследовательское учреждение.">Inspired by Lomonosov, Mendeleev, and the tradition that science must serve civilization — I am ready to bring that exact level of seriousness to a Russian research institution.</p>
+        <p class="source-note"
+           data-ru="Примечание: исторические отсылки (время часов Зимнего дворца, 1961, стихи Тютчева) реализованы как культурные отсылки на основе исторических источников и должны быть проверены перед официальной подачей.">Note: Historical Easter egg references (Winter Palace clock, 1961, Tyutchev verse) should be independently fact-checked if this file is used in an official admissions submission.</p>
+      </div>
+
+      <div class="clock-wrap">
+        <div class="clock" role="img"
+             aria-label="Vintage clock fixed at 2:10 AM — Winter Palace Easter egg">
+          2:10
+          <div class="clock-tooltip">
+            <span data-ru="Эти часы намеренно остановлены на 2:10 — символический момент, когда часы Зимнего дворца остановились во время Октябрьской революции 1917 года. Историческая точка перелома. Началась новая эпоха.">This clock is intentionally fixed at 2:10 AM — the symbolic moment when the clocks in the Winter Palace stopped during the October Revolution of 1917. A historical turning point. A new era began.</span>
+          </div>
+        </div>
+        <small data-ru="Наведите курсор, чтобы узнать историческую пасхалку">Hover the clock to reveal<br>the historical Easter egg</small>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+<script>
+/* ══════════════════════════════════════════
+   TRANSLATION ENGINE
+   ══════════════════════════════════════════ */
+(function () {
+  let currentLang = 'en';
+  const btnEn = document.getElementById('btnEn');
+  const btnRu = document.getElementById('btnRu');
+  const htmlEl = document.documentElement;
+
+  // All [data-ru] elements — swap innerHTML between EN (original) and RU
+  // We cache the English originals on first load
+  function cacheOriginals() {
+    document.querySelectorAll('[data-ru]').forEach(el => {
+      if (!el.dataset.en) {
+        el.dataset.en = el.innerHTML;
+      }
+    });
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    htmlEl.lang = lang;
+
+    // Toggle button states
+    btnEn.classList.toggle('active', lang === 'en');
+    btnRu.classList.toggle('active', lang === 'ru');
+    btnEn.setAttribute('aria-pressed', lang === 'en');
+    btnRu.setAttribute('aria-pressed', lang === 'ru');
+
+    // Swap all text nodes
+    document.querySelectorAll('[data-ru]').forEach(el => {
+      const enText = el.dataset.en;
+      const ruText = el.dataset.ru;
+      if (lang === 'ru' && ruText) {
+        el.innerHTML = ruText;
+      } else if (lang === 'en' && enText) {
+        el.innerHTML = enText;
+      }
+    });
+
+    // Also update <title>
+    document.title = lang === 'ru'
+      ? 'Эль Гали Сани | Портфолио для российской стипендии'
+      : 'El Ghali Sany | Russian Scholarship Portfolio';
+
+    // Persist preference
+    try { localStorage.setItem('portfolioLang', lang); } catch(e) {}
+  }
+
+  function switchLang(lang) {
+    if (lang === currentLang) return;
+    // Brief fade for smoothness
+    document.body.classList.add('lang-switching');
+    setTimeout(() => {
+      applyLang(lang);
+      document.body.classList.remove('lang-switching');
+    }, 140);
+  }
+
+  btnEn.addEventListener('click', () => switchLang('en'));
+  btnRu.addEventListener('click', () => switchLang('ru'));
+
+  // Keyboard shortcut: Alt+L to toggle
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey && e.key === 'l') switchLang(currentLang === 'en' ? 'ru' : 'en');
+  });
+
+  // Init
+  cacheOriginals();
+  // Check saved preference
+  let savedLang = 'en';
+  try { savedLang = localStorage.getItem('portfolioLang') || 'en'; } catch(e) {}
+  if (savedLang === 'ru') applyLang('ru');
+})();
+
+/* ══════════════════════════════════════════
+   ROCKET EASTER EGG — type "1961"
+   ══════════════════════════════════════════ */
+(function () {
+  const SEQ = '1961';
+  let typed = '';
+  const rocket = document.getElementById('rocketEl');
+  window.addEventListener('keydown', (e) => {
+    if (e.key.length !== 1) return;
+    typed = (typed + e.key).slice(-SEQ.length);
+    if (typed === SEQ) {
+      rocket.classList.remove('fly');
+      void rocket.offsetWidth;
+      rocket.classList.add('fly');
+      typed = '';
+    }
+  });
+})();
+
+/* ══════════════════════════════════════════
+   MATRYOSHKA SPLIT-OPEN ANIMATION
+   ══════════════════════════════════════════ */
+(function () {
+  // Order: level 1=outermost(red), 2=black, 3=cream, 4=gold(innermost)
+  const skills   = ['data', 'finance', 'urban', 'strategy'];
+  const dollIds  = ['mDoll1','mDoll2','mDoll3','mDoll4'];
+  const btnSels  = '[data-skill]';
+  const panelIds = ['skillData','skillFinance','skillUrban','skillStrategy'];
+  const stage    = document.getElementById('matryoshkaStage');
+
+  // State: which dolls have been opened (array of level numbers)
+  // Sequence: click doll1 → opens 1, shows 2 as active
+  //           click doll2 → opens 2, shows 3 as active, etc.
+  let openedLevels = [];   // levels that are split open
+  let activeLevel  = 1;    // level whose doll is shown as "current"
+  let currentSkill = 'data';
+
+  function getDoll(level) { return document.getElementById(dollIds[level-1]); }
+
+  function activateSkill(skill) {
+    currentSkill = skill;
+    // Update buttons
+    document.querySelectorAll(btnSels).forEach(b => {
+      const a = b.dataset.skill === skill;
+      b.classList.toggle('active', a);
+      b.setAttribute('aria-selected', a);
+    });
+    // Update panels
+    panelIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('visible');
+    });
+    const idx = skills.indexOf(skill);
+    const panel = document.getElementById(panelIds[idx]);
+    if (panel) panel.classList.add('visible');
+  }
+
+  function openDoll(level) {
+    if (openedLevels.includes(level)) return;
+    openedLevels.push(level);
+
+    const doll = getDoll(level);
+    if (!doll) return;
+
+    // Remove active glow from this doll
+    doll.classList.remove('is-active');
+    // Animate open
+    doll.classList.add('is-open');
+
+    // Next doll becomes active
+    const nextLevel = level + 1;
+    if (nextLevel <= 4) {
+      activeLevel = nextLevel;
+      const nextDoll = getDoll(nextLevel);
+      if (nextDoll) {
+        // Small delay so the inner doll appears to emerge
+        setTimeout(() => nextDoll.classList.add('is-active'), 220);
+      }
+      // Activate the corresponding skill
+      activateSkill(skills[nextLevel - 1]);
+    } else {
+      // All opened — celebrate innermost
+      activateSkill('strategy');
+    }
+
+    // Mark stage as opened (hides hint)
+    if (stage) stage.classList.add('opened');
+  }
+
+  function resetAll() {
+    openedLevels = [];
+    activeLevel  = 1;
+    dollIds.forEach(id => {
+      const d = document.getElementById(id);
+      if (d) { d.classList.remove('is-open','is-active'); }
+    });
+    getDoll(1).classList.add('is-active');
+    if (stage) stage.classList.remove('opened');
+    activateSkill('data');
+    const hint = document.getElementById('dollHint');
+    if (hint) hint.style.opacity = '1';
+  }
+
+  // Click on a doll-wrap → open it
+  dollIds.forEach((id, i) => {
+    const doll = document.getElementById(id);
+    if (!doll) return;
+    doll.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const level = i + 1;
+      // Only allow opening the currently active (outermost closed) doll
+      if (level === activeLevel && !openedLevels.includes(level)) {
+        openDoll(level);
+      } else if (level === activeLevel && level === 4) {
+        // tap innermost = nothing, already selected
+      } else if (openedLevels.includes(level)) {
+        // clicking an already-open doll just re-selects its skill
+        activateSkill(skills[level - 1]);
+      }
+    });
+  });
+
+  // Click on skill buttons
+  document.querySelectorAll(btnSels).forEach(btn => {
+    btn.addEventListener('click', () => {
+      const skill = btn.dataset.skill;
+      const level = skills.indexOf(skill) + 1;
+      // Auto-open all dolls up to this level
+      for (let l = 1; l < level; l++) {
+        if (!openedLevels.includes(l)) openDoll(l);
+      }
+      activateSkill(skill);
+      // Make target doll glow
+      dollIds.forEach(id => document.getElementById(id)?.classList.remove('is-active'));
+      getDoll(level)?.classList.add('is-active');
+      activeLevel = level;
+    });
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+
+  // Double-click on stage to reset
+  if (stage) {
+    stage.addEventListener('dblclick', resetAll);
+    // Add reset hint tooltip
+    stage.title = 'Click dolls to open · Double-click to reset';
+  }
+
+  // Init
+  activateSkill('data');
+  getDoll(1).classList.add('is-active');
+})();
+
+/* ══════════════════════════════════════════
+   SUMO / LEAFLET DASHBOARD
+   ══════════════════════════════════════════ */
+(function () {
+  const ZONES = {
+    maarif:        { label:'Maârif',         color:'#FF3355', center:[33.5866,-7.6325], zoom:14, heatmapFile:'maarif_heatmap.json',       simulationFile:'maarif_simulation_geo.json',       analysis:'Maârif: central dense fabric. Heatmap highlights concentration; simulation displays vehicles from geo-corrected SUMO FCD outputs.',       analysisRu:'Маариф: центральная плотная ткань. Тепловая карта выделяет концентрацию; симуляция отображает транспортные средства по геокорректированным данным SUMO FCD.' },
+    hay_hassani:   { label:'Hay Hassani',     color:'#FFB830', center:[33.5607,-7.6900], zoom:14, heatmapFile:'hay_hassani_heatmap.json',   simulationFile:'hay_hassani_simulation_geo.json',  analysis:'Hay Hassani: peripheral flows and transition zones. Useful to detect localized slowdowns and vehicle accumulation.',                      analysisRu:'Хай Хасани: периферийные потоки и переходные зоны. Полезно для обнаружения локальных замедлений и накопления транспортных средств.' },
+    ben_msick:     { label:"Ben M'Sick",      color:'#00E676', center:[33.5500,-7.5800], zoom:14, heatmapFile:'ben_msick_heatmap.json',     simulationFile:'ben_msick_simulation_geo.json',    analysis:"Ben M'Sick: dense urban network. The dashboard supports reading conflict points, secondary-road intensity and speed variations.",           analysisRu:"Бен М'Сик: плотная городская сеть. Дашборд помогает считывать точки конфликта, интенсивность второстепенных дорог и вариации скорости." },
+    sidi_maarouf:  { label:'Sidi Maârouf',   color:'#BF5AF2', center:[33.5250,-7.6500], zoom:14, heatmapFile:'sidi_maarouf_heatmap.json',  simulationFile:'sidi_maarouf_simulation_geo.json', analysis:'Sidi Maârouf: strategic employment and arterial area. Simulation shows flows related to business poles and major roads.',                 analysisRu:'Сиди Маруф: стратегическая зона занятости и артериальных дорог. Симуляция показывает потоки вблизи бизнес-полюсов и главных дорог.' },
+    bd_mohammed_v: { label:'Bd. Mohammed V', color:'#00B4D8', center:[33.5950,-7.6100], zoom:15, heatmapFile:'bd_mohammed_v_heatmap.json', simulationFile:'bd_mohammed_v_simulation_geo.json',analysis:'Boulevard Mohammed V: major corridor. Heatmap and simulation identify concentration and slowdown segments.',                           analysisRu:'Бульвар Мухаммеда V: главный коридор. Тепловая карта и симуляция выявляют сегменты концентрации и замедления.' }
+  };
+  const MAX_HEAT = 12000, MAX_VEH = 1600;
+  let map=null, heatLayer=null, canvas=null, ctx=null;
+  let mode='heatmap', zoneKey='maarif', currentData=null, heatPoints=[], stepIndex=0;
+  let playing=true, raf=null, lastFrame=0;
+  const $=id=>document.getElementById(id);
+  const setText=(id,v)=>{const e=$(id);if(e)e.textContent=v;};
+  const isRu=()=>document.documentElement.lang==='ru';
+
+  async function loadJson(f){const r=await fetch(f+'?v='+Date.now());if(!r.ok)throw new Error(f);return r.json();}
+  function initMap(){const z=ZONES[zoneKey];map=L.map('sumoLeafletMap',{center:z.center,zoom:z.zoom,zoomControl:true,attributionControl:false,preferCanvas:true});L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);canvas=$('sumoCanvas');ctx=canvas.getContext('2d');resizeCanvas();map.on('move zoom resize',()=>{resizeCanvas();if(mode==='simulation')drawStep();});window.addEventListener('resize',()=>{resizeCanvas();if(mode==='simulation')drawStep();});}
+  function resizeCanvas(){if(!canvas||!ctx)return;const r=canvas.getBoundingClientRect(),d=window.devicePixelRatio||1;canvas.width=r.width*d;canvas.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);}
+  function clearCanvas(){if(!ctx||!canvas)return;const r=canvas.getBoundingClientRect();ctx.clearRect(0,0,r.width,r.height);}
+  function removeHeat(){if(heatLayer){map.removeLayer(heatLayer);heatLayer=null;}}
+
+  function updateUI(){
+    const isHeat=mode==='heatmap';const z=ZONES[zoneKey];
+    document.querySelectorAll('.sumo-mode-btn').forEach(b=>{b.classList.toggle('active',b.dataset.sumoMode===mode);b.setAttribute('aria-selected',b.dataset.sumoMode===mode);});
+    document.querySelectorAll('.sumo-zone-btn').forEach(b=>b.classList.toggle('active',b.dataset.sumoZone===zoneKey));
+    $('sumoHeatCtrl').classList.toggle('sumo-hidden',!isHeat);
+    $('sumoSimCtrl').classList.toggle('sumo-hidden',isHeat);
+    $('sumoHeatLegend').classList.toggle('sumo-legend-hidden',!isHeat);
+    $('sumoSimLegend').classList.toggle('sumo-legend-hidden',isHeat);
+    setText('sumoZoneTitle',z.label);
+    // analysis text respects current language
+    const note=$('sumoAnalysisText');
+    if(note){note.textContent=isRu()&&z.analysisRu?z.analysisRu:z.analysis;}
+    setText('sumoMainLabel',isHeat?(isRu()?'Точки':'Points'):(isRu()?'Видимо':'Visible'));
+    ['sumoKpiMain','sumoKpiVehicles','sumoKpiSteps','sumoKpiSpeed'].forEach(id=>setText(id,'—'));
+  }
+
+  async function loadCurrent(){if(!map)return;cancelAnimationFrame(raf);raf=null;playing=false;stepIndex=0;removeHeat();clearCanvas();updateUI();const z=ZONES[zoneKey];map.setView(z.center,z.zoom);if(mode==='heatmap')await loadHeatmap();else await loadSimulation();}
+  async function loadHeatmap(){const z=ZONES[zoneKey];setText('sumoStatusText',isRu()?'Загрузка тепловой карты SUMO…':'Loading SUMO heatmap…');try{currentData=await loadJson(z.heatmapFile);if(!currentData.points)throw new Error('Invalid');setText('sumoStatusText','Loaded: '+z.heatmapFile);heatPoints=normalizeHeat(currentData.points);drawHeatmap();updateHeatKpis();}catch(e){console.error(e);setText('sumoStatusText',(isRu()?'Ошибка загрузки — ':'Heatmap load error — ')+z.heatmapFile);}}
+  function normalizeHeat(pts){const a=[];for(const p of pts){if(!Array.isArray(p)||p.length<2)continue;const lat=+p[0],lng=+p[1],int=+(p[2]||.4);if(Number.isFinite(lat)&&Number.isFinite(lng))a.push([lat,lng,Math.max(.05,Math.min(int,1))]);}if(a.length<=MAX_HEAT)return a;const s=Math.ceil(a.length/MAX_HEAT);return a.filter((_,i)=>i%s===0).slice(0,MAX_HEAT);}
+  function drawHeatmap(){removeHeat();if(!heatPoints.length||!L.heatLayer)return;const radius=+$('sumoRadius').value,blur=+$('sumoBlur').value,mult=+$('sumoIntensity').value/12;const pts=heatPoints.map(p=>[p[0],p[1],Math.min(.55,p[2]*mult)]);heatLayer=L.heatLayer(pts,{radius,blur,maxZoom:18,minOpacity:.08,max:1,gradient:{0.15:'#00E676',0.35:'#FFD700',0.60:'#FF8A00',1:'#FF3355'}}).addTo(map);fitPoints(pts);}
+  function updateHeatKpis(){setText('sumoKpiMain',heatPoints.length.toLocaleString('fr-FR'));const k=currentData.kpis||{};setText('sumoKpiVehicles',Number(k.vehicleRecords||0).toLocaleString('fr-FR'));setText('sumoKpiSteps',Number(k.steps||0).toLocaleString('fr-FR'));setText('sumoKpiSpeed',Number(k.averageSpeed||0).toFixed(2)+' m/s');}
+  async function loadSimulation(){const z=ZONES[zoneKey];setText('sumoStatusText',isRu()?'Загрузка гео-симуляции SUMO…':'Loading SUMO geo simulation…');try{currentData=await loadJson(z.simulationFile);if(!currentData.timesteps)throw new Error('Invalid');setText('sumoStatusText','Loaded: '+z.simulationFile);setText('sumoKpiSteps',currentData.timesteps.length.toLocaleString('fr-FR'));if(currentData.kpis)setText('sumoKpiSpeed',Number(currentData.kpis.averageSpeed||0).toFixed(2)+' m/s');setTimeout(()=>{resizeCanvas();fitSimulation();playing=true;startAnimation();},250);}catch(e){console.error(e);setText('sumoStatusText',(isRu()?'Ошибка симуляции — ':'Simulation load error — ')+z.simulationFile);}}
+  function getLL(v){const lat=+v.lat,lng=+v.lng;return Number.isFinite(lat)&&Number.isFinite(lng)?[lat,lng]:null;}
+  function fitSimulation(){if(!currentData?.timesteps)return;const pts=[];for(const st of currentData.timesteps){for(const v of(st.vehicles||[])){const ll=getLL(v);if(ll)pts.push(ll);}if(pts.length>3000)break;}fitPoints(pts);drawStep();}
+  function drawStep(){if(mode!=='simulation'||!currentData?.timesteps)return;const st=currentData.timesteps[stepIndex];if(!st)return;clearCanvas();const vs=sampleVehicles(st.vehicles||[],MAX_VEH);let n=0,sum=0;for(const v of vs){const ll=getLL(v);if(!ll)continue;const pt=map.latLngToContainerPoint(ll);if(!Number.isFinite(pt.x)||!Number.isFinite(pt.y))continue;drawVehicle(pt.x,pt.y,+(v.speed||0),+(v.angle||0));n++;sum+=+(v.speed||0);}setText('sumoKpiMain',n.toLocaleString('fr-FR'));setText('sumoKpiVehicles',n.toLocaleString('fr-FR'));setText('sumoKpiSpeed',(n?sum/n:0).toFixed(2)+' m/s');}
+  function sampleVehicles(vs,max){if(vs.length<=max)return vs;const int=Math.ceil(vs.length/max);return vs.filter((_,i)=>i%int===0);}
+  function colorSpeed(s){return s<3?'#FF3355':s<8?'#FFD700':'#00E676';}
+  function drawVehicle(x,y,speed,angle){const size=+$('sumoVehicleSize').value||6;const col=colorSpeed(speed);const a=(angle-90)*Math.PI/180;ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.fillStyle=col;ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.4;ctx.shadowBlur=10;ctx.shadowColor=col;roundRect(-size,-size/2,size*2.4,size*1.15,Math.max(2,size/2));ctx.fill();ctx.stroke();ctx.restore();}
+  function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}
+  function startAnimation(){cancelAnimationFrame(raf);lastFrame=0;raf=requestAnimationFrame(loop);}
+  function loop(t){if(mode!=='simulation')return;const delay=Math.max(20,280-(+$('sumoSpeed').value||6)*20);if(playing&&t-lastFrame>=delay){drawStep();stepIndex=(stepIndex+1)%currentData.timesteps.length;lastFrame=t;}raf=requestAnimationFrame(loop);}
+  function fitPoints(points){if(!points||!points.length)return;const b=L.latLngBounds(points.map(p=>[p[0],p[1]]));if(b.isValid())map.fitBounds(b,{padding:[30,30],maxZoom:ZONES[zoneKey].zoom});}
+  function bindEvents(){
+    document.querySelectorAll('.sumo-mode-btn').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.sumoMode;loadCurrent();}));
+    document.querySelectorAll('.sumo-zone-btn').forEach(b=>b.addEventListener('click',()=>{zoneKey=b.dataset.sumoZone;loadCurrent();}));
+    ['sumoRadius','sumoBlur','sumoIntensity'].forEach(id=>$(id).addEventListener('input',()=>{if(mode==='heatmap')drawHeatmap();}));
+    $('sumoRecenterHeat').addEventListener('click',()=>{if(mode==='heatmap')drawHeatmap();});
+    $('sumoPlay').addEventListener('click',()=>playing=true);
+    $('sumoPause').addEventListener('click',()=>playing=false);
+    $('sumoRestart').addEventListener('click',()=>{stepIndex=0;drawStep();});
+    $('sumoVehicleSize').addEventListener('input',drawStep);
+    $('sumoRecenterSim').addEventListener('click',fitSimulation);
+    // Re-render analysis text on language switch
+    document.addEventListener('click',e=>{if(e.target.id==='btnEn'||e.target.id==='btnRu'){setTimeout(()=>updateUI(),200);}});
+  }
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    const panel=$('sumoDashboard');if(!panel)return;
+    bindEvents();
+    const obs=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){if(!map)initMap();loadCurrent();obs.disconnect();}},{threshold:.10});
+    obs.observe(panel);
+  });
+})();
+</script>
+</body>
+</html>

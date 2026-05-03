@@ -253,166 +253,42 @@ h1 .accent { color: var(--red); }
 .research-card.feature .research-number { color: rgba(255,255,255,.04); }
 
 /* ══════════════════════════════════════
-   MATRYOSHKA — SPLIT-OPEN ANIMATION
+   MATRYOSHKA — CANVAS ENGINE
    ══════════════════════════════════════ */
 .skill-stage { padding: 32px; background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(245,240,228,.88)); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-lg); box-shadow: var(--shadow-mid); }
-.skill-layout { display: grid; grid-template-columns: 440px 1fr; gap: 32px; align-items: start; }
+.skill-layout { display: grid; grid-template-columns: 420px 1fr; gap: 32px; align-items: start; }
 
-/* ── Outer wrapper / stage ── */
-.matryoshka-stage {
-  position: relative; height: 520px;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(ellipse at 50% 65%, rgba(204,27,34,.12), transparent 60%);
+.matryoshka-canvas-wrap {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 70%, rgba(204,27,34,.10), transparent 65%),
+              repeating-linear-gradient(135deg, rgba(8,8,8,.022) 0 1px, transparent 1px 28px);
   border: 1px solid rgba(8,8,8,.10); border-radius: var(--r-md);
-  overflow: hidden;
+  overflow: hidden; cursor: pointer;
+  user-select: none;
 }
-.matryoshka-stage::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: repeating-linear-gradient(135deg, rgba(8,8,8,.022) 0 1px, transparent 1px 28px);
+#matryoshkaCanvas { display: block; width: 100%; height: auto; }
+
+.matryoshka-hint {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(8,8,8,.32); white-space: nowrap;
+  pointer-events: none; transition: opacity .4s;
 }
+.matryoshka-canvas-wrap.all-opened .matryoshka-hint { opacity: 0; }
 
-/* ── "Click to open" hint ── */
-.doll-hint {
-  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(8,8,8,.35); pointer-events: none; white-space: nowrap;
-  transition: opacity .3s;
+/* reset button */
+.matryoshka-reset {
+  position: absolute; top: 10px; right: 10px;
+  padding: 5px 10px; border: 1px solid rgba(8,8,8,.15); border-radius: 999px;
+  background: rgba(255,255,255,.7); backdrop-filter: blur(8px);
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em;
+  color: rgba(8,8,8,.5); cursor: pointer; opacity: 0;
+  transition: opacity .3s; text-transform: uppercase;
 }
-.matryoshka-stage.opened .doll-hint { opacity: 0; }
+.matryoshka-canvas-wrap.all-opened .matryoshka-reset { opacity: 1; }
+.matryoshka-reset:hover { background: rgba(255,255,255,.95); color: var(--black); }
 
-/* ── Each doll is a self-contained unit with top + bottom halves ── */
-.doll-wrap {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  /* stacking: doll 1 on top by default */
-}
-.doll-wrap[data-level="1"] { z-index: 40; }
-.doll-wrap[data-level="2"] { z-index: 30; }
-.doll-wrap[data-level="3"] { z-index: 20; }
-.doll-wrap[data-level="4"] { z-index: 10; }
-
-/* Each half is an absolutely-positioned SVG-shaped div */
-.doll-half {
-  position: absolute; left: 50%;
-  transform-origin: center bottom; /* top half pivots upward */
-  overflow: hidden;
-  transition: transform .55s cubic-bezier(.4, 0, .2, 1),
-              opacity  .4s ease;
-}
-.doll-top {
-  top: 0; transform: translateX(-50%);
-  transform-origin: center bottom;
-  border-radius: 50% 50% 0 0;
-  border-top: 3px solid rgba(8,8,8,.85);
-  border-left: 3px solid rgba(8,8,8,.85);
-  border-right: 3px solid rgba(8,8,8,.85);
-  border-bottom: none;
-  display: flex; align-items: flex-end; justify-content: center;
-  padding-bottom: 12px;
-}
-.doll-bottom {
-  transform: translateX(-50%);
-  transform-origin: center top;
-  border-radius: 0 0 42% 42%;
-  border-bottom: 3px solid rgba(8,8,8,.85);
-  border-left: 3px solid rgba(8,8,8,.85);
-  border-right: 3px solid rgba(8,8,8,.85);
-  border-top: none;
-}
-/* The seam line between top and bottom */
-.doll-seam {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  height: 3px; background: rgba(8,8,8,.85);
-  border-radius: 999px;
-}
-
-/* Label lives inside top half */
-.doll-label-inner {
-  text-align: center; font-family: var(--font-display); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .05em; line-height: 1.2;
-  pointer-events: none;
-}
-.doll-sub-inner {
-  font-family: var(--font-mono); font-size: .56rem; opacity: .65;
-  font-weight: 400; margin-top: 4px; display: block;
-  text-transform: uppercase; letter-spacing: .06em;
-}
-
-/* ── DOLL SIZE DEFINITIONS ── */
-.doll-wrap[data-level="1"] .doll-top    { width: 280px; height: 210px; }
-.doll-wrap[data-level="1"] .doll-bottom { width: 280px; height: 165px; top: 210px; }
-.doll-wrap[data-level="1"] .doll-seam  { width: 274px; top: 208px; }
-.doll-wrap[data-level="1"] { width: 280px; height: 375px; margin-top: -188px; margin-left: -140px; }
-.doll-wrap[data-level="1"] .doll-label-inner { font-size: .9rem; color: #fff; }
-
-.doll-wrap[data-level="2"] .doll-top    { width: 214px; height: 163px; }
-.doll-wrap[data-level="2"] .doll-bottom { width: 214px; height: 127px; top: 163px; }
-.doll-wrap[data-level="2"] .doll-seam  { width: 208px; top: 162px; }
-.doll-wrap[data-level="2"] { width: 214px; height: 290px; margin-top: -145px; margin-left: -107px; }
-.doll-wrap[data-level="2"] .doll-label-inner { font-size: .82rem; color: #fff; }
-
-.doll-wrap[data-level="3"] .doll-top    { width: 156px; height: 118px; }
-.doll-wrap[data-level="3"] .doll-bottom { width: 156px; height: 94px;  top: 118px; }
-.doll-wrap[data-level="3"] .doll-seam  { width: 150px; top: 116px; }
-.doll-wrap[data-level="3"] { width: 156px; height: 212px; margin-top: -106px; margin-left: -78px; }
-.doll-wrap[data-level="3"] .doll-label-inner { font-size: .74rem; color: var(--black); }
-
-.doll-wrap[data-level="4"] .doll-top    { width: 104px; height: 78px; }
-.doll-wrap[data-level="4"] .doll-bottom { width: 104px; height: 62px; top: 78px; }
-.doll-wrap[data-level="4"] .doll-seam  { width: 98px; top: 76px; }
-.doll-wrap[data-level="4"] { width: 104px; height: 140px; margin-top: -70px; margin-left: -52px; }
-.doll-wrap[data-level="4"] .doll-label-inner { font-size: .64rem; color: #fff; }
-
-/* ── DOLL COLOURS ── */
-.doll-wrap[data-level="1"] .doll-top,
-.doll-wrap[data-level="1"] .doll-bottom { background: linear-gradient(160deg, #CC1B22, #8B0A10); }
-.doll-wrap[data-level="1"] .doll-seam  { background: #6A0008; }
-
-.doll-wrap[data-level="2"] .doll-top,
-.doll-wrap[data-level="2"] .doll-bottom { background: linear-gradient(160deg, #2a2a2a, #1C1C1C); }
-.doll-wrap[data-level="2"] .doll-seam  { background: #111; }
-
-.doll-wrap[data-level="3"] .doll-top,
-.doll-wrap[data-level="3"] .doll-bottom { background: linear-gradient(160deg, #F5F0E4, #D8D0BC); }
-.doll-wrap[data-level="3"] .doll-seam  { background: #b0a890; }
-
-.doll-wrap[data-level="4"] .doll-top,
-.doll-wrap[data-level="4"] .doll-bottom { background: linear-gradient(160deg, #C4982A, #8A6A10); }
-.doll-wrap[data-level="4"] .doll-seam  { background: #6A4E08; }
-
-/* ── Decorative face dot on each doll ── */
-.doll-face {
-  position: absolute; top: 22%; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  pointer-events: none;
-}
-.doll-eyes { display: flex; gap: 10px; }
-.doll-eye { width: 6px; height: 7px; background: rgba(0,0,0,.55); border-radius: 50%; }
-.doll-wrap[data-level="3"] .doll-eye,
-.doll-wrap[data-level="4"] .doll-eye { width: 4px; height: 5px; gap: 6px; }
-.doll-mouth { width: 14px; height: 5px; border-bottom: 2px solid rgba(0,0,0,.45); border-radius: 0 0 10px 10px; }
-
-/* ── OPEN STATE: top flies up, bottom slides down, then whole doll drifts ── */
-.doll-wrap.is-open .doll-top {
-  transform: translateX(-50%) translateY(-115%) rotate(-12deg);
-}
-.doll-wrap.is-open .doll-bottom {
-  transform: translateX(-50%) translateY(60px);
-}
-/* opened doll floats to the side */
-.doll-wrap[data-level="1"].is-open { transform: translate(calc(-50% - 170px), -50%) scale(.78); opacity: .55; }
-.doll-wrap[data-level="2"].is-open { transform: translate(calc(-50% + 140px), -50%) scale(.82); opacity: .55; }
-.doll-wrap[data-level="3"].is-open { transform: translate(calc(-50% - 120px), calc(-50% + 50px)) scale(.88); opacity: .6; }
-
-/* Glow on the currently active (front) doll */
-.doll-wrap.is-active {
-  filter: drop-shadow(0 0 18px rgba(196,152,42,.55));
-  transform: translate(-50%, -50%) scale(1.04);
-  z-index: 50 !important;
-}
-
-/* ── Skill panel (right column) ── */
+/* ── Skill panel ── */
 .skill-info-panel { display: flex; flex-direction: column; gap: 10px; }
 .skill-btn { padding: 16px 20px; text-align: left; background: rgba(255,255,255,.9); border: 1px solid rgba(8,8,8,.13); border-radius: var(--r-md); font-family: var(--font-display); font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; box-shadow: var(--shadow-soft); transition: all .22s; display: flex; align-items: center; gap: 12px; color: var(--black); }
 .skill-btn:hover { border-color: var(--red); background: rgba(204,27,34,.06); }
@@ -531,8 +407,7 @@ h1 .accent { color: var(--red); }
   .hero-visual { min-height: 400px; }
   .skill-layout { grid-template-columns: 1fr; }
   .matryoshka-visual { height: 320px; }
-  .matryoshka-stage { height: 360px; }
-  .doll-wrap[data-level="1"] { transform: translate(-50%, -50%) scale(.75); }
+  .skill-layout { grid-template-columns: 1fr; }
   .sumo-body { grid-template-columns: 1fr; }
   .sumo-sidebar { border-left: none; border-top: 1px solid #0E3520; }
   .footer-card { grid-template-columns: 1fr; }
@@ -797,74 +672,11 @@ h1 .accent { color: var(--red); }
 
     <div class="skill-stage">
       <div class="skill-layout">
-        <!-- ═══ MATRYOSHKA SPLIT-OPEN STAGE ═══ -->
-        <div class="matryoshka-stage" id="matryoshkaStage" aria-hidden="true">
-
-          <!-- DOLL 1 — DATA ANALYSIS (outermost, red) -->
-          <div class="doll-wrap is-active" data-level="1" data-skill="data" id="mDoll1" title="Click to open">
-            <div class="doll-top">
-              <div class="doll-label-inner">
-                <span data-ru="Анализ<br>данных">Data<br>Analysis</span>
-                <span class="doll-sub-inner" data-ru="Внешняя оболочка">Outer shell</span>
-              </div>
-              <div class="doll-face">
-                <div class="doll-eyes"><div class="doll-eye"></div><div class="doll-eye"></div></div>
-                <div class="doll-mouth"></div>
-              </div>
-            </div>
-            <div class="doll-seam"></div>
-            <div class="doll-bottom"></div>
-          </div>
-
-          <!-- DOLL 2 — FINANCIAL MODEL (black) -->
-          <div class="doll-wrap" data-level="2" data-skill="finance" id="mDoll2">
-            <div class="doll-top">
-              <div class="doll-label-inner">
-                <span data-ru="Финансовая<br>модель">Financial<br>Model</span>
-                <span class="doll-sub-inner" data-ru="Слой 2">Layer 2</span>
-              </div>
-              <div class="doll-face">
-                <div class="doll-eyes"><div class="doll-eye" style="background:rgba(255,255,255,.6)"></div><div class="doll-eye" style="background:rgba(255,255,255,.6)"></div></div>
-                <div class="doll-mouth" style="border-color:rgba(255,255,255,.4)"></div>
-              </div>
-            </div>
-            <div class="doll-seam"></div>
-            <div class="doll-bottom"></div>
-          </div>
-
-          <!-- DOLL 3 — URBAN SIMULATION (cream) -->
-          <div class="doll-wrap" data-level="3" data-skill="urban" id="mDoll3">
-            <div class="doll-top">
-              <div class="doll-label-inner">
-                <span data-ru="Городская<br>симуляция">Urban<br>Simulation</span>
-                <span class="doll-sub-inner" data-ru="Слой 3">Layer 3</span>
-              </div>
-              <div class="doll-face">
-                <div class="doll-eyes"><div class="doll-eye"></div><div class="doll-eye"></div></div>
-                <div class="doll-mouth"></div>
-              </div>
-            </div>
-            <div class="doll-seam"></div>
-            <div class="doll-bottom"></div>
-          </div>
-
-          <!-- DOLL 4 — STRATEGY (gold, innermost) -->
-          <div class="doll-wrap" data-level="4" data-skill="strategy" id="mDoll4">
-            <div class="doll-top">
-              <div class="doll-label-inner">
-                <span data-ru="Стратегия">Strategy</span>
-                <span class="doll-sub-inner" data-ru="Ядро">Core</span>
-              </div>
-              <div class="doll-face">
-                <div class="doll-eyes"><div class="doll-eye" style="background:rgba(255,255,255,.7)"></div><div class="doll-eye" style="background:rgba(255,255,255,.7)"></div></div>
-                <div class="doll-mouth" style="border-color:rgba(255,255,255,.5)"></div>
-              </div>
-            </div>
-            <div class="doll-seam"></div>
-            <div class="doll-bottom"></div>
-          </div>
-
-          <div class="doll-hint" id="dollHint" data-ru="↑ Кликните, чтобы открыть">↑ Click to open</div>
+        <!-- ═══ MATRYOSHKA CANVAS ═══ -->
+        <div class="matryoshka-canvas-wrap" id="matryoshkaWrap">
+          <canvas id="matryoshkaCanvas" width="420" height="480"></canvas>
+          <div class="matryoshka-hint" id="matryoshkaHint" data-ru="↑ Кликните, чтобы открыть">↑ Click to open</div>
+          <button class="matryoshka-reset" id="matryoshkaReset" type="button" data-ru="↺ Сбросить">↺ Reset</button>
         </div>
 
         <div class="skill-info-panel" role="tablist">
@@ -1231,138 +1043,373 @@ h1 .accent { color: var(--red); }
 })();
 
 /* ══════════════════════════════════════════
-   MATRYOSHKA SPLIT-OPEN ANIMATION
+   MATRYOSHKA — CANVAS 2D ENGINE
    ══════════════════════════════════════════ */
 (function () {
-  // Order: level 1=outermost(red), 2=black, 3=cream, 4=gold(innermost)
-  const skills   = ['data', 'finance', 'urban', 'strategy'];
-  const dollIds  = ['mDoll1','mDoll2','mDoll3','mDoll4'];
-  const btnSels  = '[data-skill]';
-  const panelIds = ['skillData','skillFinance','skillUrban','skillStrategy'];
-  const stage    = document.getElementById('matryoshkaStage');
+  const canvas = document.getElementById('matryoshkaCanvas');
+  const wrap   = document.getElementById('matryoshkaWrap');
+  const hint   = document.getElementById('matryoshkaHint');
+  const resetBtn = document.getElementById('matryoshkaReset');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
 
-  // State: which dolls have been opened (array of level numbers)
-  // Sequence: click doll1 → opens 1, shows 2 as active
-  //           click doll2 → opens 2, shows 3 as active, etc.
-  let openedLevels = [];   // levels that are split open
-  let activeLevel  = 1;    // level whose doll is shown as "current"
-  let currentSkill = 'data';
+  const W = 420, H = 360;
+  canvas.width = W; canvas.height = H;
 
-  function getDoll(level) { return document.getElementById(dollIds[level-1]); }
+  const isRu = () => document.documentElement.lang === 'ru';
 
-  function activateSkill(skill) {
-    currentSkill = skill;
-    // Update buttons
-    document.querySelectorAll(btnSels).forEach(b => {
-      const a = b.dataset.skill === skill;
+  // ── Doll definitions (from outermost to innermost) ──
+  const DOLLS = [
+    { w: 130, h: 188, topRatio: .58, colorTop: '#CC1B22', colorBot: '#8B0A10', seam: '#6A0008', textCol: '#fff', labelEN: ['DATA', 'ANALYSIS'], labelRU: ['АНАЛИЗ', 'ДАННЫХ'], subEN: 'OUTER SHELL', subRU: 'ВНЕШНЯЯ' },
+    { w: 118, h: 170, topRatio: .58, colorTop: '#2a2a2a', colorBot: '#141414', seam: '#080808', textCol: '#fff', labelEN: ['FINANCIAL', 'MODEL'],   labelRU: ['ФИНАНСОВАЯ', 'МОДЕЛЬ'],   subEN: 'LAYER 2',    subRU: 'СЛОЙ 2' },
+    { w: 106, h: 153, topRatio: .58, colorTop: '#EDE8D8', colorBot: '#C8BEA4', seam: '#A09070', textCol: '#1E1E1E', labelEN: ['URBAN', 'SIM'],  labelRU: ['ГОРОДСКАЯ', 'СИМУЛ.'],  subEN: 'LAYER 3',    subRU: 'СЛОЙ 3' },
+    { w:  94, h: 136, topRatio: .58, colorTop: '#C4982A', colorBot: '#8A6A10', seam: '#5A4208', textCol: '#fff', labelEN: ['STRATEGY'],          labelRU: ['СТРАТЕГИЯ'],            subEN: 'CORE',       subRU: 'ЯДРО' },
+  ];
+
+  // ── Animation state per doll ──
+  // phase: 'closed' | 'opening' | 'open'
+  // openAmt: 0..1 (animation progress)
+  const state = DOLLS.map(() => ({ phase: 'closed', openAmt: 0, glowAmt: 0 }));
+  state[0].glowAmt = 1; // first doll starts glowing
+
+  let raf = null;
+  let needsRedraw = true;
+
+  function drawDoll(i, oAmt) {
+    const d = DOLLS[i];
+    if (state[i].phase === 'open' && i < DOLLS.length - 1) return;
+
+    const RX = d.w / 2;   // ring half-width
+    const RY = d.h / 2;   // ring half-height
+    // Seam sits at 20% below centre of ellipse
+    const seamOffset = RY * 0.15; // seam Y relative to ellipse centre
+
+    const topOffY = -oAmt * RY * 1.4;
+    const botOffY =  oAmt * RY * 1.1;
+    const sideOffX = oAmt * (i === 0 ? -130 : i === 1 ? 110 : -80);
+    const sc    = 1 - oAmt * (i < DOLLS.length - 1 ? 0.2 : 0);
+    const alpha = 1 - oAmt * (i < DOLLS.length - 1 ? 0.5 : 0);
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    // Centre every doll at canvas centre
+    ctx.translate(W / 2 + sideOffX * oAmt, H / 2);
+    ctx.scale(sc, sc);
+
+    // ── Glow ring — the reference ellipse ──
+    if (state[i].glowAmt > 0) {
+      ctx.save();
+      ctx.globalAlpha = alpha * state[i].glowAmt * 0.7;
+      ctx.shadowBlur = 24;
+      ctx.shadowColor = '#C4982A';
+      ctx.strokeStyle = '#C4982A';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // ── BOTTOM half — clip to lower portion of the ellipse ──
+    ctx.save();
+    ctx.translate(0, botOffY);
+    ctx.beginPath();
+    ctx.rect(-RX - 4, seamOffset, RX * 2 + 8, RY * 2);
+    ctx.clip();
+    const gb = ctx.createLinearGradient(0, seamOffset, 0, RY);
+    gb.addColorStop(0, d.colorTop);
+    gb.addColorStop(1, d.colorBot);
+    ctx.fillStyle = gb;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = d.seam; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // ── TOP half — clip to upper portion of the ellipse ──
+    ctx.save();
+    ctx.translate(0, topOffY);
+    ctx.beginPath();
+    ctx.rect(-RX - 4, -RY * 2, RX * 2 + 8, RY * 2 + seamOffset);
+    ctx.clip();
+    const gt = ctx.createLinearGradient(0, -RY, 0, seamOffset);
+    gt.addColorStop(0, lighten(d.colorTop, 0.15));
+    gt.addColorStop(1, d.colorTop);
+    ctx.fillStyle = gt;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = d.seam; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // ── Face — TOP half ──
+    ctx.save();
+    ctx.translate(0, topOffY);
+    drawFace(d, 0, -RY * 0.25, RX);
+    ctx.restore();
+
+    // ── Label — BOTTOM half, below seam ──
+    ctx.save();
+    ctx.translate(0, botOffY);
+    const labels = isRu() ? d.labelRU : d.labelEN;
+    const fs = d.w > 110 ? 13 : 11;
+    const lh = fs + 4;
+    ctx.font = `700 ${fs}px "Oswald","Impact",sans-serif`;
+    ctx.fillStyle = d.textCol;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lblY = seamOffset + RY * 0.18;
+    labels.forEach((line, li) => {
+      ctx.fillText(line, 0, lblY + (li - (labels.length - 1) / 2) * lh);
+    });
+    ctx.save();
+    ctx.globalAlpha *= 0.6;
+    ctx.font = `400 8px "JetBrains Mono",monospace`;
+    ctx.fillText(isRu() ? d.subRU : d.subEN, 0, lblY + labels.length * lh * 0.6);
+    ctx.restore();
+    ctx.restore();
+
+    // ── Seam line (only when closed) ──
+    if (oAmt < 0.05) {
+      ctx.strokeStyle = d.seam; ctx.lineWidth = 3;
+      // Find x extent of ellipse at y = seamOffset
+      const seamX = RX * Math.sqrt(1 - (seamOffset / RY) ** 2);
+      ctx.beginPath();
+      ctx.moveTo(-seamX + 3, seamOffset);
+      ctx.lineTo( seamX - 3, seamOffset);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  function drawTop(d, topH) {
+    const rx = d.w / 2, ry = topH;
+    // Gradient
+    const grd = ctx.createLinearGradient(-rx, -ry, rx, 0);
+    grd.addColorStop(0, lighten(d.colorTop, .15));
+    grd.addColorStop(1, d.colorTop);
+    ctx.fillStyle = grd;
+
+    // Shape: ellipse top half (from -ry to 0)
+    ctx.beginPath();
+    ctx.ellipse(0, -topH / 2, rx, topH, 0, Math.PI, 0); // upper arc
+    ctx.lineTo(rx, 0);
+    ctx.lineTo(-rx, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // Border
+    ctx.strokeStyle = d.seam;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(0, -topH / 2, rx, topH, 0, Math.PI, 0);
+    ctx.stroke();
+
+    // Face (eyes + rosy cheeks + mouth) — only on top half
+    drawFace(d, topH);
+
+    // Label text
+    const font = d === DOLLS[3] ? 'bold 10px' : 'bold 11px';
+    ctx.font = `700 ${d.w > 130 ? 13 : d.w > 90 ? 11 : 9}px "Oswald", sans-serif`;
+    ctx.fillStyle = d.textCol;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const labels = isRu() ? d.labelRU : d.labelEN;
+    const lineH = d.w > 130 ? 16 : 13;
+    const startY = -topH * .32 + (labels.length === 1 ? lineH * .5 : 0);
+    labels.forEach((line, li) => {
+      ctx.fillText(line, 0, startY + li * lineH);
+    });
+    // Sub label
+    ctx.font = `400 ${d.w > 130 ? 8 : 7}px "JetBrains Mono", monospace`;
+    ctx.globalAlpha = ctx.globalAlpha * .7;
+    ctx.fillText(isRu() ? d.subRU : d.subEN, 0, startY + labels.length * lineH + 5);
+    ctx.globalAlpha = ctx.globalAlpha / .7;
+  }
+
+  function drawBottom(d, topH, botH) {
+    const rx = d.w / 2;
+    const grd = ctx.createLinearGradient(-rx, 0, rx, botH);
+    grd.addColorStop(0, d.colorTop);
+    grd.addColorStop(1, d.colorBot);
+    ctx.fillStyle = grd;
+
+    ctx.beginPath();
+    ctx.moveTo(-rx, 0);
+    ctx.lineTo(rx, 0);
+    // Round bottom: ellipse lower half
+    ctx.ellipse(0, botH * .35, rx * .95, botH * .72, 0, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    // Border
+    ctx.strokeStyle = d.seam;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(0, botH * .35, rx * .95, botH * .72, 0, 0, Math.PI);
+    ctx.stroke();
+
+    // Seam line
+    ctx.strokeStyle = d.seam;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-rx + 2, 0); ctx.lineTo(rx - 2, 0);
+    ctx.stroke();
+  }
+
+  function drawFace(d, cx, cy, rx) {
+    const sc   = Math.min(1, rx / 70);
+    const eGap = 16 * sc, eRx = 4 * sc, eRy = 5.5 * sc;
+
+    // Cheeks
+    ctx.fillStyle = isLight(d.colorTop) ? 'rgba(160,40,40,.15)' : 'rgba(255,140,110,.22)';
+    ctx.beginPath(); ctx.ellipse(cx - eGap - 3*sc, cy + eRy*2.2, eRx*2, eRy*.9, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + eGap + 3*sc, cy + eRy*2.2, eRx*2, eRy*.9, 0, 0, Math.PI*2); ctx.fill();
+
+    // Eyes
+    ctx.fillStyle = isLight(d.colorTop) ? 'rgba(20,10,0,.75)' : 'rgba(255,255,255,.82)';
+    ctx.beginPath(); ctx.ellipse(cx - eGap, cy, eRx, eRy, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + eGap, cy, eRx, eRy, 0, 0, Math.PI*2); ctx.fill();
+
+    // Mouth
+    ctx.strokeStyle = isLight(d.colorTop) ? 'rgba(20,10,0,.45)' : 'rgba(255,255,255,.55)';
+    ctx.lineWidth = 1.8 * sc;
+    ctx.beginPath();
+    ctx.arc(cx, cy + eRy * 3.5, 10 * sc, 0.2, Math.PI - 0.2);
+    ctx.stroke();
+  }
+
+  function lighten(hex, amt) {
+    const n = parseInt(hex.slice(1), 16);
+    const r = Math.min(255, (n >> 16) + Math.round(255 * amt));
+    const g = Math.min(255, ((n >> 8) & 0xff) + Math.round(255 * amt));
+    const b = Math.min(255, (n & 0xff) + Math.round(255 * amt));
+    return `rgb(${r},${g},${b})`;
+  }
+  function isLight(hex) {
+    const n = parseInt(hex.replace('#',''), 16);
+    const r = n >> 16, g = (n >> 8) & 0xff, bv = n & 0xff;
+    return (r * 299 + g * 587 + bv * 114) / 1000 > 140;
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    // Draw from innermost → outermost (so outer is on top when closed)
+    for (let i = DOLLS.length - 1; i >= 0; i--) {
+      drawDoll(i, state[i].openAmt);
+    }
+  }
+
+  // ── Animation loop ──
+  let animating = false;
+  function animate() {
+    let stillGoing = false;
+    DOLLS.forEach((_, i) => {
+      const s = state[i];
+      if (s.phase === 'opening') {
+        s.openAmt = Math.min(1, s.openAmt + .032);
+        if (s.openAmt >= 1) { s.phase = 'open'; s.openAmt = 1; }
+        else stillGoing = true;
+      }
+      // Glow pulse on active doll
+      const targetGlow = (i === currentActive) ? 1 : 0;
+      s.glowAmt += (targetGlow - s.glowAmt) * .12;
+      if (Math.abs(s.glowAmt - targetGlow) > .005) stillGoing = true;
+    });
+    render();
+    if (stillGoing) raf = requestAnimationFrame(animate);
+    else animating = false;
+  }
+
+  function startAnim() {
+    if (!animating) { animating = true; raf = requestAnimationFrame(animate); }
+  }
+
+  // ── Skill panel logic ──
+  const skills    = ['data', 'finance', 'urban', 'strategy'];
+  const panelIds  = ['skillData', 'skillFinance', 'skillUrban', 'skillStrategy'];
+  let currentActive = 0; // index into DOLLS (0=outermost)
+  let openCount = 0;
+
+  function activateSkill(idx) {
+    document.querySelectorAll('.skill-btn[data-skill]').forEach(b => {
+      const a = b.dataset.skill === skills[idx];
       b.classList.toggle('active', a);
       b.setAttribute('aria-selected', a);
     });
-    // Update panels
-    panelIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('visible');
-    });
-    const idx = skills.indexOf(skill);
-    const panel = document.getElementById(panelIds[idx]);
-    if (panel) panel.classList.add('visible');
+    panelIds.forEach(id => { const e = document.getElementById(id); if (e) e.classList.remove('visible'); });
+    const p = document.getElementById(panelIds[idx]);
+    if (p) p.classList.add('visible');
+    currentActive = idx;
+    startAnim();
   }
 
-  function openDoll(level) {
-    if (openedLevels.includes(level)) return;
-    openedLevels.push(level);
-
-    const doll = getDoll(level);
-    if (!doll) return;
-
-    // Remove active glow from this doll
-    doll.classList.remove('is-active');
-    // Animate open
-    doll.classList.add('is-open');
-
+  function openDoll(i) {
+    if (state[i].phase !== 'closed') return;
+    state[i].phase = 'opening';
+    openCount++;
     // Next doll becomes active
-    const nextLevel = level + 1;
-    if (nextLevel <= 4) {
-      activeLevel = nextLevel;
-      const nextDoll = getDoll(nextLevel);
-      if (nextDoll) {
-        // Small delay so the inner doll appears to emerge
-        setTimeout(() => nextDoll.classList.add('is-active'), 220);
-      }
-      // Activate the corresponding skill
-      activateSkill(skills[nextLevel - 1]);
-    } else {
-      // All opened — celebrate innermost
-      activateSkill('strategy');
+    const next = Math.min(i + 1, DOLLS.length - 1);
+    activateSkill(next);
+    if (openCount >= DOLLS.length - 1) {
+      // Last doll revealed
+      if (wrap) wrap.classList.add('all-opened');
     }
-
-    // Mark stage as opened (hides hint)
-    if (stage) stage.classList.add('opened');
+    startAnim();
   }
 
-  function resetAll() {
-    openedLevels = [];
-    activeLevel  = 1;
-    dollIds.forEach(id => {
-      const d = document.getElementById(id);
-      if (d) { d.classList.remove('is-open','is-active'); }
-    });
-    getDoll(1).classList.add('is-active');
-    if (stage) stage.classList.remove('opened');
-    activateSkill('data');
-    const hint = document.getElementById('dollHint');
-    if (hint) hint.style.opacity = '1';
+  function reset() {
+    cancelAnimationFrame(raf);
+    DOLLS.forEach((_, i) => { state[i].phase = 'closed'; state[i].openAmt = 0; state[i].glowAmt = i === 0 ? 1 : 0; });
+    openCount = 0;
+    currentActive = 0;
+    if (wrap) wrap.classList.remove('all-opened');
+    activateSkill(0);
+    render();
   }
 
-  // Click on a doll-wrap → open it
-  dollIds.forEach((id, i) => {
-    const doll = document.getElementById(id);
-    if (!doll) return;
-    doll.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const level = i + 1;
-      // Only allow opening the currently active (outermost closed) doll
-      if (level === activeLevel && !openedLevels.includes(level)) {
-        openDoll(level);
-      } else if (level === activeLevel && level === 4) {
-        // tap innermost = nothing, already selected
-      } else if (openedLevels.includes(level)) {
-        // clicking an already-open doll just re-selects its skill
-        activateSkill(skills[level - 1]);
-      }
-    });
+  // ── Click handling ──
+  canvas.addEventListener('click', () => {
+    // Open the next closed doll
+    for (let i = 0; i < DOLLS.length - 1; i++) {
+      if (state[i].phase === 'closed') { openDoll(i); return; }
+    }
   });
 
-  // Click on skill buttons
-  document.querySelectorAll(btnSels).forEach(btn => {
+  if (resetBtn) resetBtn.addEventListener('click', (e) => { e.stopPropagation(); reset(); });
+
+  // Skill buttons also drive the canvas
+  document.querySelectorAll('.skill-btn[data-skill]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const skill = btn.dataset.skill;
-      const level = skills.indexOf(skill) + 1;
-      // Auto-open all dolls up to this level
-      for (let l = 1; l < level; l++) {
-        if (!openedLevels.includes(l)) openDoll(l);
-      }
-      activateSkill(skill);
-      // Make target doll glow
-      dollIds.forEach(id => document.getElementById(id)?.classList.remove('is-active'));
-      getDoll(level)?.classList.add('is-active');
-      activeLevel = level;
+      const idx = skills.indexOf(btn.dataset.skill);
+      if (idx < 0) return;
+      // Auto-open all dolls up to this index
+      for (let i = 0; i < idx; i++) openDoll(i);
+      activateSkill(idx);
     });
-    btn.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-    });
+    btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
   });
 
-  // Double-click on stage to reset
-  if (stage) {
-    stage.addEventListener('dblclick', resetAll);
-    // Add reset hint tooltip
-    stage.title = 'Click dolls to open · Double-click to reset';
-  }
+  // Tooltip on hover
+  canvas.addEventListener('mousemove', (e) => {
+    canvas.style.cursor = openCount < DOLLS.length - 1 ? 'pointer' : 'default';
+  });
+
+  // Re-render on language switch (labels change)
+  document.addEventListener('click', e => {
+    if (e.target.id === 'btnEn' || e.target.id === 'btnRu') setTimeout(render, 200);
+  });
 
   // Init
-  activateSkill('data');
-  getDoll(1).classList.add('is-active');
+  activateSkill(0);
+  render();
 })();
 
 /* ══════════════════════════════════════════

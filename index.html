@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="El Ghali Sany — Russian scholarship portfolio: constructivist design, academic research, SUMO/Leaflet urban analytics, and hidden cultural Easter eggs." />
-<title>El Ghali Sany | Russian Scholarship Portfolio</title>
+<meta name="description" content="El Ghali Sany — Russian scholarship portfolio: Sobornost, scientific ambition, cultural immersion, SUMO/Leaflet urban analytics, and decision-support research." />
+<title>El Ghali Sany | Russian Scholarship Portfolio — Sobornost & Science</title>
 
 <!--
 ══════════════════════════════════════════════════════════════════
@@ -16,8 +16,10 @@
    their ability and sharpness in science."
    — Михаил Васильевич Ломоносов (1711–1765)
 
-  Я готов внести свой вклад в это наследие.
-  I am ready to contribute to this legacy.
+  Я готов войти в академическое сообщество не как гость,
+  а как ответственный участник общего научного дела.
+  I am ready to enter the academic community not as a visitor,
+  but as a responsible contributor to a shared scientific work.
 ══════════════════════════════════════════════════════════════════
 -->
 
@@ -170,14 +172,151 @@ h3 { font-family: var(--font-display); font-size: 1.2rem; text-transform: upperc
 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
 
 /* ══════════════════════════════════════
-   ROCKET EASTER EGG
+   1961 COSMIC EASTER EGG
    ══════════════════════════════════════ */
-.rocket { position: fixed; bottom: -100px; left: -60px; font-size: 3.2rem; z-index: 9999; pointer-events: none; filter: drop-shadow(0 0 16px rgba(255,200,60,.8)); transform: rotate(45deg); }
-.rocket.fly { animation: rocketFly 2.8s cubic-bezier(.25,.46,.45,.94) forwards; }
-@keyframes rocketFly {
-  0%   { bottom: -80px; left: -60px; opacity: 1; transform: rotate(45deg) scale(1); }
-  85%  { opacity: 1; }
-  100% { bottom: 110vh; left: 110vw; opacity: 0; transform: rotate(45deg) scale(1.4); }
+.cosmic-event {
+  position: fixed; inset: 0; z-index: 9998; opacity: 0; visibility: hidden;
+  pointer-events: none; transition: opacity .45s ease, visibility .45s ease;
+}
+.cosmic-event.active {
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
+.cosmic-event::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(24,33,60,.18), rgba(5,5,12,.88) 55%, rgba(2,2,8,.97) 100%),
+    linear-gradient(180deg, rgba(6,6,10,.96), rgba(4,4,10,.90));
+  backdrop-filter: blur(1.5px);
+}
+.cosmic-stars,
+.cosmic-stars::before,
+.cosmic-stars::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.92) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 72%, rgba(255,255,255,.8) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 38% 30%, rgba(232,200,105,.85) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 52% 64%, rgba(255,255,255,.82) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 61% 16%, rgba(255,255,255,.95) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle at 72% 38%, rgba(255,255,255,.78) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 78%, rgba(232,200,105,.82) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle at 92% 24%, rgba(255,255,255,.88) 0 1.2px, transparent 1.9px);
+  animation: starTwinkle 5.6s ease-in-out infinite;
+}
+.cosmic-stars::before { opacity: .65; transform: scale(1.08); animation-duration: 7s; }
+.cosmic-stars::after  { opacity: .42; transform: scale(1.18); animation-duration: 9s; }
+@keyframes starTwinkle {
+  0%,100% { opacity: .36; }
+  50% { opacity: .95; }
+}
+.gagarin-watermark {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  pointer-events: none; opacity: .24; mix-blend-mode: screen;
+}
+.gagarin-watermark svg {
+  width: min(62vw, 720px); height: auto;
+  filter: drop-shadow(0 0 18px rgba(255,255,255,.05));
+}
+.gagarin-watermark path,
+.gagarin-watermark circle,
+.gagarin-watermark ellipse {
+  stroke: rgba(255,255,255,.18); fill: none; stroke-width: 3.2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.gagarin-watermark .wm-fill {
+  fill: rgba(255,255,255,.045); stroke: rgba(255,255,255,.10);
+}
+.cosmos-slogan {
+  position: absolute; right: clamp(18px, 5vw, 72px); bottom: clamp(18px, 4vw, 52px);
+  font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 4.6rem);
+  letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.12);
+  text-shadow: 0 0 26px rgba(255,255,255,.04);
+  pointer-events: none;
+}
+.rocket {
+  position: absolute; left: -20vw; bottom: -18vh; width: 220px; height: 104px;
+  transform: translate3d(0,0,0) rotate(-45deg); opacity: 0;
+  filter: drop-shadow(0 0 26px rgba(232,200,105,.20));
+}
+.rocket.launch { animation: constructivistLaunch 2.45s cubic-bezier(.18,.8,.22,1) forwards; }
+@keyframes constructivistLaunch {
+  0%   { left: -18vw; bottom: -16vh; opacity: 0; transform: rotate(-45deg) scale(.78); }
+  8%   { opacity: 1; }
+  68%  { opacity: 1; }
+  100% { left: 108vw; bottom: 116vh; opacity: 0; transform: rotate(-45deg) scale(1.14); }
+}
+.rocket-contrail {
+  position: absolute; inset: 38px auto auto -210px; width: 240px; height: 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.14), rgba(255,255,255,.46), rgba(255,255,255,0));
+  transform: skewX(-20deg);
+  filter: blur(2px);
+}
+.rocket-body {
+  position: absolute; left: 44px; top: 26px; width: 116px; height: 44px;
+  background: linear-gradient(90deg, #ece2c9 0%, #fff7ea 24%, #d7d0bc 62%, #a31920 62%, #cc1b22 100%);
+  clip-path: polygon(0 50%, 14% 0, 88% 0, 100% 50%, 88% 100%, 14% 100%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.16), inset 0 -6px 10px rgba(0,0,0,.16);
+}
+.rocket-nose {
+  position: absolute; left: 146px; top: 20px; width: 58px; height: 56px;
+  background: linear-gradient(135deg, #c4982a, #e8c869 48%, #b98012 100%);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+.rocket-fin {
+  position: absolute; width: 38px; height: 34px; background: linear-gradient(135deg, #111 0%, #2e2e2e 100%);
+}
+.rocket-fin.top    { left: 74px; top: 10px; clip-path: polygon(0 100%, 100% 14%, 88% 100%); }
+.rocket-fin.bottom { left: 74px; top: 60px; clip-path: polygon(0 0, 100% 86%, 88% 0); }
+.rocket-tail {
+  position: absolute; left: 28px; top: 34px; width: 32px; height: 28px;
+  background: linear-gradient(90deg, #1a1a1a, #060606);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+.rocket-window {
+  position: absolute; left: 112px; top: 38px; width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff 0%, #d5f6ff 35%, #77b4d4 64%, #24445f 100%);
+  border: 2px solid rgba(255,255,255,.88);
+  box-shadow: 0 0 12px rgba(180,230,255,.6);
+}
+.rocket-flame {
+  position: absolute; left: 4px; top: 37px; width: 34px; height: 22px;
+  background: radial-gradient(circle at 75% 50%, #fff3d4 0%, #ffd36e 38%, #ff7b1c 68%, rgba(255,73,35,0) 100%);
+  clip-path: polygon(100% 50%, 24% 0, 0 50%, 24% 100%);
+  filter: blur(.35px);
+  animation: flamePulse .18s ease-in-out infinite alternate;
+}
+@keyframes flamePulse {
+  from { transform: scaleX(1) scaleY(.94); opacity: .88; }
+  to   { transform: scaleX(1.08) scaleY(1.06); opacity: 1; }
+}
+.cosmic-dialog {
+  position: absolute; left: 50%; bottom: clamp(26px, 6vh, 56px); transform: translate(-50%, 20px);
+  width: min(820px, calc(100vw - 32px)); padding: 26px 28px 24px;
+  background: linear-gradient(145deg, rgba(10,10,16,.94), rgba(22,24,34,.92));
+  border: 1px solid rgba(255,255,255,.12); border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.03) inset;
+  color: #f2efe7; opacity: 0; visibility: hidden; transition: all .35s ease;
+}
+.cosmic-dialog.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.cosmic-dialog-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px;
+}
+.cosmic-dialog-kicker {
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display);
+  font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light);
+}
+.cosmic-dialog-kicker::before { content: ""; width: 22px; height: 2px; background: var(--gold-light); }
+.cosmic-dialog-close {
+  border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: #fff;
+  width: 34px; height: 34px; border-radius: 999px; font-size: 1rem; line-height: 1;
+}
+.cosmic-dialog-close:hover { background: rgba(255,255,255,.10); }
+.cosmic-dialog p { color: #ddd8cb; line-height: 1.88; font-size: .98rem; }
+@media (max-width: 640px) {
+  .rocket { width: 170px; height: 86px; }
+  .cosmos-slogan { font-size: 1.4rem; max-width: 65vw; text-align: right; }
+  .cosmic-dialog { padding: 20px 18px 18px; }
+  .cosmic-dialog p { font-size: .92rem; }
 }
 
 /* ══════════════════════════════════════
@@ -252,57 +391,105 @@ h1 .accent { color: var(--red); }
 .research-number { position: absolute; top: 20px; right: 20px; font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: rgba(8,8,8,.05); line-height: 1; user-select: none; }
 .research-card.feature .research-number { color: rgba(255,255,255,.04); }
 
+
 /* ══════════════════════════════════════
-   MATRYOSHKA — CANVAS ENGINE
+   MATRYOSHKA — EVOLVING SKILL ARCHITECTURE
    ══════════════════════════════════════ */
-.skill-stage { padding: 32px; background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(245,240,228,.88)); border: 1px solid rgba(8,8,8,.11); border-radius: var(--r-lg); box-shadow: var(--shadow-mid); }
+.skill-stage {
+  padding: 32px;
+  background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(245,240,228,.90));
+  border: 1px solid rgba(8,8,8,.11);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-mid);
+}
 .skill-layout { display: grid; grid-template-columns: 420px 1fr; gap: 32px; align-items: start; }
 
 .matryoshka-canvas-wrap {
   position: relative;
-  background: radial-gradient(ellipse at 50% 70%, rgba(204,27,34,.10), transparent 65%),
-              repeating-linear-gradient(135deg, rgba(8,8,8,.022) 0 1px, transparent 1px 28px);
-  border: 1px solid rgba(8,8,8,.10); border-radius: var(--r-md);
-  overflow: hidden; cursor: pointer;
+  background:
+    radial-gradient(circle at 50% 88%, rgba(196,152,42,.22), transparent 28%),
+    radial-gradient(circle at 16% 18%, rgba(204,27,34,.10), transparent 22%),
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(236,228,208,.92)),
+    repeating-linear-gradient(90deg, rgba(108,78,34,.05) 0 2px, transparent 2px 22px);
+  border: 1px solid rgba(8,8,8,.10);
+  border-radius: var(--r-md);
+  overflow: hidden;
   user-select: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
 }
 #matryoshkaCanvas { display: block; width: 100%; height: auto; }
 
 .matryoshka-hint {
   position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
   font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
-  text-transform: uppercase; color: rgba(8,8,8,.32); white-space: nowrap;
-  pointer-events: none; transition: opacity .4s;
+  text-transform: uppercase; color: rgba(8,8,8,.36); white-space: nowrap;
+  pointer-events: none; transition: opacity .35s ease, transform .35s ease;
 }
-.matryoshka-canvas-wrap.all-opened .matryoshka-hint { opacity: 0; }
+.matryoshka-canvas-wrap.all-opened .matryoshka-hint { opacity: .85; transform: translateX(-50%) translateY(-2px); }
 
-/* reset button */
 .matryoshka-reset {
   position: absolute; top: 10px; right: 10px;
-  padding: 5px 10px; border: 1px solid rgba(8,8,8,.15); border-radius: 999px;
-  background: rgba(255,255,255,.7); backdrop-filter: blur(8px);
+  padding: 6px 11px; border: 1px solid rgba(8,8,8,.15); border-radius: 999px;
+  background: rgba(255,255,255,.72); backdrop-filter: blur(8px);
   font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em;
-  color: rgba(8,8,8,.5); cursor: pointer; opacity: 0;
-  transition: opacity .3s; text-transform: uppercase;
+  color: rgba(8,8,8,.54); cursor: pointer; opacity: 0; text-transform: uppercase;
+  transition: opacity .25s ease, background .25s ease, color .25s ease;
 }
 .matryoshka-canvas-wrap.all-opened .matryoshka-reset { opacity: 1; }
-.matryoshka-reset:hover { background: rgba(255,255,255,.95); color: var(--black); }
+.matryoshka-reset:hover { background: rgba(255,255,255,.96); color: var(--black); }
 
-/* ── Skill panel ── */
-.skill-info-panel { display: flex; flex-direction: column; gap: 10px; }
-.skill-btn { padding: 16px 20px; text-align: left; background: rgba(255,255,255,.9); border: 1px solid rgba(8,8,8,.13); border-radius: var(--r-md); font-family: var(--font-display); font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; box-shadow: var(--shadow-soft); transition: all .22s; display: flex; align-items: center; gap: 12px; color: var(--black); }
+.matryoshka-core-tooltip {
+  position: absolute; left: 16px; right: 16px; bottom: 42px;
+  padding: 18px 18px 16px; border-radius: 16px;
+  background: linear-gradient(145deg, rgba(14,14,18,.96), rgba(28,24,20,.94));
+  border: 1px solid rgba(232,200,105,.20);
+  box-shadow: 0 22px 46px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.03) inset;
+  color: #f1ecdf; opacity: 0; visibility: hidden; transform: translateY(12px);
+  transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
+}
+.matryoshka-core-tooltip.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.matryoshka-core-tooltip::before {
+  content: ""; position: absolute; left: 50%; bottom: -10px; width: 18px; height: 18px;
+  background: rgba(21,19,17,.96); border-right: 1px solid rgba(232,200,105,.20); border-bottom: 1px solid rgba(232,200,105,.20);
+  transform: translateX(-50%) rotate(45deg);
+}
+.matryoshka-core-tooltip p { position: relative; z-index: 1; font-size: .94rem; line-height: 1.78; color: #e8dfce; }
+.matryoshka-core-tooltip strong { color: #fff8e4; }
+
+.skill-info-panel { display: flex; flex-direction: column; gap: 12px; }
+.skill-btn {
+  padding: 16px 18px; text-align: left; background: rgba(255,255,255,.92); border: 1px solid rgba(8,8,8,.13);
+  border-radius: var(--r-md); font-family: var(--font-display); font-size: .82rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .06em; box-shadow: var(--shadow-soft); transition: all .22s;
+  display: flex; align-items: center; gap: 12px; color: var(--black);
+}
 .skill-btn:hover { border-color: var(--red); background: rgba(204,27,34,.06); }
-.skill-btn.active { background: var(--red); color: #fff; border-color: var(--red); box-shadow: 0 8px 24px rgba(204,27,34,.26); }
-.skill-btn .skill-icon { font-size: 1.2rem; }
-.skill-detail-card { padding: 20px 22px; background: rgba(255,255,255,.96); border: 1px solid rgba(8,8,8,.12); border-radius: var(--r-md); box-shadow: var(--shadow-soft); display: none; animation: fadeSlideIn .3s ease; }
-.skill-detail-card.visible { display: block; }
-.skill-detail-card p { font-size: 1rem; line-height: 1.78; color: #4a4a4a; }
-.skill-detail-card strong { color: var(--black); }
-.skill-depth-bar { display: flex; gap: 4px; margin-top: 12px; }
-.skill-depth-pip { height: 5px; border-radius: 999px; flex: 1; background: rgba(8,8,8,.12); transition: background .3s; }
-.skill-depth-pip.filled { background: var(--red); }
-@keyframes fadeSlideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.skill-btn.active { background: linear-gradient(90deg, var(--red), #ae1419); color: #fff; border-color: var(--red); box-shadow: 0 10px 26px rgba(204,27,34,.24); }
+.skill-btn .skill-icon {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(8,8,8,.06); font-size: 1rem; flex: 0 0 auto;
+}
+.skill-btn.active .skill-icon { background: rgba(255,255,255,.12); }
 
+.skill-detail-card {
+  padding: 20px 22px; background: rgba(255,255,255,.97); border: 1px solid rgba(8,8,8,.12);
+  border-radius: var(--r-md); box-shadow: var(--shadow-soft); display: none; animation: fadeSlideIn .3s ease;
+}
+.skill-detail-card.visible { display: block; }
+.skill-layer-label {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  font-family: var(--font-display); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red-deep);
+}
+.skill-layer-label::before { content: ""; width: 18px; height: 2px; background: var(--red); }
+.skill-detail-card p { font-size: 1rem; line-height: 1.8; color: #4a4a4a; }
+.skill-detail-card strong { color: var(--black); }
+.skill-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.skill-tag {
+  display: inline-flex; align-items: center; padding: 6px 10px; border-radius: 999px;
+  background: rgba(8,8,8,.05); border: 1px solid rgba(8,8,8,.09); color: #4b443b;
+  font-size: .72rem; letter-spacing: .03em; text-transform: uppercase; font-family: var(--font-mono);
+}
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 /* ══════════════════════════════════════
    SUMO / LEAFLET
    ══════════════════════════════════════ */
@@ -391,13 +578,306 @@ h1 .accent { color: var(--red); }
 .footer-card p { font-size: 1.05rem; line-height: 1.85; color: #c0c0c0; }
 .footer-card p + p { margin-top: 12px; }
 .source-note { font-family: var(--font-mono); font-size: .72rem !important; color: #666 !important; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
-.clock-wrap { text-align: center; flex-shrink: 0; }
-.clock { width: 120px; height: 120px; border: 3px solid rgba(255,255,255,.18); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: #fff; background: radial-gradient(circle, rgba(255,255,255,.06), transparent); box-shadow: 0 0 40px rgba(204,27,34,.25), inset 0 0 20px rgba(0,0,0,.4); cursor: help; position: relative; margin: 0 auto 12px; transition: box-shadow .3s; }
-.clock:hover { box-shadow: 0 0 60px rgba(204,27,34,.5), inset 0 0 20px rgba(0,0,0,.4); }
-.clock-tooltip { display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); width: 240px; background: rgba(8,8,8,.94); color: #ddd; font-family: var(--font-body); font-size: .8rem; line-height: 1.65; padding: 12px 14px; border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.08); pointer-events: none; z-index: 10; }
-.clock-tooltip::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: rgba(8,8,8,.94); }
-.clock:hover .clock-tooltip { display: block; }
-.clock-wrap small { display: block; color: #555; font-family: var(--font-mono); font-size: .65rem; line-height: 1.5; max-width: 130px; margin: 0 auto; }
+.clock-wrap { text-align: center; flex-shrink: 0; position: relative; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Imperial-vintage clock, fixed forever at 2:10 AM */
+.clock {
+  width: 148px; height: 148px; border-radius: 50%;
+  position: relative; margin: 0 auto 14px; cursor: help; isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.94) 0 3%, transparent 4%),
+    radial-gradient(circle at 50% 50%, #F7ECCD 0 52%, #D8B866 53% 57%, #3A2410 58% 61%, #140B05 62% 100%);
+  border: 2px solid rgba(232,200,105,.72);
+  box-shadow:
+    0 0 0 5px rgba(196,152,42,.18),
+    0 0 38px rgba(196,152,42,.22),
+    0 16px 48px rgba(0,0,0,.42),
+    inset 0 0 20px rgba(255,255,255,.25),
+    inset 0 0 42px rgba(0,0,0,.34);
+  transition: transform .28s ease, box-shadow .28s ease, filter .28s ease;
+}
+.clock::before {
+  content: ""; position: absolute; inset: 10px; border-radius: 50%;
+  border: 1px solid rgba(70,38,13,.24);
+  background:
+    repeating-conic-gradient(from 0deg, rgba(58,36,16,.58) 0deg 1deg, transparent 1deg 30deg),
+    radial-gradient(circle, transparent 0 70%, rgba(196,152,42,.22) 71% 73%, transparent 74%);
+  opacity: .9; pointer-events: none; z-index: 1;
+}
+.clock::after {
+  content: ""; position: absolute; inset: -7px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,200,105,.34), rgba(204,27,34,.16) 48%, transparent 70%);
+  opacity: 0; filter: blur(12px); z-index: -1;
+  transition: opacity .28s ease;
+}
+.clock:hover, .clock:focus-visible, .clock:focus-within {
+  transform: translateY(-3px); filter: brightness(1.08);
+  box-shadow:
+    0 0 0 5px rgba(232,200,105,.26),
+    0 0 56px rgba(232,200,105,.42),
+    0 0 70px rgba(204,27,34,.28),
+    0 20px 60px rgba(0,0,0,.5),
+    inset 0 0 26px rgba(255,255,255,.34),
+    inset 0 0 42px rgba(0,0,0,.34);
+}
+.clock:hover::after, .clock:focus-visible::after, .clock:focus-within::after { opacity: 1; }
+.clock-face { position: absolute; inset: 0; border-radius: 50%; z-index: 2; }
+.clock-numeral {
+  position: absolute; transform: translate(-50%, -50%);
+  font-family: var(--font-serif); font-size: .84rem; font-weight: 900;
+  color: #3B220C; text-shadow: 0 1px 0 rgba(255,255,255,.45);
+  letter-spacing: .02em; user-select: none;
+}
+.clock-numeral.twelve { left: 50%; top: 18%; }
+.clock-numeral.three  { left: 82%; top: 50%; }
+.clock-numeral.six    { left: 50%; top: 82%; }
+.clock-numeral.nine   { left: 18%; top: 50%; }
+.clock-hand {
+  position: absolute; left: 50%; bottom: 50%; z-index: 4;
+  transform-origin: 50% 100%; border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.35);
+}
+.clock-hand.hour {
+  width: 6px; height: 38px; margin-left: -3px;
+  background: linear-gradient(180deg, #2B1708, #7A4C18);
+  transform: rotate(65deg);
+}
+.clock-hand.minute {
+  width: 4px; height: 50px; margin-left: -2px;
+  background: linear-gradient(180deg, #2B1708, #B9821C);
+  transform: rotate(60deg);
+}
+.clock-center {
+  position: absolute; left: 50%; top: 50%; width: 13px; height: 13px;
+  transform: translate(-50%, -50%); border-radius: 50%; z-index: 5;
+  background: radial-gradient(circle, #F4D56F 0 28%, #7A4C18 30% 100%);
+  border: 1px solid rgba(43,23,8,.65);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.22), 0 2px 6px rgba(0,0,0,.35);
+}
+.clock-time-label {
+  position: absolute; left: 50%; bottom: 25px; transform: translateX(-50%); z-index: 3;
+  font-family: var(--font-mono); font-size: .55rem; font-weight: 700;
+  color: rgba(59,34,12,.72); letter-spacing: .12em;
+}
+.clock-tooltip {
+  position: absolute; bottom: calc(100% + 18px); right: -14px; width: min(520px, calc(100vw - 56px));
+  background: linear-gradient(145deg, rgba(19,12,8,.98), rgba(8,8,8,.96));
+  color: #EDE8D8; font-family: var(--font-body); font-size: .88rem; line-height: 1.68;
+  padding: 18px 20px 18px 22px; border-radius: 14px;
+  border: 1px solid rgba(232,200,105,.34);
+  box-shadow: 0 22px 70px rgba(0,0,0,.5), 0 0 36px rgba(196,152,42,.18);
+  opacity: 0; visibility: hidden; transform: translateY(8px) scale(.985);
+  pointer-events: none; z-index: 30; text-align: left;
+  transition: opacity .24s ease, visibility .24s ease, transform .24s ease;
+}
+.clock-tooltip::before {
+  content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px;
+  border-radius: 999px; background: linear-gradient(180deg, var(--gold-light), var(--red));
+}
+.clock-tooltip::after {
+  content: ""; position: absolute; top: 100%; right: 70px;
+  border: 9px solid transparent; border-top-color: rgba(19,12,8,.98);
+}
+.clock:hover .clock-tooltip, .clock:focus-visible .clock-tooltip, .clock:focus-within .clock-tooltip {
+  opacity: 1; visibility: visible; transform: translateY(0) scale(1);
+}
+.clock-tooltip span { display: block; }
+.clock-tooltip strong {
+  color: var(--gold-light); font-family: var(--font-display);
+  text-transform: uppercase; letter-spacing: .08em; font-size: .82rem;
+}
+.clock-wrap small { display: block; color: #706457; font-family: var(--font-mono); font-size: .65rem; line-height: 1.5; max-width: 170px; margin: 0 auto; }
+
+
+
+/* ══════════════════════════════════════
+   MOSCOW METRO RADIAL NAVIGATION
+   ══════════════════════════════════════ */
+.nav { overflow: visible; }
+.nav-inner { height: 96px; position: relative; overflow: visible; }
+.metro-nav {
+  position: relative; width: min(45vw, 400px); height: 86px;
+  display: block; flex: 0 0 min(45vw, 400px); overflow: visible;
+}
+.metro-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.metro-ring ellipse {
+  fill: none; stroke: rgba(204,27,34,.78); stroke-width: 5;
+  filter: drop-shadow(0 2px 8px rgba(204,27,34,.24));
+}
+.metro-ring .metro-spoke {
+  stroke: rgba(196,152,42,.48); stroke-width: 1.2; fill: none; stroke-dasharray: 4 5;
+}
+.metro-station {
+  position: absolute; width: 64px; min-height: 28px; padding: 5px 7px !important;
+  transform: translate(-50%, -50%); border-radius: 999px !important;
+  background: rgba(255,255,255,.92) !important; border: 2px solid var(--red) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12), inset 0 0 0 2px rgba(255,255,255,.6);
+  color: var(--black) !important; text-align: center; z-index: 3;
+  font-size: .62rem !important; line-height: 1.05; letter-spacing: .05em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.metro-station::before {
+  content: ""; position: absolute; left: 50%; top: -7px; width: 10px; height: 10px;
+  transform: translateX(-50%); border-radius: 50%; background: var(--gold-light);
+  border: 1px solid var(--black); box-shadow: 0 0 0 3px rgba(196,152,42,.16);
+}
+.metro-station:hover, .metro-station:focus-visible {
+  background: var(--black) !important; color: #fff !important; transform: translate(-50%, -50%) scale(1.08);
+  border-color: var(--gold-light) !important; z-index: 5;
+}
+.metro-station.nav-cta { background: var(--red) !important; color: #fff !important; border-color: var(--black) !important; }
+.st-about { left: 18%; top: 50%; }
+.st-research { left: 30%; top: 24%; }
+.st-ambitions { left: 50%; top: 14%; }
+.st-skills { left: 70%; top: 24%; }
+.st-analytics { left: 82%; top: 50%; }
+.st-reading { left: 70%; top: 76%; }
+.st-contact { left: 30%; top: 76%; }
+.metro-palace-bg {
+  position: fixed; inset: 96px 0 auto 0; height: min(420px, 50vh); z-index: 75;
+  pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(-10px);
+  transition: opacity .28s ease, transform .28s ease, visibility .28s ease;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(232,200,105,.22), transparent 34%),
+    linear-gradient(90deg, rgba(6,6,8,.92), rgba(56,16,18,.86), rgba(6,6,8,.92));
+  border-bottom: 1px solid rgba(232,200,105,.20);
+  box-shadow: 0 28px 70px rgba(0,0,0,.34);
+  overflow: hidden;
+}
+.metro-palace-bg.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.metro-palace-bg::before {
+  content: ""; position: absolute; inset: 0; opacity: .55;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 92px),
+    radial-gradient(circle at 20% 74%, rgba(255,255,255,.18), transparent 9%),
+    radial-gradient(circle at 80% 74%, rgba(255,255,255,.18), transparent 9%),
+    linear-gradient(180deg, transparent 0 50%, rgba(255,255,255,.07) 50% 52%, transparent 52%);
+}
+.metro-palace-card {
+  position: absolute; left: 50%; top: 50%; width: min(760px, calc(100vw - 40px));
+  transform: translate(-50%, -50%); padding: 24px 28px;
+  border-radius: 20px; border: 1px solid rgba(232,200,105,.38);
+  background: linear-gradient(145deg, rgba(12,10,9,.94), rgba(34,18,16,.90));
+  color: var(--cream); box-shadow: 0 24px 64px rgba(0,0,0,.35);
+}
+.metro-palace-kicker {
+  font-family: var(--font-display); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 8px;
+}
+.metro-palace-card h3 { color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+.metro-palace-card p { font-size: .96rem; line-height: 1.75; color: #e6ddcc; max-width: 620px; }
+.metro-architecture { position: absolute; right: 24px; top: 26px; width: 130px; height: 120px; opacity: .9; }
+.metro-chandelier { position: absolute; left: 50%; top: 0; width: 60px; height: 60px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, #fff 0 5%, var(--gold-light) 7% 18%, transparent 20%); box-shadow: 0 0 32px rgba(232,200,105,.55); }
+.metro-chandelier::before { content: ""; position: absolute; left: 50%; top: 48px; width: 2px; height: 56px; background: rgba(232,200,105,.62); }
+.metro-arch { position: absolute; bottom: 0; width: 52px; height: 80px; border: 2px solid rgba(232,200,105,.55); border-bottom: 0; border-radius: 50px 50px 0 0; }
+.arch-left { left: 0; } .arch-right { right: 0; }
+.metro-mosaic { position: absolute; left: 38px; bottom: 8px; width: 54px; height: 54px; border-radius: 50%; background: conic-gradient(var(--red), var(--gold-light), #fff, var(--red)); opacity: .75; filter: blur(.2px); }
+
+/* ══════════════════════════════════════
+   FIREBIRD AMBITIONS SECTION
+   ══════════════════════════════════════ */
+.firebird-section {
+  position: relative; isolation: isolate; padding: 74px 32px; margin: 22px 0;
+  border-radius: var(--r-lg); overflow: hidden;
+  background: linear-gradient(145deg, #09090b, #190508 48%, #060607);
+  color: #fff; box-shadow: var(--shadow-heavy); border: 1px solid rgba(232,200,105,.16);
+}
+.firebird-section::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(204,27,34,.22), transparent 26%),
+    radial-gradient(circle at 82% 74%, rgba(232,200,105,.18), transparent 28%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.045) 0 1px, transparent 1px 38px);
+}
+.firebird-section h2, .firebird-section h3 { color: #fff; }
+.firebird-section .section-intro { color: #d6cfc1; }
+.firebird-aura { position: absolute; inset: 0; pointer-events: none; z-index: -1; opacity: 0; transition: opacity .8s ease; }
+.firebird-section.firebird-awake .firebird-aura { opacity: 1; }
+.firebird-feather {
+  position: absolute; left: -22%; top: 40%; width: 46vw; max-width: 620px; height: 14px;
+  border-radius: 999px; background: linear-gradient(90deg, transparent, rgba(204,27,34,.2), rgba(232,200,105,.95), rgba(255,255,255,.7), transparent);
+  filter: blur(.3px) drop-shadow(0 0 18px rgba(232,200,105,.42)); transform: rotate(-18deg);
+  animation: firebirdFlight 7s cubic-bezier(.2,.62,.2,1) infinite;
+}
+.feather-two { top: 52%; animation-delay: .8s; height: 10px; opacity: .76; }
+.feather-three { top: 63%; animation-delay: 1.5s; height: 7px; opacity: .62; }
+@keyframes firebirdFlight {
+  0% { transform: translateX(0) translateY(18px) rotate(-18deg) scaleX(.75); opacity: 0; }
+  12% { opacity: 1; }
+  70% { opacity: .95; }
+  100% { transform: translateX(160vw) translateY(-82px) rotate(-18deg) scaleX(1.16); opacity: 0; }
+}
+.firebird-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; position: relative; z-index: 2; }
+.firebird-card {
+  padding: 24px; border-radius: var(--r-md); border: 1px solid rgba(232,200,105,.18);
+  background: rgba(255,255,255,.06); backdrop-filter: blur(12px); box-shadow: 0 10px 28px rgba(0,0,0,.20);
+}
+.firebird-card p { color: #dfd7c7; line-height: 1.78; }
+.firebird-sound-btn {
+  margin-top: 18px; display: inline-flex; gap: 8px; align-items: center; padding: 10px 15px;
+  border-radius: 999px; border: 1px solid rgba(232,200,105,.34); background: rgba(255,255,255,.06);
+  color: var(--gold-light); font-family: var(--font-display); font-size: .76rem; text-transform: uppercase; letter-spacing: .08em;
+}
+.firebird-sound-btn:hover { background: rgba(232,200,105,.12); }
+
+/* ══════════════════════════════════════
+   FOOTER RITUALS — SAMOVAR + LOBACHEVSKY
+   ══════════════════════════════════════ */
+.footer-card { position: relative; overflow: visible; }
+.clock:hover .clock-hand.minute, .clock:focus-within .clock-hand.minute { animation: clockMinuteRun 2.4s linear infinite; }
+.clock:hover .clock-hand.hour, .clock:focus-within .clock-hand.hour { animation: clockHourRun 28s linear infinite; }
+@keyframes clockMinuteRun { from { transform: rotate(60deg); } to { transform: rotate(420deg); } }
+@keyframes clockHourRun { from { transform: rotate(65deg); } to { transform: rotate(95deg); } }
+.samovar-widget {
+  position: absolute; right: 22px; bottom: 20px; width: 96px; height: 106px;
+  border: 0; background: transparent; z-index: 6; cursor: pointer;
+}
+.samovar-body {
+  position: absolute; left: 28px; top: 20px; width: 42px; height: 58px; border-radius: 20px 20px 12px 12px;
+  background: radial-gradient(circle at 35% 22%, #fff1b8 0 7%, transparent 8%), linear-gradient(145deg, #7a3c15, #c47d2a 45%, #5b270e);
+  border: 1px solid rgba(232,200,105,.62); box-shadow: inset 0 0 12px rgba(255,255,255,.16), 0 10px 24px rgba(0,0,0,.28);
+}
+.samovar-body::before, .samovar-body::after { content: ""; position: absolute; top: 16px; width: 18px; height: 22px; border: 3px solid #b66d22; border-radius: 50%; }
+.samovar-body::before { left: -16px; border-right: 0; } .samovar-body::after { right: -16px; border-left: 0; }
+.samovar-base { position: absolute; left: 20px; top: 76px; width: 58px; height: 12px; border-radius: 999px; background: linear-gradient(90deg, #4a1d09, #c4982a, #4a1d09); }
+.samovar-cup { position: absolute; right: 5px; bottom: 3px; width: 34px; height: 24px; border-radius: 0 0 14px 14px; border: 2px solid rgba(232,200,105,.8); overflow: hidden; background: rgba(255,255,255,.08); }
+.tea-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: linear-gradient(180deg, #9b420f, #4b1b06); transition: height .9s ease; }
+.samovar-widget.active .tea-fill { height: 72%; }
+.samovar-steam { position: absolute; left: 45px; top: 2px; width: 8px; height: 36px; border-radius: 50%; border-left: 2px solid rgba(255,255,255,.0); opacity: 0; }
+.samovar-widget.active .samovar-steam { animation: samovarSteam 2s ease-in-out infinite; }
+.steam-a { transform: translateX(-10px); animation-delay: 0s !important; }
+.steam-b { transform: translateX(0); animation-delay: .28s !important; }
+.steam-c { transform: translateX(10px); animation-delay: .56s !important; }
+@keyframes samovarSteam { 0% { opacity:0; transform: translateY(14px) scale(.7); border-left-color:rgba(255,255,255,.0);} 35% { opacity:.9; border-left-color:rgba(255,255,255,.72);} 100% { opacity:0; transform: translateY(-18px) scale(1.25); border-left-color:rgba(255,255,255,.0);} }
+.samovar-tooltip, .lobachevsky-tooltip {
+  position: absolute; width: min(560px, calc(100vw - 52px)); padding: 18px 20px;
+  border-radius: 14px; background: linear-gradient(145deg, rgba(18,12,8,.98), rgba(5,5,5,.96));
+  border: 1px solid rgba(232,200,105,.34); color: var(--cream); font-family: var(--font-body);
+  font-size: .88rem; line-height: 1.68; box-shadow: 0 22px 70px rgba(0,0,0,.48);
+  opacity: 0; visibility: hidden; transform: translateY(8px); pointer-events: none; transition: all .24s ease;
+}
+.samovar-tooltip { right: 0; bottom: 112px; text-align: left; }
+.samovar-widget:hover .samovar-tooltip, .samovar-widget.active .samovar-tooltip,
+.lobachevsky-widget:hover .lobachevsky-tooltip, .lobachevsky-widget.active .lobachevsky-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
+.lobachevsky-widget {
+  position: absolute; left: 28px; bottom: 24px; width: 220px; height: 84px;
+  border: 1px solid rgba(232,200,105,.18); border-radius: 14px; background: rgba(255,255,255,.035);
+  overflow: visible; z-index: 6; cursor: pointer;
+}
+.hyperbolic-grid {
+  position: absolute; inset: 0; border-radius: 14px; opacity: .22;
+  background: repeating-radial-gradient(ellipse at 82% 50%, rgba(232,200,105,.5) 0 1px, transparent 1px 13px);
+  transition: transform .7s ease, opacity .7s ease;
+}
+.parallel-line { position: absolute; left: 18px; width: 170px; height: 2px; background: #fff; box-shadow: 0 0 12px rgba(255,255,255,.42); transform-origin: 100% 50%; transition: transform 1s cubic-bezier(.2,.8,.2,1), background .6s ease; }
+.line-top { top: 30px; } .line-bottom { top: 54px; }
+.horizon-dot { position: absolute; right: 24px; top: 41px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); opacity: 0; box-shadow: 0 0 22px rgba(232,200,105,.8); transition: opacity .8s ease; }
+.lobachevsky-widget.active .hyperbolic-grid { transform: scale(1.18) skewX(-10deg); opacity: .52; }
+.lobachevsky-widget.active .line-top { transform: rotate(8deg); background: var(--gold-light); }
+.lobachevsky-widget.active .line-bottom { transform: rotate(-8deg); background: var(--gold-light); }
+.lobachevsky-widget.active .horizon-dot { opacity: 1; }
+.lobachevsky-tooltip { left: 0; bottom: 96px; text-align: left; }
 
 /* ══════════════════════════════════════
    RESPONSIVE
@@ -424,11 +904,89 @@ h1 .accent { color: var(--red); }
   .nav-links a { display: none; }
   .nav-links .nav-cta { display: flex; }
 }
+
+
+@media (max-width: 1180px) {
+  .metro-nav { width: 330px; flex-basis: 330px; }
+  .metro-station { width: 58px; font-size: .56rem !important; }
+}
+@media (max-width: 900px) {
+  .nav-inner { height: 76px; }
+  .metro-nav { display: none; }
+  .metro-palace-bg { display: none; }
+  .firebird-grid { grid-template-columns: 1fr; }
+  .samovar-widget { right: 14px; bottom: 14px; transform: scale(.86); transform-origin: bottom right; }
+  .lobachevsky-widget { position: relative; left: auto; bottom: auto; margin-top: 20px; width: min(220px, 100%); }
+}
+@media (max-width: 640px) {
+  .firebird-section { padding: 52px 20px; }
+  .samovar-tooltip, .lobachevsky-tooltip { width: calc(100vw - 36px); right: -4px; }
+  .lobachevsky-tooltip { left: -18px; }
+}
+
 </style>
+<!-- Enhanced from uploaded preview (1).html: Moscow Metro, Lobachevsky, Samovar, Firebird modules. -->
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
-<div class="rocket" id="rocketEl" aria-hidden="true">🚀</div>
+
+<div class="cosmic-event" id="cosmicEvent" aria-hidden="true">
+  <div class="cosmic-stars" aria-hidden="true"></div>
+  <div class="gagarin-watermark" aria-hidden="true">
+    <svg viewBox="0 0 640 420" aria-hidden="true" focusable="false">
+      <ellipse class="wm-fill" cx="320" cy="210" rx="148" ry="156"></ellipse>
+      <path d="M229 183c18-52 61-90 115-90 51 0 94 33 115 83"></path>
+      <path d="M222 196c-8 63 7 118 41 155 23 25 51 38 87 38 37 0 67-14 90-41 30-35 44-87 38-146"></path>
+      <path d="M251 202c7-11 19-18 33-18 15 0 27 7 34 18"></path>
+      <path d="M387 202c7-11 19-18 33-18 15 0 27 7 34 18"></path>
+      <circle cx="286" cy="211" r="7"></circle>
+      <circle cx="423" cy="211" r="7"></circle>
+      <path d="M318 251c11 12 30 18 49 18 20 0 38-6 49-18"></path>
+      <path d="M258 289c27 34 68 53 112 53 42 0 81-18 107-50"></path>
+      <path d="M208 174c14-34 39-63 71-82"></path>
+      <path d="M435 92c33 19 57 48 71 82"></path>
+    </svg>
+  </div>
+  <div class="cosmos-slogan" aria-hidden="true">« Космос - наш! »</div>
+  <div class="rocket" id="rocketEl" aria-hidden="true">
+    <span class="rocket-contrail"></span>
+    <span class="rocket-body"></span>
+    <span class="rocket-nose"></span>
+    <span class="rocket-fin top"></span>
+    <span class="rocket-fin bottom"></span>
+    <span class="rocket-tail"></span>
+    <span class="rocket-window"></span>
+    <span class="rocket-flame"></span>
+  </div>
+  <div class="cosmic-dialog" id="cosmicDialog" role="dialog" aria-modal="false" aria-labelledby="cosmicDialogTitle" aria-describedby="cosmicDialogText">
+    <div class="cosmic-dialog-head">
+      <div class="cosmic-dialog-kicker" id="cosmicDialogTitle" data-ru="Космический код · 1961">Code spatial · 1961</div>
+      <button class="cosmic-dialog-close" id="cosmicDialogClose" type="button" aria-label="Close cosmic message" data-ru="✕">✕</button>
+    </div>
+    <p id="cosmicDialogText"
+       data-ru="<strong>Апрель 1961 года.</strong> Полёт Юрия Гагарина превращает страх в гордость и доказывает, что у русских амбиций нет земных пределов. Но помимо технологического подвига именно скромность Гагарина определяет подлинный русский дух. Вдали от западного индивидуализма он говорил: ‘Я не должен быть монополистом, другие тоже должны получить возможность полететь в космос’, подчёркивая, что этот подвиг был прежде всего подвигом целого народа. Подавая заявку в ваш университет, я разделяю эту амбицию — стремиться к звёздам не ради личной славы, а ради вклада в будущие победы нашего академического сообщества и России.">
+      « <strong>Avril 1961.</strong> Le vol de Youri Gagarine transforme la peur en fierté et prouve que l'ambition russe n'a pas de limites terrestres. Mais au-delà de la prouesse technologique, c'est la modestie de Gagarine qui définit le véritable esprit russe. Loin de l'individualisme occidental, il a déclaré : "Je ne dois pas être un monopoliste, d'autres doivent aussi avoir la chance de voler dans l'espace", soulignant que cet exploit était avant tout celui de tout un peuple. En postulant à votre université, je partage cette ambition de viser les étoiles, non pas pour ma gloire personnelle, mais pour contribuer aux futures victoires de notre communauté académique et de la Russie. »
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════ MOSCOW METRO PALACE OVERLAY ═══════ -->
+<div class="metro-palace-bg" id="metroPalaceBg" aria-hidden="true">
+  <div class="metro-palace-card" role="status" aria-live="polite">
+    <div class="metro-palace-kicker">Métro de Moscou · Palais du Peuple</div>
+    <h3 id="metroPalaceStation">Station</h3>
+    <div class="metro-architecture" aria-hidden="true">
+      <span class="metro-chandelier"></span>
+      <span class="metro-arch arch-left"></span>
+      <span class="metro-arch arch-right"></span>
+      <span class="metro-mosaic"></span>
+    </div>
+    <p>
+      « Dans les années 1930, les stations de métro de Moscou furent conçues comme des <strong>“palais pour le peuple”</strong>. L’objectif était de transformer le trajet quotidien en un rituel civique entouré de marbre, de mosaïques, de vitraux et de lumière. Ma navigation reprend ce principe : chaque étape du portfolio doit unir excellence, clarté, esthétique et ingénierie. »
+    </p>
+  </div>
+</div>
 
 <!-- ═══════ NAVIGATION ═══════ -->
 <header class="nav" role="banner">
@@ -438,14 +996,18 @@ h1 .accent { color: var(--red); }
       <span data-ru="Эль Гали Сани · Российская стипендия">El Ghali Sany · Russian Scholarship</span>
     </a>
 
-    <div class="nav-links" role="list">
-      <a href="#about" role="listitem" data-ru="Обо мне">About</a>
-      <a href="#research" role="listitem" data-ru="Исследования">Research</a>
-      <a href="#skills" role="listitem" data-ru="Навыки">Skills</a>
-      <a href="#analytics" role="listitem" data-ru="SUMO Лаб">SUMO Lab</a>
-      <a href="#reading" role="listitem" data-ru="Чтение">Reading</a>
-      <a href="#easter" role="listitem" data-ru="Пасхалки">Easter Eggs</a>
-      <a class="nav-cta" href="#contact" role="listitem" data-ru="Тезис вклада">Contribution Thesis</a>
+    <div class="nav-links metro-nav" role="list" aria-label="Moscow Metro radial navigation">
+      <svg class="metro-ring" viewBox="0 0 360 86" aria-hidden="true" focusable="false">
+        <ellipse cx="180" cy="43" rx="140" ry="30" pathLength="100"></ellipse>
+        <path class="metro-spoke" d="M180 43 L65 43 M180 43 L103 22 M180 43 L180 13 M180 43 L257 22 M180 43 L295 43 M180 43 L257 64 M180 43 L103 64"></path>
+      </svg>
+      <a class="metro-station st-about" href="#about" role="listitem" data-station="About · Palace of Orientation"><span data-ru="Обо мне">About</span></a>
+      <a class="metro-station st-research" href="#research" role="listitem" data-station="Research · Marble Hall"><span data-ru="Исследования">Research</span></a>
+      <a class="metro-station st-ambitions" href="#ambitions" role="listitem" data-station="Ambitions · Firebird Platform"><span data-ru="Амбиции">Ambitions</span></a>
+      <a class="metro-station st-skills" href="#skills" role="listitem" data-station="Skills · Mosaic Vault"><span data-ru="Навыки">Skills</span></a>
+      <a class="metro-station st-analytics" href="#analytics" role="listitem" data-station="SUMO Lab · Engineering Line"><span data-ru="SUMO Лаб">SUMO</span></a>
+      <a class="metro-station st-reading" href="#reading" role="listitem" data-station="Reading · Literary Arcade"><span data-ru="Чтение">Reading</span></a>
+      <a class="metro-station st-contact nav-cta" href="#contact" role="listitem" data-station="Contribution · Terminal Station"><span data-ru="Тезис">Thesis</span></a>
     </div>
 
     <!-- Language Toggle -->
@@ -468,40 +1030,40 @@ h1 .accent { color: var(--red); }
     <div class="hero-copy">
       <div>
         <div class="hero-eyebrow"
-             data-ru="Современный конструктивизм · Русская душа · Академические амбиции">
-          Modern Constructivism · Russian Soul · Academic Ambition
+             data-ru="Соборность · Научное призвание · Культурное погружение">
+          Sobornost · Scientific Vocation · Cultural Immersion
         </div>
         <h1 id="heroTitle">
-          <span data-ru="От аналитики<br>Касабланки к<br>будущему в<br>">From Casablanca<br>data work to a<br></span><span class="accent" data-ru="российской науке.">Russian research</span><span data-ru=""> future.</span>
+          <span data-ru="Не просто<br>иностранный<br>кандидат, а<br>">Not merely an<br>international<br>applicant, but a<br></span><span class="accent" data-ru="будущий участник">future contributor</span><span data-ru="<br>общего дела."><br>to a shared work.</span>
         </h1>
         <p class="hero-lead"
-           data-ru="Я подаю заявление в ведущий российский университет с чёткой целью: аналитическая дисциплина, городские данные и финансовое моделирование могут помочь создать более умную инфраструктуру, более сильные институты и технологически суверенное академическое будущее. Мои работы объединяют управление цепочками поставок, бизнес-анализ, симуляцию трафика и инвестиционную оценку в единую практическую исследовательскую траекторию.">
-          I am applying to a leading Russian university with a clear thesis: analytical discipline, urban data, and financial modelling can help build smarter infrastructure, stronger institutions, and a technologically sovereign academic future. My work connects supply chain thinking, business analysis, traffic simulation, and investment evaluation into one practical research trajectory.
+           data-ru="Я прошу возможности учиться в России не как изолированного достижения, а как входа в серьёзное академическое сообщество. В духе соборности я хочу, чтобы моя дисциплина, мои аналитические инструменты и мой опыт в городских данных, финансах и цепочках поставок стали частью общего интеллектуального труда университета. Для меня стипендия — это не награда за прошлое, а обязательство служить будущему через метод, терпение и уважение.">
+          I am seeking the opportunity to study in Russia not as an isolated personal achievement, but as entry into a serious academic community. In the spirit of Sobornost, I want my discipline, analytical tools, and experience in urban data, finance, and supply chain systems to become part of the university’s shared intellectual work. For me, a scholarship is not a reward for the past; it is a responsibility to serve the future through method, patience, and respect.
         </p>
         <div class="cta-row">
           <a class="cta cta-primary" href="#research"
-             data-ru="Посмотреть исследования ›">View research thesis ›</a>
+             data-ru="Мой исследовательский вклад ›">My research contribution ›</a>
           <a class="cta cta-secondary" href="#analytics"
-             data-ru="Открыть SUMO Лаб ›">Open SUMO Lab ›</a>
+             data-ru="Открыть аналитическую лабораторию ›">Open analytics lab ›</a>
         </div>
       </div>
 
       <div class="evidence-strip" aria-label="Applicant evidence summary">
         <div class="evidence">
-          <b data-ru="Городская аналитика">Urban analytics</b>
-          <span data-ru="Симуляция трафика SUMO, ГИС-анализ и оценка эффективности расположения.">SUMO traffic simulation, GIS reasoning, and location-based performance evaluation.</span>
+          <b data-ru="Соборность">Sobornost</b>
+          <span data-ru="Стремление учиться не ради индивидуального престижа, а ради вклада в академическую общность.">A desire to study beyond individual prestige, with the intention of contributing to an academic community.</span>
         </div>
         <div class="evidence">
-          <b data-ru="Финансовое моделирование">Financial modelling</b>
-          <span data-ru="ROI, CAPEX, OPEX, TCO и логика индекса потенциальной доходности.">ROI, CAPEX, OPEX, TCO, and Potential Profitability Index logic.</span>
+          <b data-ru="Стойкость">Resilience</b>
+          <span data-ru="Долгая работа над моделями, данными и ограничениями как доказательство терпения и трудовой этики.">Sustained work on models, data, and constraints as evidence of patience and work ethic.</span>
         </div>
         <div class="evidence">
-          <b data-ru="Профиль учёного">Scholar profile</b>
-          <span data-ru="Закупки, цепочки поставок, бизнес-анализ и поддержка принятия решений.">Procurement, supply chain, business analysis, and decision-support orientation.</span>
+          <b data-ru="Наука">Science</b>
+          <span data-ru="Финансовое моделирование, SUMO, QGIS, Excel и Power BI как инструменты прикладного исследования.">Financial modelling, SUMO, QGIS, Excel, and Power BI as tools for applied research.</span>
         </div>
         <div class="evidence">
-          <b data-ru="Культурная грамотность">Cultural literacy</b>
-          <span data-ru="Российские научные, литературные, исторические и символические отсылки вписаны в интерфейс.">Russian scientific, literary, historical, and symbolic references embedded in this interface.</span>
+          <b data-ru="Культура">Culture</b>
+          <span data-ru="Уважение к языку Пушкина, глубине Достоевского и нравственному масштабу Толстого.">Respect for the language of Pushkin, the depth of Dostoevsky, and the moral scale of Tolstoy.</span>
         </div>
       </div>
     </div>
@@ -512,10 +1074,10 @@ h1 .accent { color: var(--red); }
              aria-label="Portrait placeholder — hover to reveal Tyutchev quotation">
           <div class="portrait-inner">
             <strong>El Ghali<br>Sany</strong>
-            <em data-ru="Бизнес-анализ · Логистика · Городские данные">Business Analysis<br>Supply Chain · Urban Data</em>
+            <em data-ru="Аналитика · Логистика · Городские данные">Analytics<br>Supply Chain · Urban Data</em>
           </div>
           <div class="tyutchev-overlay" aria-hidden="true">
-            <span data-ru="«Умом Россию не понять,<br>Аршином общим не измерить…<br>В Россию можно только верить.»">"Russia cannot be understood<br>with the mind…<br>In Russia one can only believe."</span>
+            <span data-ru="«Умом Россию не понять,<br>Аршином общим не измерить…<br>В Россию можно только верить.»">“Russia cannot be understood<br>with the mind alone…<br>In Russia one can only believe.”</span>
             <cite data-ru="— Фёдор Тютчев">— Fyodor Tyutchev</cite>
           </div>
         </div>
@@ -524,15 +1086,15 @@ h1 .accent { color: var(--red); }
       <div class="hero-stats">
         <div class="stat">
           <b>1961</b>
-          <span data-ru="Наберите этот код, чтобы запустить пасхалку «Космическая гонка»">Type this to launch the Space Race Easter egg</span>
+          <span data-ru="Код памяти о Гагарине и научной смелости">A code for Gagarin and scientific courage</span>
         </div>
         <div class="stat">
           <b>IRP</b>
-          <span data-ru="Индекс потенциальной рентабельности: трафик, затраты и расположение">Potential Profitability Index from traffic, cost &amp; location</span>
+          <span data-ru="Индекс потенциальной рентабельности: трафик, затраты, место">Potential Profitability Index: traffic, cost, location</span>
         </div>
         <div class="stat">
           <b>2:10</b>
-          <span data-ru="Часы Зимнего дворца — смотри подвал страницы">Winter Palace clock — see footer</span>
+          <span data-ru="Историческая пасхалка в нижней части страницы">Historical Easter egg in the footer</span>
         </div>
       </div>
     </aside>
@@ -542,35 +1104,36 @@ h1 .accent { color: var(--red); }
   <section id="about" class="section" aria-labelledby="aboutTitle">
     <div class="section-head">
       <div class="section-label"
-           data-ru="Обо мне · Стойкость и находчивость">About Me · Resilience &amp; Resourcefulness</div>
+           data-ru="Обо мне · Соборность, стойкость, уважение">About Me · Sobornost, Resilience, Respect</div>
       <h2 id="aboutTitle"
-          data-ru="Готов к серьёзной<br>академической<br>работе, а не к<br>формальной заявке.">Prepared for rigorous<br>academia, not<br>symbolic application.</h2>
+          data-ru="Стипендия как<br>ответственность,<br>а не только как<br>возможность.">A scholarship as<br>responsibility,<br>not only as<br>opportunity.</h2>
     </div>
     <div class="about-grid">
       <article class="about-panel">
-        <h3 data-ru="Стойкость как метод">Resilience as method</h3>
-        <p data-ru="Мой академический путь построен на постоянном труде, а не на амбициях ради амбиций. Я подхожу к трудностям как к задаче моделирования: определить ограничение, выявить переменные, проверить сценарии и выдать результат, пригодный для принятия решений. Именно такой трудовой этики требует российская академическая культура.">My academic path is built on sustained work rather than surface-level ambition. I approach difficulty as a modelling problem: define the constraint, identify the variables, test scenarios, and produce a decision-ready output. This is the work ethic that Russian academic culture demands.</p>
+        <h3 data-ru="Соборность как академическая позиция">Sobornost as academic posture</h3>
+        <p data-ru="Я не рассматриваю обучение в России как одиночный карьерный трамплин. Я вижу его как вхождение в живую интеллектуальную общность, где личная дисциплина должна приносить пользу общему делу. Моё место в университете я понимаю скромно: учиться, работать, слушать, делиться и вносить свой камень в общее здание знаний.">I do not see study in Russia as a solitary career platform. I see it as entry into a living intellectual community, where personal discipline must become useful to the common work. My place in the university is modest and serious: to learn, work, listen, share, and add my stone to the common edifice of knowledge.</p>
         <div class="tag-row">
-          <span class="tag" data-ru="Трудолюбие">Work ethic</span>
+          <span class="tag" data-ru="Единство">Unity</span>
+          <span class="tag" data-ru="Служение">Service</span>
+          <span class="tag" data-ru="Общее дело">Common work</span>
+        </div>
+      </article>
+      <article class="about-panel">
+        <h3 data-ru="Стойкость как метод работы">Resilience as working method</h3>
+        <p data-ru="Мои проекты научили меня терпению: данные бывают неполными, модели сопротивляются, выводы требуют проверки, а результат имеет ценность только тогда, когда он выдерживает ограничения. В этом я узнаю качество, которое глубоко уважаю в российской традиции: способность продолжать работу серьёзно, спокойно и упорно, даже когда путь труден.">My projects taught me patience: data can be incomplete, models resist, conclusions require verification, and a result has value only when it survives constraints. In this, I recognize a quality I deeply respect in the Russian tradition: the capacity to continue the work seriously, calmly, and persistently, even when the path is difficult.</p>
+        <div class="tag-row">
           <span class="tag" data-ru="Терпение">Patience</span>
-          <span class="tag" data-ru="Дисциплина">Discipline</span>
+          <span class="tag" data-ru="Труд">Work</span>
+          <span class="tag" data-ru="Проверка">Verification</span>
         </div>
       </article>
       <article class="about-panel">
-        <h3 data-ru="Находчивость в условиях ограничений">Resourcefulness under limits</h3>
-        <p data-ru="Используя доступные инструменты — Excel, QGIS, SUMO, структурированные дашборды — я научился создавать аналитическую ценность без идеальных условий. Это отражает великую российскую научную традицию: делать серьёзную работу с тем, что есть, доверяя методу, а не ресурсам.">Using accessible tools — Excel, QGIS, SUMO, structured dashboards — I learned to build analytical value without waiting for perfect conditions. This mirrors Russia's great scientific tradition: doing serious work with what is available, trusting in method over resources.</p>
+        <h3 data-ru="Погружение без поверхностности">Immersion without superficiality</h3>
+        <p data-ru="Я прихожу как иностранный студент с уважением, а не с готовыми ответами. Русская культура показала уникальную силу принимать внешние элементы и преображать их в собственную глубокую форму. Моя задача — не остаться рядом с этой культурой, а учиться внутри неё: через язык, университетскую дисциплину, научную скромность и человеческое уважение.">I arrive as an international student with respect, not with ready-made answers. Russian culture has shown a unique capacity to receive external elements and transform them into a deep national form. My task is not to stand beside this culture, but to learn within it: through language, university discipline, scientific humility, and human respect.</p>
         <div class="tag-row">
-          <span class="tag">Excel</span><span class="tag">SUMO</span>
-          <span class="tag">QGIS</span><span class="tag">Power BI</span>
-        </div>
-      </article>
-      <article class="about-panel">
-        <h3 data-ru="Профиль-мост">A bridge profile</h3>
-        <p data-ru="Я несу марокканскую аналитическую базу, европейскую академическую траекторию и исследовательский интерес, совпадающий с российской традицией научной глубины, инженерной серьёзности и цивилизационных амбиций. Я прихожу не с пустыми руками — я прихожу с инструментами и направлением.">I bring a Moroccan analytical background, a European academic trajectory, and a research interest aligned with Russia's tradition of scientific depth, engineering seriousness, and civilizational ambition. I do not arrive empty-handed — I arrive with tools and direction.</p>
-        <div class="tag-row">
-          <span class="tag" data-ru="Марокко">Morocco</span>
-          <span class="tag" data-ru="Франция">France</span>
-          <span class="tag" data-ru="Россия">Russia</span>
+          <span class="tag" data-ru="Язык">Language</span>
+          <span class="tag" data-ru="Культура">Culture</span>
+          <span class="tag" data-ru="Уважение">Respect</span>
         </div>
       </article>
     </div>
@@ -580,33 +1143,33 @@ h1 .accent { color: var(--red); }
   <section id="research" class="section" aria-labelledby="researchTitle">
     <div class="section-head">
       <div class="section-label"
-           data-ru="Академические проекты и исследовательский тезис">Academic Projects &amp; Research Thesis</div>
+           data-ru="Научный вклад · От Ломоносова к прикладной аналитике">Scientific Contribution · From Lomonosov to Applied Analytics</div>
       <h2 id="researchTitle"
-          data-ru="Исследования для<br>многополярного и<br>технологически суверенного<br>будущего.">Research for a multipolar<br>and technologically<br>sovereign future.</h2>
+          data-ru="Дисциплина данных<br>на службе<br>будущего университета.">Data discipline<br>in service of<br>the university’s future.</h2>
     </div>
 
     <div class="research-grid">
       <article class="research-card feature">
         <div class="research-number">01</div>
         <h3 data-ru="Основной исследовательский тезис">Core research thesis</h3>
-        <p data-ru="Моё исследовательское направление — создание моделей поддержки принятия решений, связывающих физические потоки, финансовую эффективность и территориальную стратегию. Цель — не описывать городские и логистические системы, а сделать их измеримыми, сопоставимыми и управляемыми стратегически.">My research direction is to build decision-support models that connect physical flows, financial performance, and territorial strategy. The objective is not only to describe urban or supply chain systems, but to make them measurable, comparable, and strategically governable.</p>
+        <p data-ru="Моё исследовательское направление — создавать модели поддержки решений, которые соединяют физические потоки, финансовую эффективность, городскую инфраструктуру и стратегическое управление. Я хочу развить это направление в российском университете, где наука не отделена от национальной школы мышления, инженерной строгости и ответственности перед будущим.">My research direction is to build decision-support models that connect physical flows, financial performance, urban infrastructure, and strategic governance. I want to develop this path in a Russian university, where science is not separated from a national school of thought, engineering seriousness, and responsibility toward the future.</p>
         <ul>
-          <li data-ru="<strong>Городской интеллект:</strong> перевод данных о трафике и расположении в инвестиционные решения."><strong>Urban intelligence:</strong> translate traffic and location data into investment decisions.</li>
-          <li data-ru="<strong>Финансовая дисциплина:</strong> оценка проектов через ROI, CAPEX, OPEX, TCO и анализ сценариев."><strong>Financial discipline:</strong> evaluate projects through ROI, CAPEX, OPEX, TCO, and scenario comparison.</li>
-          <li data-ru="<strong>Технологический суверенитет:</strong> создание аналитических инструментов, снижающих зависимость от интуиции и укрепляющих местные решения."><strong>Technological sovereignty:</strong> design analytical tools that reduce dependence on intuition and strengthen local decision capacity.</li>
+          <li data-ru="<strong>В духе Ломоносова:</strong> относиться к науке как к вопросу достоинства, труда и интеллектуальной зрелости."><strong>In the spirit of Lomonosov:</strong> approach science as a matter of dignity, labor, and intellectual maturity.</li>
+          <li data-ru="<strong>В логике Менделеева:</strong> искать порядок в сложных системах, классифицировать переменные и превращать хаос в метод."><strong>In the logic of Mendeleev:</strong> seek order in complex systems, classify variables, and transform complexity into method.</li>
+          <li data-ru="<strong>В горизонте Гагарина:</strong> воспринимать технологический прогресс как смелое, коллективное и дисциплинированное движение вперёд."><strong>In the horizon of Gagarin:</strong> see technological progress as a courageous, collective, and disciplined movement forward.</li>
         </ul>
         <div class="research-axis">
           <div class="axis">
-            <b data-ru="Наука">Science</b>
-            <span data-ru="Измерение, моделирование и воспроизводимость.">Measurement, modelling, and reproducibility.</span>
+            <b data-ru="Метод">Method</b>
+            <span data-ru="Измерение, проверка, воспроизводимость.">Measurement, verification, reproducibility.</span>
           </div>
           <div class="axis">
-            <b data-ru="Инженерия">Engineering</b>
-            <span data-ru="Инструменты, которые можно тестировать, адаптировать и переиспользовать.">Tools that can be tested, adapted, and reused.</span>
+            <b data-ru="Инструмент">Tool</b>
+            <span data-ru="Модели, дашборды, симуляции, сценарии.">Models, dashboards, simulations, scenarios.</span>
           </div>
           <div class="axis">
-            <b data-ru="Стратегия">Strategy</b>
-            <span data-ru="Результаты, поддерживающие распределение капитала и инфраструктуры.">Outputs that support allocation of capital and infrastructure.</span>
+            <b data-ru="Вклад">Contribution</b>
+            <span data-ru="Решения, которые помогают общему академическому труду.">Outputs that serve the shared academic work.</span>
           </div>
         </div>
       </article>
@@ -614,147 +1177,186 @@ h1 .accent { color: var(--red); }
       <article class="research-card">
         <div class="research-number">02</div>
         <h3 data-ru="Проект 01 · Модель экспозиции Касабланки">Project 01 · Casablanca Exposure Model</h3>
-        <p data-ru="Исследовательский проект по оценке прибыльности наружной рекламы через симуляцию трафика и финансовое моделирование. Демонстрирует, как данные о мобильности могут поддерживать инвестиционные решения в городской инфраструктуре.">A research project evaluating outdoor advertising profitability through traffic simulation and financial modelling. It demonstrates how mobility data can support investment decisions in urban infrastructure and commercial placement.</p>
+        <p data-ru="Мой проект по наружной рекламе в Касабланке показал, что городская видимость может быть измерена, смоделирована и переведена в инвестиционную логику. Это не просто локальный кейс; это первая форма метода, который можно развивать для анализа умной инфраструктуры.">My Casablanca outdoor-advertising project showed that urban visibility can be measured, modelled, and translated into investment logic. It is not only a local case; it is an early form of a method that can be extended toward smart-infrastructure analysis.</p>
         <ul>
-          <li data-ru="Построен на основе выходных данных SUMO FCD и логики производительности расположения.">Built around SUMO traffic outputs and location-performance logic.</li>
-          <li data-ru="Использует логику ROI, CAPEX, OPEX и TCO.">Uses ROI, CAPEX, OPEX, and TCO reasoning.</li>
-          <li data-ru="Конвертирует городскую видимость в измеримую структуру рентабельности.">Converts urban visibility into a measurable profitability framework.</li>
+          <li data-ru="Выходные данные SUMO FCD и пространственная логика QGIS.">SUMO FCD outputs and QGIS spatial reasoning.</li>
+          <li data-ru="ROI, CAPEX, OPEX, TCO и сценарное сравнение.">ROI, CAPEX, OPEX, TCO, and scenario comparison.</li>
+          <li data-ru="Переход от городской интуиции к проверяемой аналитике.">Shift from urban intuition to verifiable analytics.</li>
         </ul>
         <div class="tag-row">
-          <span class="tag">SUMO</span><span class="tag">GIS</span>
-          <span class="tag" data-ru="Финансовая модель">Financial Model</span>
+          <span class="tag">SUMO</span><span class="tag">QGIS</span>
+          <span class="tag" data-ru="Инвестиционная логика">Investment Logic</span>
         </div>
       </article>
 
       <article class="research-card">
         <div class="research-number">03</div>
-        <h3 data-ru="Проект 02 · Логика решений в цепочке поставок">Project 02 · Supply Chain Decision Logic</h3>
-        <p data-ru="Мой опыт в закупках и цепочках поставок учит оценивать потоки, затраты, ограничения поставщиков, риски и эффективность. В российской академической среде я расширю эту логику до промышленной устойчивости и оптимизации инфраструктуры.">My supply chain and procurement background trains me to evaluate flows, costs, supplier constraints, risk, and service performance. In a Russian academic environment, I would extend this logic toward industrial resilience and infrastructure optimization.</p>
+        <h3 data-ru="Проект 02 · Потоки, стоимость и решения">Project 02 · Flows, Cost, and Decisions</h3>
+        <p data-ru="Мой профиль в закупках и цепочках поставок учит меня видеть систему через потоки, ограничения, поставщиков, риски и стоимость обслуживания. В российской академической среде я хочу превратить эту компетенцию в более строгие модели промышленной устойчивости и инфраструктурной эффективности.">My procurement and supply-chain background trains me to see systems through flows, constraints, suppliers, risk, and cost-to-serve. In a Russian academic environment, I want to transform this competence into more rigorous models of industrial resilience and infrastructure performance.</p>
         <ul>
-          <li data-ru="Стоимость обслуживания и общая стоимость владения.">Cost-to-serve and total-cost reasoning.</li>
-          <li data-ru="Архитектура KPI для операционной эффективности.">KPI architecture for operational performance.</li>
-          <li data-ru="Поддержка принятия решений на основе сценариев.">Scenario-based decision support.</li>
+          <li data-ru="Общая стоимость владения и стоимость обслуживания.">Total cost of ownership and cost-to-serve reasoning.</li>
+          <li data-ru="KPI-архитектура для управленческих решений.">KPI architecture for managerial decisions.</li>
+          <li data-ru="Сценарии риска, устойчивости и приоритизации.">Risk, resilience, and prioritization scenarios.</li>
         </ul>
         <div class="tag-row">
           <span class="tag">TCO</span><span class="tag">KPI</span>
-          <span class="tag" data-ru="Анализ рисков">Risk Analysis</span>
+          <span class="tag" data-ru="Устойчивость">Resilience</span>
         </div>
       </article>
 
       <article class="research-card">
         <div class="research-number">04</div>
-        <h3 data-ru="Проект 03 · Академические амбиции">Project 03 · Academic Ambition</h3>
-        <p data-ru="Вдохновлённый научной культурой России — от институционального видения Ломоносова до системного мышления Менделеева — моя цель — вносить вклад в строгие и практичные исследования: интеллектуально серьёзные, технически обоснованные и практически значимые.">Inspired by Russia's scientific culture — from Lomonosov's institutional vision to Mendeleev's systematic thinking — my objective is to contribute research that is both rigorous and useful: intellectually serious, technically grounded, and practically relevant.</p>
+        <h3 data-ru="Проект 03 · Кандидат, способный учиться глубоко">Project 03 · A candidate able to learn deeply</h3>
+        <p data-ru="Я знаю, что одного технического интеллекта недостаточно. Россия дала миру Пушкина, Достоевского, Толстого и Тютчева — напоминание о том, что человек, язык, совесть и внутренняя жизнь имеют значение. Поэтому мой академический проект — не только о моделях, но и о зрелости, ответственности и уважении к человеческой сложности.">I know that technical intelligence alone is not enough. Russia gave the world Pushkin, Dostoevsky, Tolstoy, and Tyutchev — a reminder that the human being, language, conscience, and inner life matter. My academic project is therefore not only about models, but about maturity, responsibility, and respect for human complexity.</p>
         <ul>
-          <li data-ru="От описательной отчётности к предиктивному моделированию.">From descriptive reporting to predictive modelling.</li>
-          <li data-ru="От учебного проекта к многоразовой аналитической платформе.">From student project to reusable analytical framework.</li>
-          <li data-ru="От локального кейса к универсальному городскому и промышленному методу.">From local case study to transferable urban and industrial method.</li>
+          <li data-ru="Учить русский язык как форму уважения, а не как формальность.">Learn the Russian language as respect, not as formality.</li>
+          <li data-ru="Соединять аналитическую строгость с человеческим пониманием.">Connect analytical rigor with human understanding.</li>
+          <li data-ru="Войти в университетскую культуру как участник, а не наблюдатель.">Enter university culture as a participant, not an observer.</li>
         </ul>
         <div class="tag-row">
-          <span class="tag" data-ru="Ломоносов">Lomonosov</span>
-          <span class="tag" data-ru="Менделеев">Mendeleev</span>
-          <span class="tag" data-ru="Прикладная наука">Applied Science</span>
+          <span class="tag" data-ru="Пушкин">Pushkin</span>
+          <span class="tag" data-ru="Достоевский">Dostoevsky</span>
+          <span class="tag" data-ru="Ответственность">Responsibility</span>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- ── SKILLS: MATRYOSHKA ── -->
-  <section id="skills" class="section" aria-labelledby="skillsTitle">
-    <div class="section-head">
-      <div class="section-label"
-           data-ru="Набор навыков — Матрёшка">The Matryoshka Skill Set</div>
-      <h2 id="skillsTitle"
-          data-ru="Широкий навык,<br>вложенная глубина,<br>операционное доказательство.">Broad skill,<br>nested depth,<br>operational proof.</h2>
-      <p class="section-intro" style="margin-top:14px;"
-         data-ru="Нажмите на навык, чтобы открыть следующий слой. Как матрёшка — поверхностная простота скрывает сложную внутреннюю глубину.">Click a skill to open the next layer. Like the matryoshka — surface simplicity conceals intricate internal depth.</p>
+
+  <!-- ── AMBITIONS / FIREBIRD ── -->
+  <section id="ambitions" class="section firebird-section" aria-labelledby="ambitionsTitle">
+    <div class="firebird-aura" aria-hidden="true">
+      <span class="firebird-feather feather-one"></span>
+      <span class="firebird-feather feather-two"></span>
+      <span class="firebird-feather feather-three"></span>
+    </div>
+    <div class="section-head firebird-head">
+      <div class="section-label" data-ru="Жар-птица · Амбиции и будущие проекты">Zhar-ptitsa · Ambitions and Future Projects</div>
+      <h2 id="ambitionsTitle" data-ru="Моя исследовательская<br>траектория — это<br>поиск света<br>в сложности.">My research path<br>is a search for<br>light inside<br>complexity.</h2>
+      <p class="section-intro" style="margin-top:14px;" data-ru="Эта секция намеренно меняет атмосферу: фон становится темнее, и тонкая красно-золотая траектория Жар-птицы пересекает экран. Она символизирует не карьерную декорацию, а настойчивый поиск инноваций через труд, метод и научную смелость.">
+        This section intentionally shifts atmosphere: the background darkens and a subtle red-gold Zhar-ptitsa trail crosses the screen. It symbolizes not career decoration, but the disciplined search for innovation through work, method, and scientific courage.
+      </p>
+      <button class="firebird-sound-btn" id="firebirdSoundBtn" type="button" aria-label="Activate a soft original orchestral shimmer">
+        ♪ <span data-ru="Включить тонкий музыкальный знак">Activate subtle sound motif</span>
+      </button>
     </div>
 
-    <div class="skill-stage">
-      <div class="skill-layout">
-        <!-- ═══ MATRYOSHKA CANVAS ═══ -->
-        <div class="matryoshka-canvas-wrap" id="matryoshkaWrap">
-          <canvas id="matryoshkaCanvas" width="420" height="480"></canvas>
-          <div class="matryoshka-hint" id="matryoshkaHint" data-ru="↑ Кликните, чтобы открыть">↑ Click to open</div>
-          <button class="matryoshka-reset" id="matryoshkaReset" type="button" data-ru="↺ Сбросить">↺ Reset</button>
+    <div class="firebird-grid">
+      <article class="firebird-card">
+        <h3 data-ru="Инновация как дисциплина">Innovation as discipline</h3>
+        <p data-ru="Мои амбиции не основаны на поверхностном восхищении технологией. Они строятся вокруг практического вопроса: как превратить городские, финансовые и логистические данные в более устойчивые, измеримые и полезные решения для академического сообщества?">My ambitions are not based on superficial fascination with technology. They are built on an operational question: how can urban, financial, and logistics data become more robust, measurable, and useful decisions for an academic community?</p>
+      </article>
+      <article class="firebird-card">
+        <h3 data-ru="Поиски Жар-птицы">The Firebird quest</h3>
+        <p>
+          « Dans la mythologie slave, l’Oiseau de Feu — Zhar-ptitsa — est une créature nocturne dont les plumes brillent comme le soleil. L’attraper exige courage et persévérance. Mes ambitions de recherche sont ma propre quête de l’Oiseau de Feu : traverser la difficulté académique pour produire de la lumière analytique, de l’innovation et une contribution vérifiable. »
+        </p>
+      </article>
+      <article class="firebird-card">
+        <h3 data-ru="Prochain horizon académique">Next academic horizon</h3>
+        <p data-ru="Естественное продолжение моего профиля — модель инвестиционного скоринга для умных инфраструктур: потоки, совокупная стоимость владения, энергетические сценарии, углеродные риски, геоэкономика и управленческие дашборды.">The natural continuation of my profile is an investment-scoring model for smart infrastructure: flows, total cost of ownership, energy scenarios, carbon exposure, geoeconomic risk, and decision dashboards.</p>
+      </article>
+    </div>
+  </section>
+
+
+<!-- ── SKILLS: MATRYOSHKA ── -->
+<section id="skills" class="section" aria-labelledby="skillsTitle">
+  <div class="section-head">
+    <div class="section-label"
+         data-ru="Матрёшка компетенций · Глубина важнее показной поверхности">Matryoshka Skill Architecture · Depth Over Surface</div>
+    <h2 id="skillsTitle"
+        data-ru="Мои навыки<br>не линейны.<br>Они вложены друг<br>в друга.">My skills are not<br>linear.<br>They are nested<br>within each other.</h2>
+    <p class="section-intro" style="margin-top:14px;"
+       data-ru="Вместо западных полос прогресса я показываю свои компетенции как цифровую матрёшку. Каждая оболочка раскрывает более глубокий слой — от общего аналитического мастерства до инструментов, а затем до самого ядра: трудолюбия и преданности делу.">Instead of Western-style progress bars, I present my competencies as a digital matryoshka. Each shell reveals a deeper layer — from broad analytical mastery to precise tools, and finally to the core itself: trudoliubie, the love of diligent work, and dedication.</p>
+  </div>
+
+  <div class="skill-stage">
+    <div class="skill-layout">
+      <div class="matryoshka-canvas-wrap" id="matryoshkaWrap" tabindex="0" aria-label="Interactive matryoshka skill structure">
+        <canvas id="matryoshkaCanvas" width="420" height="500"></canvas>
+        <div class="matryoshka-hint" id="matryoshkaHint"
+             data-closed-en="↑ Click to open each layer"
+             data-closed-ru="↑ Нажмите, чтобы раскрыть слои"
+             data-open-en="↑ Click the core to reveal the secret"
+             data-open-ru="↑ Нажмите на ядро, чтобы открыть секрет">↑ Click to open each layer</div>
+        <button class="matryoshka-reset" id="matryoshkaReset" type="button" data-ru="↺ Сбросить">↺ Reset</button>
+        <div class="matryoshka-core-tooltip" id="matryoshkaCoreTooltip" role="tooltip">
+          <p data-ru="<strong>На Западе знание часто демонстрируют на поверхности.</strong> В русской культуре понимают, что подлинное мастерство, как и знаменитая матрёшка, состоит из глубоких слоёв, которые раскрываются только терпеливому взгляду. Снаружи вы видите мои общие компетенции. Но в самом сердце этой куклы, в моём фундаментальном основании, находится не язык программирования и не математическая формула. Там находятся <strong>‘Трудолюбие’</strong> — любовь к усердной работе — и преданность. Именно это прочное и неразрушимое ядро поддерживает все остальные навыки, которые я готов поставить на службу вашему университету.">« <strong>En Occident, on étale souvent son savoir en surface.</strong> Dans la culture russe, on sait que la véritable maîtrise, tout comme la célèbre Matriochka, est faite de couches profondes qui demandent de la patience à être découvertes. À la surface, vous voyez mes compétences générales. Mais au cœur même de cette poupée, dans mon socle fondamental, il n'y a ni langage de programmation ni formule mathématique. Il y a la <strong>“Trudoliubie”</strong> — l'amour du travail acharné — et le dévouement. C'est ce noyau solide et incassable qui soutient toutes les autres compétences que je mettrai au service de cette Université. »</p>
+        </div>
+      </div>
+
+      <div class="skill-info-panel" role="tablist" aria-label="Skill layers">
+        <button class="skill-btn active" type="button" role="tab" aria-selected="true"
+                aria-controls="skillOuter" data-skill="outer" data-doll="1"
+                data-ru="🌿 Внешняя оболочка — Аналитика">
+          <span class="skill-icon" aria-hidden="true">🌿</span>
+          Outer Shell — Analytics
+        </button>
+        <div class="skill-detail-card visible" id="skillOuter" role="tabpanel">
+          <div class="skill-layer-label" data-ru="Хохлома · Общая компетенция">Khokhloma · Global Competence</div>
+          <p data-ru="<strong>Первый слой — Business Analytics &amp; Decision Support.</strong> Большая матрёшка написана в стиле хохломы: красный, золото и чёрный лак символизируют ремесленную точность и устойчивую основу. На этом уровне я структурирую данные, формирую KPI и превращаю сложность в ясность для принятия решений."><strong>First layer — Business Analytics &amp; Decision Support.</strong> The large doll is painted in the Khokhloma tradition: red, gold, and black lacquer evoke disciplined craftsmanship and a stable base. At this level, I structure data, build KPIs, and turn complexity into clarity for decision-making.</p>
+          <div class="skill-tag-row">
+            <span class="skill-tag">KPI</span><span class="skill-tag">Reporting</span><span class="skill-tag">Data Cleaning</span><span class="skill-tag">Decision Support</span>
+          </div>
         </div>
 
-        <div class="skill-info-panel" role="tablist">
-          <button class="skill-btn active" type="button" role="tab" aria-selected="true"
-                  aria-controls="skillData" data-skill="data" data-doll="1"
-                  data-ru="📊 Анализ данных">
-            <span class="skill-icon" aria-hidden="true">📊</span>
-            Data Analysis
-          </button>
-          <div class="skill-detail-card visible" id="skillData" role="tabpanel">
-            <p data-ru="<strong>Внешняя оболочка — видимая дисциплина.</strong> Структурированные наборы данных, логика KPI, дашборды и управленческая отчётность. Результат — не сырые данные, а ясность принятия решений. Инструменты: расширенный Excel, Power BI / DAX, Python для обработки данных."><strong>Outer shell — the visible discipline.</strong> Structured datasets, KPI logic, dashboards, and management reporting. The output is not raw data but decision clarity. Tools: Excel advanced, Power BI / DAX, Python for data wrangling.</p>
-            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div></div>
+        <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                aria-controls="skillMiddle" data-skill="middle" data-doll="2"
+                data-ru="⬛ Средний слой — Моделирование">
+          <span class="skill-icon" aria-hidden="true">⬛</span>
+          Middle Layer — Modelling
+        </button>
+        <div class="skill-detail-card" id="skillMiddle" role="tabpanel">
+          <div class="skill-layer-label" data-ru="Конструктивизм · Подкомпетенция">Constructivism · Sub-Competence</div>
+          <p data-ru="<strong>Второй слой — Financial &amp; Performance Modelling.</strong> После раскрытия внешней куклы появляется язык конструктивизма и супрематизма: геометрия, структура и направление. Этот слой отражает мой подход к ROI, CAPEX, OPEX, TCO, сценарному анализу и оценке рентабельности."><strong>Second layer — Financial &amp; Performance Modelling.</strong> When the outer doll opens, it reveals the language of Constructivism and Suprematism: geometry, structure, and directional force. This layer reflects my approach to ROI, CAPEX, OPEX, TCO, scenarios, and financial viability analysis.</p>
+          <div class="skill-tag-row">
+            <span class="skill-tag">ROI</span><span class="skill-tag">CAPEX</span><span class="skill-tag">OPEX</span><span class="skill-tag">TCO</span>
           </div>
+        </div>
 
-          <button class="skill-btn" type="button" role="tab" aria-selected="false"
-                  aria-controls="skillFinance" data-skill="finance" data-doll="2"
-                  data-ru="📈 Финансовое моделирование">
-            <span class="skill-icon" aria-hidden="true">📈</span>
-            Financial Modelling
-          </button>
-          <div class="skill-detail-card" id="skillFinance" role="tabpanel">
-            <p data-ru="<strong>Слой 2 — оценочный движок.</strong> ROI, CAPEX, OPEX, TCO, логика безубыточности, сравнение сценариев и инвестиционные рекомендации. Создан для реального принятия решений в условиях неопределённости."><strong>Layer 2 — the valuation engine.</strong> ROI, CAPEX, OPEX, TCO, breakeven logic, scenario comparison, and investment recommendation. Built for real decision-making under uncertainty, not academic exercises.</p>
-            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div></div>
+        <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                aria-controls="skillInner" data-skill="inner" data-doll="3"
+                data-ru="🚀 Маленькая кукла — Инструменты">
+          <span class="skill-icon" aria-hidden="true">🚀</span>
+          Inner Doll — Tools
+        </button>
+        <div class="skill-detail-card" id="skillInner" role="tabpanel">
+          <div class="skill-layer-label" data-ru="Космическая эра · Точные инструменты">Space Age · Precise Tools</div>
+          <p data-ru="<strong>Третий слой — мои операционные инструменты.</strong> Здесь художественный стиль становится футуристичным и вдохновлённым космической эрой. Он символизирует инструменты, которые я реально использую: Excel, Power BI, QGIS и SUMO — не как фетиши, а как рабочие приборы для моделирования, визуализации и анализа."><strong>Third layer — my operational tools.</strong> Here, the artistic language becomes futuristic and space-age inspired. It symbolizes the instruments I actually use: Excel, Power BI, QGIS, and SUMO — not as decorative gadgets, but as working tools for modelling, visualization, and analysis.</p>
+          <div class="skill-tag-row">
+            <span class="skill-tag">Excel</span><span class="skill-tag">Power BI</span><span class="skill-tag">QGIS</span><span class="skill-tag">SUMO</span>
           </div>
+        </div>
 
-          <button class="skill-btn" type="button" role="tab" aria-selected="false"
-                  aria-controls="skillUrban" data-skill="urban" data-doll="3"
-                  data-ru="🏙️ Городская симуляция">
-            <span class="skill-icon" aria-hidden="true">🏙️</span>
-            Urban Simulation
-          </button>
-          <div class="skill-detail-card" id="skillUrban" role="tabpanel">
-            <p data-ru="<strong>Слой 3 — пространственный интеллект.</strong> Выходные данные SUMO, интерпретация детекторов, пространственный анализ QGIS, моделирование экспозиции и анализ умного города. Проверено на 5 городских зонах Касабланки с реальными данными FCD."><strong>Layer 3 — the spatial intelligence.</strong> SUMO traffic outputs, detector interpretation, QGIS spatial reasoning, exposure modelling, and smart-city analysis. Proven on 5 Casablanca urban zones with real FCD data.</p>
-            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div></div>
-          </div>
-
-          <button class="skill-btn" type="button" role="tab" aria-selected="false"
-                  aria-controls="skillStrategy" data-skill="strategy" data-doll="4"
-                  data-ru="🎯 Стратегический синтез">
-            <span class="skill-icon" aria-hidden="true">🎯</span>
-            Strategic Synthesis
-          </button>
-          <div class="skill-detail-card" id="skillStrategy" role="tabpanel">
-            <p data-ru="<strong>Внутреннее ядро — интеллект решений.</strong> Перевод технического анализа на институциональный язык: риски, приоритеты, компромиссы, логика реализации и исполнительные рекомендации. Слой, где данные становятся управлением."><strong>Inner core — the decision intelligence.</strong> Turning technical analysis into institutional language: risks, priorities, trade-offs, implementation logic, and executive recommendations. The layer where data becomes governance.</p>
-            <div class="skill-depth-bar"><div class="skill-depth-pip filled"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div><div class="skill-depth-pip"></div></div>
+        <button class="skill-btn" type="button" role="tab" aria-selected="false"
+                aria-controls="skillCore" data-skill="core" data-doll="4"
+                data-ru="❤️ Ядро — Трудолюбие">
+          <span class="skill-icon" aria-hidden="true">❤️</span>
+          Core — Trudoliubie
+        </button>
+        <div class="skill-detail-card" id="skillCore" role="tabpanel">
+          <div class="skill-layer-label" data-ru="Неразъёмное ядро · Основа">Unopenable Core · Foundation</div>
+          <p data-ru="<strong>Последняя миниатюрная кукла не раскрывается.</strong> По традиции она выточена из цельного дерева. В интерактивной логике сайта она символизирует то, что невозможно измерить полосой прогресса: рабочую дисциплину, постоянство, терпение и способность служить университету в долгосрочной перспективе. Нажмите на ядро, чтобы прочитать скрытое послание."><strong>The last miniature doll does not open.</strong> By tradition, it is made from a single piece of wood. In the site’s interactive logic, it symbolizes what no progress bar can measure: work ethic, consistency, patience, and the willingness to serve the university over time. Click the core to read the hidden message.</p>
+          <div class="skill-tag-row">
+            <span class="skill-tag">Discipline</span><span class="skill-tag">Consistency</span><span class="skill-tag">Patience</span><span class="skill-tag">Dedication</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ── PALETTE ── -->
-  <section class="section" aria-labelledby="paletteTitle">
-    <div class="section-head">
-      <div class="section-label" data-ru="Визуальная идентичность">Visual Identity</div>
-      <h2 id="paletteTitle" data-ru="Конструктивистская<br>цветовая система.">Constructivist<br>color system.</h2>
-    </div>
-    <div class="palette" aria-label="Design palette">
-      <div class="swatch" style="--c:#CC1B22"><b data-ru="Конструктивистский красный">Constructivist Red</b><code>#CC1B22</code></div>
-      <div class="swatch" style="--c:#8C0D13"><b data-ru="Тёмно-красный">Deep Red</b><code>#8C0D13</code></div>
-      <div class="swatch" style="--c:#080808"><b data-ru="Чёрный">Black</b><code>#080808</code></div>
-      <div class="swatch" style="--c:#F5F0E4;--t:#111"><b data-ru="Бумажный">Paper</b><code>#F5F0E4</code></div>
-      <div class="swatch" style="--c:#D9CEBC;--t:#111"><b data-ru="Берёзовый">Birch</b><code>#D9CEBC</code></div>
-      <div class="swatch" style="--c:#5A6470"><b data-ru="Стальной">Steel</b><code>#5A6470</code></div>
-      <div class="swatch" style="--c:#C4982A;--t:#111"><b data-ru="Приглушённое золото">Muted Gold</b><code>#C4982A</code></div>
-    </div>
-  </section>
+  </div>
+</section>
 
   <!-- ── SUMO / LEAFLET ── -->
   <section id="analytics" class="section" aria-labelledby="analyticsTitle">
     <div class="section-head">
       <div class="section-label"
-           data-ru="Лаборатория городской аналитики">Urban Analytics Transfer Lab</div>
+           data-ru="Лаборатория прикладной городской аналитики">Applied Urban Analytics Lab</div>
       <h2 id="analyticsTitle"
-          data-ru="SUMO + Leaflet:<br>дашборд городского<br>интеллекта.">SUMO + Leaflet<br>urban intelligence<br>dashboard.</h2>
+          data-ru="SUMO + Leaflet:<br>маленькая лаборатория<br>прикладной науки.">SUMO + Leaflet:<br>a small laboratory<br>of applied science.</h2>
       <p class="section-intro" style="margin-top:14px;"
-         data-ru="Пять районов Касабланки смоделированы с помощью выходных данных SUMO FCD и отображены как интерактивные тепловые карты и симуляции транспортных средств на реальном базовом слое OpenStreetMap.">
-        Five Casablanca districts modelled through SUMO FCD outputs, displayed as interactive heatmaps and vehicle simulations on a real OpenStreetMap base layer.
+         data-ru="Мой кейс Касабланки — это скромная, но конкретная демонстрация того, как данные движения, карта и финансовая логика могут стать основой для более серьёзных исследований городской инфраструктуры. Код и визуализация показывают не эффект ради эффекта, а метод работы: измерить, смоделировать, проверить, объяснить.">
+        My Casablanca case is a modest but concrete demonstration of how mobility data, mapping, and financial logic can become the basis for more serious urban-infrastructure research. The code and visualization are not effects for decoration; they show a working method: measure, model, verify, explain.
       </p>
     </div>
 
@@ -844,45 +1446,45 @@ h1 .accent { color: var(--red); }
   <section id="reading" class="section" aria-labelledby="readingTitle">
     <div class="section-head">
       <div class="section-label"
-           data-ru="Интеллект · Интерактивная книжная полка">The Intellect · Interactive Bookshelf</div>
+           data-ru="Язык, душа и интеллектуальная глубина">Language, Soul, and Intellectual Depth</div>
       <h2 id="readingTitle"
-          data-ru="Технические журналы,<br>системное мышление<br>и русская литературная душа.">Technical journals,<br>systems thinking,<br>and the Russian literary soul.</h2>
+          data-ru="Разум важен.<br>Но одного разума<br>недостаточно.">Reason matters.<br>But reason alone<br>is not enough.</h2>
     </div>
     <div class="bookshelf">
       <article class="book">
         <div>
-          <h3>Достоевский</h3>
-          <p data-ru="Психологическая глубина, моральное напряжение и неустранимая сложность человеческого сердца.">Psychological depth, moral tension, and the irreducible complexity of the human heart.</p>
+          <h3>Пушкин</h3>
+          <p data-ru="Русский язык для меня — не аксессуар заявки, а дверь в мышление. Уважать Россию означает уважать язык, который Пушкин сделал современным, гибким и глубоким.">For me, the Russian language is not an application accessory; it is a door into a way of thinking. To respect Russia means to respect the language that Pushkin made modern, flexible, and profound.</p>
         </div>
-        <small data-ru="Русская душа">Russian Soul</small>
+        <small data-ru="Язык">Language</small>
+      </article>
+      <article class="book">
+        <div>
+          <h3>Достоевский</h3>
+          <p data-ru="Достоевский напоминает, что образование без понимания человеческого сердца остаётся неполным. Аналитика должна видеть не только систему, но и человека внутри системы.">Dostoevsky reminds me that education without understanding the human heart remains incomplete. Analytics must see not only the system, but the person inside the system.</p>
+        </div>
+        <small data-ru="Сердце">Human Heart</small>
       </article>
       <article class="book">
         <div>
           <h3>Толстой</h3>
-          <p data-ru="Исторический масштаб, социальные системы, этическая ответственность и дисциплинированное наблюдение за человеческим поведением.">Historical scale, social systems, ethical responsibility, and disciplined observation of human behavior.</p>
+          <p data-ru="У Толстого я вижу масштаб: человек, история, институты, ответственность. Это важно для любого исследования, которое хочет быть полезным обществу, а не только точным в таблице.">In Tolstoy, I see scale: the individual, history, institutions, responsibility. This matters for any research that wants to be useful to society, not only accurate in a spreadsheet.</p>
         </div>
-        <small data-ru="Человеческие системы">Human Systems</small>
+        <small data-ru="Ответственность">Responsibility</small>
       </article>
       <article class="book">
         <div>
-          <h3>Пушкин</h3>
-          <p data-ru="Язык как культурный фундамент — изящество, национальное воображение и поэзия цивилизационной идентичности.">Language as cultural foundation — elegance, national imagination, and the poetry of civilizational identity.</p>
+          <h3 data-ru="Ломоносов">Lomonosov</h3>
+          <p data-ru="Ломоносов для меня — символ научной воли: знание требует труда, широты и веры в способность науки возвышать университет, народ и будущее.">Lomonosov represents scientific will: knowledge requires labor, breadth, and belief in the capacity of science to elevate the university, the people, and the future.</p>
         </div>
-        <small data-ru="Культура">Culture</small>
+        <small data-ru="Научное призвание">Scientific Vocation</small>
       </article>
       <article class="book">
         <div>
-          <h3 data-ru="Исследование операций">Operations Research</h3>
-          <p data-ru="Оптимизация, ограничения, распределение ресурсов и строгая структура науки о принятии решений.">Optimization, constraints, resource allocation, and the rigorous framework of decision science.</p>
+          <h3 data-ru="Операционные исследования">Operations Research</h3>
+          <p data-ru="Мой технический язык — модели, ограничения, потоки, стоимость и сценарии. Моя академическая цель — соединить этот язык с культурной глубиной и коллективной пользой.">My technical language is models, constraints, flows, cost, and scenarios. My academic goal is to connect that language with cultural depth and collective usefulness.</p>
         </div>
         <small data-ru="Метод">Method</small>
-      </article>
-      <article class="book">
-        <div>
-          <h3 data-ru="Городская аналитика">Urban Analytics</h3>
-          <p data-ru="Данные о мобильности, пространственный интеллект, моделирование экспозиции и архитектура умного города.">Mobility data, spatial intelligence, exposure modelling, and the architecture of smart-city reasoning.</p>
-        </div>
-        <small data-ru="Применение">Application</small>
       </article>
     </div>
   </section>
@@ -891,26 +1493,43 @@ h1 .accent { color: var(--red); }
   <section id="easter" class="section" aria-labelledby="easterTitle">
     <div class="section-head">
       <div class="section-label"
-           data-ru="Интерактивные пасхалки">Interactive Easter Eggs</div>
+           data-ru="Скрытые культурные сигналы">Hidden Cultural Signals</div>
       <h2 id="easterTitle"
-          data-ru="Скрытые культурные сигналы<br>для оценщиков,<br>которые смотрят глубже.">Hidden cultural signals<br>for evaluators<br>who look deeper.</h2>
+          data-ru="Не декорация,<br>а доказательство<br>внимания.">Not decoration,<br>but evidence<br>of attention.</h2>
     </div>
     <div class="easter-grid">
       <article class="easter-card" data-num="01">
-        <h3 data-ru="Код 1961 — Космос">1961 Space Code</h3>
-        <p data-ru="Наберите <strong>1961</strong> на клавиатуре, чтобы запустить ракету через экран — в честь Юрия Гагарина и космического наследия России.">Type <strong>1961</strong> anywhere on your keyboard to launch a rocket animation — in honour of Yuri Gagarin and Russia's pioneering space legacy.</p>
+        <h3 data-ru="Код 1961 — Гагарин">1961 Code — Gagarin</h3>
+        <p data-ru="Наберите <strong>1961</strong> на клавиатуре, чтобы запустить ракету. Это тихий знак уважения к научной смелости, коллективному труду и космическому наследию России.">Type <strong>1961</strong> on the keyboard to launch a rocket. It is a quiet sign of respect for scientific courage, collective work, and Russia’s space legacy.</p>
       </article>
       <article class="easter-card" data-num="02">
         <h3 data-ru="Наведение Тютчева">Tyutchev Hover</h3>
-        <p data-ru="Наведите курсор на портрет, чтобы увидеть знаменитую поэтическую фразу Тютчева о России — доказательство понимания того, что российская культура укоренена в душе, а не в метриках.">Hover over the portrait in the hero to reveal Tyutchev's famous poetic phrase — proof that the applicant understands Russian culture is rooted in the soul, not metrics.</p>
+        <p data-ru="Наведите курсор на портрет, чтобы увидеть строку Тютчева. Она напоминает мне, что Россию нельзя свести к рациональному расчёту: её нужно изучать с вниманием к истории, вере, языку и душе.">Hover over the portrait to reveal Tyutchev. It reminds me that Russia cannot be reduced to rational calculation; it must be approached through history, belief, language, and soul.</p>
       </article>
       <article class="easter-card" data-num="03">
         <h3 data-ru="Источник Ломоносова">Lomonosov Source</h3>
-        <p data-ru="Откройте исходный код HTML, чтобы найти скрытый комментарий с призывом Ломоносова к научному превосходству и личным обязательством.">Open the HTML source code of this page to find a hidden comment containing Lomonosov's call to scientific excellence and a personal commitment statement.</p>
+        <p data-ru="В исходном коде страницы скрыт комментарий о Ломоносове. Даже код становится местом уважения к научному наследию и личному обязательству учиться серьёзно.">Inside the page source, a Lomonosov note is hidden. Even the code becomes a place of respect for scientific heritage and for my personal commitment to study seriously.</p>
       </article>
       <article class="easter-card" data-num="04">
-        <h3 data-ru="Часы Зимнего дворца">Winter Palace Clock</h3>
-        <p data-ru="Часы в нижней части страницы навсегда остановлены на 2:10. Наведите курсор, чтобы узнать их историческое значение.">The clock in the footer is fixed permanently at 2:10 AM. Hover over it to reveal its historical significance — a nuanced reference to a Russian turning point.</p>
+        <h3 data-ru="Часы 2:10">The 2:10 Clock</h3>
+        <p data-ru="Часы внизу страницы остановлены на 2:10. Эта деталь показывает, что я понимаю: история России — это не декоративный фон, а глубокая память, которую нужно упоминать осторожно и уважительно.">The footer clock is fixed at 2:10. This detail shows that I understand Russian history is not decorative background, but deep memory that must be referenced carefully and respectfully.</p>
+      </article>
+
+      <article class="easter-card" data-num="05">
+        <h3 data-ru="Кольцевая линия метро">Moscow Metro Navigation</h3>
+        <p data-ru="Наведите курсор на станции навигации, чтобы открыть архитектурный слой: люстры, мрамор, мозаики и идею метро как ‘дворца для народа’. Это превращает меню в доказательство инженерной ясности.">Hover over the radial navigation stations to reveal the architectural layer: chandeliers, marble, mosaics, and the idea of the metro as a palace for the people. The menu becomes evidence of engineered clarity.</p>
+      </article>
+      <article class="easter-card" data-num="06">
+        <h3 data-ru="Лобачевский">Lobachevsky Lines</h3>
+        <p data-ru="Внизу страницы нажмите на две параллельные линии. Простая евклидова поверхность деформируется, и линии сходятся к горизонту: знак научной смелости и новых рамок мышления.">In the footer, click the two parallel lines. The simple Euclidean surface distorts and the lines converge toward the horizon: a sign of scientific courage and new frameworks of thought.</p>
+      </article>
+      <article class="easter-card" data-num="07">
+        <h3 data-ru="Самовар гостеприимства">Samovar of Hospitality</h3>
+        <p data-ru="В секции контакта нажмите на самовар. Пар поднимается, чашка наполняется, и появляется сообщение о человеческой теплоте, скрытой за внешней сдержанностью.">In the contact section, click the samovar. Steam rises, the cup fills, and a message appears about human warmth behind external reserve.</p>
+      </article>
+      <article class="easter-card" data-num="08">
+        <h3 data-ru="Жар-птица">Firebird Scroll</h3>
+        <p data-ru="При прокрутке к секции амбиций фон темнеет, и красно-золотой след Жар-птицы пересекает экран. Le son est volontairement original et discret, activable uniquement au clic.">When scrolling to the ambitions section, the background darkens and a red-gold Firebird trail crosses the screen. The sound is intentionally original, subtle, and click-activated only.</p>
       </article>
     </div>
   </section>
@@ -920,25 +1539,61 @@ h1 .accent { color: var(--red); }
     <div class="footer-card">
       <div>
         <div class="section-label"
-             data-ru="Итоговый тезис вклада">Final Contribution Thesis</div>
+             data-ru="Финальный тезис вклада">Final Contribution Thesis</div>
         <h2 id="contactTitle"
-            data-ru="Я подаю заявление<br>не только чтобы учиться.<br>Я подаю заявление,<br>чтобы внести вклад.">I do not apply only<br>to study. I apply<br>to contribute.</h2>
-        <p data-ru="Моя цель — превратить аналитическую дисциплину в исследовательскую ценность: модели, которые проясняют решения, укрепляют инфраструктурное мышление и служат серьёзной академической среде. Российское научное и литературное наследие делает эту цель не только технической, но и интеллектуальной.">My goal is to transform analytical discipline into research value: models that clarify decisions, strengthen infrastructure thinking, and serve a serious academic environment. Russia's scientific and literary heritage makes this objective not only technical, but intellectual.</p>
-        <p data-ru="Вдохновлённый Ломоносовым, Менделеевым и традицией, согласно которой наука должна служить цивилизации, — я готов принести тот же уровень серьёзности в российское исследовательское учреждение.">Inspired by Lomonosov, Mendeleev, and the tradition that science must serve civilization — I am ready to bring that exact level of seriousness to a Russian research institution.</p>
+            data-ru="Я не прошу<br>только место.<br>Я прошу право<br>заслужить его.">I do not ask<br>only for a place.<br>I ask for the right<br>to earn it.</h2>
+        <p data-ru="Я хочу прийти в российский университет как студент, который понимает, что знания требуют не только способностей, но и характера. Я готов учиться языку, уважать традицию, работать в команде, принимать строгую обратную связь и приносить конкретную пользу исследовательской среде.">I want to enter a Russian university as a student who understands that knowledge requires not only ability, but character. I am ready to learn the language, respect the tradition, work within a team, accept rigorous feedback, and bring concrete value to the research environment.</p>
+        <p data-ru="Мой путь соединяет Марокко, Францию и будущую российскую академическую среду. Я не стремлюсь растворить свою историю; я стремлюсь принести её с уважением, чтобы она стала частью более широкого соборного труда — труда науки, университета и будущего.">My path connects Morocco, France, and a future Russian academic environment. I do not seek to erase my story; I seek to bring it respectfully, so it can become part of a broader Sobornost of work — the work of science, the university, and the future.</p>
         <p class="source-note"
-           data-ru="Примечание: исторические отсылки (время часов Зимнего дворца, 1961, стихи Тютчева) реализованы как культурные отсылки на основе исторических источников и должны быть проверены перед официальной подачей.">Note: Historical Easter egg references (Winter Palace clock, 1961, Tyutchev verse) should be independently fact-checked if this file is used in an official admissions submission.</p>
+           data-ru="Примечание: культурные и исторические отсылки в портфолио должны быть проверены перед официальной подачей. Тон намеренно уважительный, академический и неидеологический.">Note: Cultural and historical references in this portfolio should be verified before official submission. The tone is intentionally respectful, academic, and non-ideological.</p>
       </div>
 
       <div class="clock-wrap">
-        <div class="clock" role="img"
-             aria-label="Vintage clock fixed at 2:10 AM — Winter Palace Easter egg">
-          2:10
-          <div class="clock-tooltip">
-            <span data-ru="Эти часы намеренно остановлены на 2:10 — символический момент, когда часы Зимнего дворца остановились во время Октябрьской революции 1917 года. Историческая точка перелома. Началась новая эпоха.">This clock is intentionally fixed at 2:10 AM — the symbolic moment when the clocks in the Winter Palace stopped during the October Revolution of 1917. A historical turning point. A new era began.</span>
+        <div class="clock" tabindex="0" role="img"
+             aria-label="Vintage imperial-style clock fixed at 2:10 AM — historical Easter egg"
+             aria-describedby="winterPalaceClockTooltip">
+          <span class="sr-only">2h10 du matin — horloge historique figée.</span>
+          <div class="clock-face" aria-hidden="true">
+            <span class="clock-numeral twelve">XII</span>
+            <span class="clock-numeral three">III</span>
+            <span class="clock-numeral six">VI</span>
+            <span class="clock-numeral nine">IX</span>
+            <span class="clock-hand hour"></span>
+            <span class="clock-hand minute"></span>
+            <span class="clock-center"></span>
+            <span class="clock-time-label">02:10</span>
+          </div>
+          <div class="clock-tooltip" id="winterPalaceClockTooltip" role="tooltip">
+            <span lang="fr"
+                  data-ru="<strong>02:10 утра, 26 октября 1917 года.</strong> Эти часы напоминают не только о переломе истории, но и о различии между документированной реальностью и позднейшим революционным мифом. Эпический образ штурма был во многом усилен фильмом Сергея Эйзенштейна ‘Октябрь’. Эта деталь учит читать историю точно, без декоративного преувеличения.">
+              « <strong>À 2h10 du matin, le 26 octobre 1917</strong> — selon le calendrier julien, soit le 7 novembre en Occident — cette horloge s’est arrêtée. Contrairement au mythe d’un assaut dramatique et épique popularisé dix ans plus tard par le film <em>Octobre</em> d’Eisenstein, l’événement réel fut beaucoup plus contenu. Cette horloge rappelle que comprendre la Russie exige de distinguer la mémoire historique, le mythe politique et la réalité documentée. »
+            </span>
           </div>
         </div>
-        <small data-ru="Наведите курсор, чтобы узнать историческую пасхалку">Hover the clock to reveal<br>the historical Easter egg</small>
+        <small data-ru="Наведите курсор на часы, чтобы открыть историческую деталь">Hover the clock to reveal<br>the historical detail</small>
       </div>
+
+      <button class="samovar-widget" id="samovarWidget" type="button" aria-label="Samovar hospitality ritual">
+        <span class="samovar-steam steam-a"></span>
+        <span class="samovar-steam steam-b"></span>
+        <span class="samovar-steam steam-c"></span>
+        <span class="samovar-body" aria-hidden="true"></span>
+        <span class="samovar-base" aria-hidden="true"></span>
+        <span class="samovar-cup" aria-hidden="true"><span class="tea-fill"></span></span>
+        <span class="samovar-tooltip" role="tooltip">
+          « Les étrangers se méprennent souvent sur la culture russe, croyant que l’absence de sourires dans la rue reflète de la froideur. Mais la véritable hospitalité russe se découvre à l’intérieur, autour de la chaleur d’un samovar, où la générosité et la loyauté personnelle prennent une forme concrète. En frappant à la porte de votre université, je souhaite partager cette chaleur intellectuelle et humaine avec sérieux, respect et engagement académique. »
+        </span>
+      </button>
+
+      <button class="lobachevsky-widget" id="lobachevskyWidget" type="button" aria-label="Lobachevsky non-Euclidean geometry interaction">
+        <span class="hyperbolic-grid" aria-hidden="true"></span>
+        <span class="parallel-line line-top" aria-hidden="true"></span>
+        <span class="parallel-line line-bottom" aria-hidden="true"></span>
+        <span class="horizon-dot" aria-hidden="true"></span>
+        <span class="lobachevsky-tooltip" role="tooltip">
+          « Jusqu’au XIXe siècle, le monde acceptait le postulat d’Euclide selon lequel deux lignes parallèles ne se croisent jamais. Nikolaï Lobatchevski, le “Copernic de la géométrie”, a osé défier cette logique millénaire pour ouvrir la voie à la géométrie non-euclidienne. Cette interaction symbolise l’audace scientifique : ne pas seulement appliquer les règles reçues, mais savoir construire de nouveaux cadres pour penser le réel. »
+        </span>
+      </button>
     </div>
   </section>
 
@@ -1024,392 +1679,446 @@ h1 .accent { color: var(--red); }
 })();
 
 /* ══════════════════════════════════════════
-   ROCKET EASTER EGG — type "1961"
+   1961 COSMIC EASTER EGG — type "1961"
    ══════════════════════════════════════════ */
 (function () {
   const SEQ = '1961';
   let typed = '';
+  const cosmicEvent = document.getElementById('cosmicEvent');
   const rocket = document.getElementById('rocketEl');
+  const dialog = document.getElementById('cosmicDialog');
+  const dialogClose = document.getElementById('cosmicDialogClose');
+  let launchTimer = null;
+
+  function clearTimers() {
+    if (launchTimer) {
+      clearTimeout(launchTimer);
+      launchTimer = null;
+    }
+  }
+
+  function hideCosmicEvent() {
+    clearTimers();
+    dialog.classList.remove('show');
+    rocket.classList.remove('launch');
+    cosmicEvent.classList.remove('active');
+    cosmicEvent.setAttribute('aria-hidden', 'true');
+  }
+
+  function launchCosmicEvent() {
+    clearTimers();
+    dialog.classList.remove('show');
+    cosmicEvent.classList.add('active');
+    cosmicEvent.setAttribute('aria-hidden', 'false');
+    rocket.classList.remove('launch');
+    void rocket.offsetWidth;
+    rocket.classList.add('launch');
+
+    launchTimer = setTimeout(() => {
+      dialog.classList.add('show');
+      launchTimer = null;
+    }, 2380);
+  }
+
   window.addEventListener('keydown', (e) => {
     if (e.key.length !== 1) return;
     typed = (typed + e.key).slice(-SEQ.length);
     if (typed === SEQ) {
-      rocket.classList.remove('fly');
-      void rocket.offsetWidth;
-      rocket.classList.add('fly');
+      launchCosmicEvent();
       typed = '';
+      return;
+    }
+    if (e.key === 'Escape' && cosmicEvent.classList.contains('active')) {
+      hideCosmicEvent();
+    }
+  });
+
+  dialogClose.addEventListener('click', hideCosmicEvent);
+  cosmicEvent.addEventListener('click', (e) => {
+    if (e.target === cosmicEvent || e.target.classList.contains('cosmic-stars')) {
+      hideCosmicEvent();
     }
   });
 })();
 
+
 /* ══════════════════════════════════════════
-   MATRYOSHKA — CANVAS 2D ENGINE
+   MATRYOSHKA — EVOLVING CANVAS ENGINE
    ══════════════════════════════════════════ */
 (function () {
   const canvas = document.getElementById('matryoshkaCanvas');
-  const wrap   = document.getElementById('matryoshkaWrap');
-  const hint   = document.getElementById('matryoshkaHint');
+  const wrap = document.getElementById('matryoshkaWrap');
+  const hint = document.getElementById('matryoshkaHint');
   const resetBtn = document.getElementById('matryoshkaReset');
-  if (!canvas) return;
+  const coreTooltip = document.getElementById('matryoshkaCoreTooltip');
+  if (!canvas || !wrap) return;
   const ctx = canvas.getContext('2d');
 
-  const W = 420, H = 360;
-  canvas.width = W; canvas.height = H;
-
+  const W = canvas.width = 420;
+  const H = canvas.height = 500;
   const isRu = () => document.documentElement.lang === 'ru';
 
-  // ── Doll definitions (from outermost to innermost) ──
   const DOLLS = [
-    { w: 130, h: 188, topRatio: .58, colorTop: '#CC1B22', colorBot: '#8B0A10', seam: '#6A0008', textCol: '#fff', labelEN: ['DATA', 'ANALYSIS'], labelRU: ['АНАЛИЗ', 'ДАННЫХ'], subEN: 'OUTER SHELL', subRU: 'ВНЕШНЯЯ' },
-    { w: 118, h: 170, topRatio: .58, colorTop: '#2a2a2a', colorBot: '#141414', seam: '#080808', textCol: '#fff', labelEN: ['FINANCIAL', 'MODEL'],   labelRU: ['ФИНАНСОВАЯ', 'МОДЕЛЬ'],   subEN: 'LAYER 2',    subRU: 'СЛОЙ 2' },
-    { w: 106, h: 153, topRatio: .58, colorTop: '#EDE8D8', colorBot: '#C8BEA4', seam: '#A09070', textCol: '#1E1E1E', labelEN: ['URBAN', 'SIM'],  labelRU: ['ГОРОДСКАЯ', 'СИМУЛ.'],  subEN: 'LAYER 3',    subRU: 'СЛОЙ 3' },
-    { w:  94, h: 136, topRatio: .58, colorTop: '#C4982A', colorBot: '#8A6A10', seam: '#5A4208', textCol: '#fff', labelEN: ['STRATEGY'],          labelRU: ['СТРАТЕГИЯ'],            subEN: 'CORE',       subRU: 'ЯДРО' },
+    { w: 178, h: 258, seamY: 40, style: 'khokhloma',      labelEN: ['BUSINESS', 'ANALYTICS'],  labelRU: ['БИЗНЕС', 'АНАЛИТИКА'],    subEN: 'OUTER SHELL', subRU: 'ВНЕШНИЙ СЛОЙ' },
+    { w: 142, h: 208, seamY: 30, style: 'constructivist', labelEN: ['FINANCIAL', 'MODELLING'], labelRU: ['ФИНАНСОВОЕ', 'МОДЕЛИР.'], subEN: 'LAYER TWO',  subRU: 'СЛОЙ ДВА' },
+    { w: 108, h: 160, seamY: 22, style: 'spaceage',       labelEN: ['TOOLS'],                  labelRU: ['ИНСТРУМЕНТЫ'],           subEN: 'INNER DOLL', subRU: 'ВНУТРЕННИЙ' },
+    { w: 72,  h: 106, seamY: 0,  style: 'core',           labelEN: ['TRUDO', 'LIUBIE'],       labelRU: ['ТРУДО', 'ЛЮБИЕ'],        subEN: 'CORE',       subRU: 'ЯДРО' }
   ];
 
-  // ── Animation state per doll ──
-  // phase: 'closed' | 'opening' | 'open'
-  // openAmt: 0..1 (animation progress)
-  const state = DOLLS.map(() => ({ phase: 'closed', openAmt: 0, glowAmt: 0 }));
-  state[0].glowAmt = 1; // first doll starts glowing
-
-  let raf = null;
-  let needsRedraw = true;
-
-  function drawDoll(i, oAmt) {
-    const d = DOLLS[i];
-    if (state[i].phase === 'open' && i < DOLLS.length - 1) return;
-
-    const RX = d.w / 2;   // ring half-width
-    const RY = d.h / 2;   // ring half-height
-    // Seam sits at 20% below centre of ellipse
-    const seamOffset = RY * 0.15; // seam Y relative to ellipse centre
-
-    const topOffY = -oAmt * RY * 1.4;
-    const botOffY =  oAmt * RY * 1.1;
-    const sideOffX = oAmt * (i === 0 ? -130 : i === 1 ? 110 : -80);
-    const sc    = 1 - oAmt * (i < DOLLS.length - 1 ? 0.2 : 0);
-    const alpha = 1 - oAmt * (i < DOLLS.length - 1 ? 0.5 : 0);
-
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    // Centre every doll at canvas centre
-    ctx.translate(W / 2 + sideOffX * oAmt, H / 2);
-    ctx.scale(sc, sc);
-
-    // ── Glow ring — the reference ellipse ──
-    if (state[i].glowAmt > 0) {
-      ctx.save();
-      ctx.globalAlpha = alpha * state[i].glowAmt * 0.7;
-      ctx.shadowBlur = 24;
-      ctx.shadowColor = '#C4982A';
-      ctx.strokeStyle = '#C4982A';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    // ── BOTTOM half — clip to lower portion of the ellipse ──
-    ctx.save();
-    ctx.translate(0, botOffY);
-    ctx.beginPath();
-    ctx.rect(-RX - 4, seamOffset, RX * 2 + 8, RY * 2);
-    ctx.clip();
-    const gb = ctx.createLinearGradient(0, seamOffset, 0, RY);
-    gb.addColorStop(0, d.colorTop);
-    gb.addColorStop(1, d.colorBot);
-    ctx.fillStyle = gb;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = d.seam; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-
-    // ── TOP half — clip to upper portion of the ellipse ──
-    ctx.save();
-    ctx.translate(0, topOffY);
-    ctx.beginPath();
-    ctx.rect(-RX - 4, -RY * 2, RX * 2 + 8, RY * 2 + seamOffset);
-    ctx.clip();
-    const gt = ctx.createLinearGradient(0, -RY, 0, seamOffset);
-    gt.addColorStop(0, lighten(d.colorTop, 0.15));
-    gt.addColorStop(1, d.colorTop);
-    ctx.fillStyle = gt;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = d.seam; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-
-    // ── Face — TOP half ──
-    ctx.save();
-    ctx.translate(0, topOffY);
-    drawFace(d, 0, -RY * 0.25, RX);
-    ctx.restore();
-
-    // ── Label — BOTTOM half, below seam ──
-    ctx.save();
-    ctx.translate(0, botOffY);
-    const labels = isRu() ? d.labelRU : d.labelEN;
-    const fs = d.w > 110 ? 13 : 11;
-    const lh = fs + 4;
-    ctx.font = `700 ${fs}px "Oswald","Impact",sans-serif`;
-    ctx.fillStyle = d.textCol;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const lblY = seamOffset + RY * 0.18;
-    labels.forEach((line, li) => {
-      ctx.fillText(line, 0, lblY + (li - (labels.length - 1) / 2) * lh);
-    });
-    ctx.save();
-    ctx.globalAlpha *= 0.6;
-    ctx.font = `400 8px "JetBrains Mono",monospace`;
-    ctx.fillText(isRu() ? d.subRU : d.subEN, 0, lblY + labels.length * lh * 0.6);
-    ctx.restore();
-    ctx.restore();
-
-    // ── Seam line (only when closed) ──
-    if (oAmt < 0.05) {
-      ctx.strokeStyle = d.seam; ctx.lineWidth = 3;
-      // Find x extent of ellipse at y = seamOffset
-      const seamX = RX * Math.sqrt(1 - (seamOffset / RY) ** 2);
-      ctx.beginPath();
-      ctx.moveTo(-seamX + 3, seamOffset);
-      ctx.lineTo( seamX - 3, seamOffset);
-      ctx.stroke();
-    }
-
-    ctx.restore();
-  }
-
-  function drawTop(d, topH) {
-    const rx = d.w / 2, ry = topH;
-    // Gradient
-    const grd = ctx.createLinearGradient(-rx, -ry, rx, 0);
-    grd.addColorStop(0, lighten(d.colorTop, .15));
-    grd.addColorStop(1, d.colorTop);
-    ctx.fillStyle = grd;
-
-    // Shape: ellipse top half (from -ry to 0)
-    ctx.beginPath();
-    ctx.ellipse(0, -topH / 2, rx, topH, 0, Math.PI, 0); // upper arc
-    ctx.lineTo(rx, 0);
-    ctx.lineTo(-rx, 0);
-    ctx.closePath();
-    ctx.fill();
-
-    // Border
-    ctx.strokeStyle = d.seam;
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.ellipse(0, -topH / 2, rx, topH, 0, Math.PI, 0);
-    ctx.stroke();
-
-    // Face (eyes + rosy cheeks + mouth) — only on top half
-    drawFace(d, topH);
-
-    // Label text
-    const font = d === DOLLS[3] ? 'bold 10px' : 'bold 11px';
-    ctx.font = `700 ${d.w > 130 ? 13 : d.w > 90 ? 11 : 9}px "Oswald", sans-serif`;
-    ctx.fillStyle = d.textCol;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const labels = isRu() ? d.labelRU : d.labelEN;
-    const lineH = d.w > 130 ? 16 : 13;
-    const startY = -topH * .32 + (labels.length === 1 ? lineH * .5 : 0);
-    labels.forEach((line, li) => {
-      ctx.fillText(line, 0, startY + li * lineH);
-    });
-    // Sub label
-    ctx.font = `400 ${d.w > 130 ? 8 : 7}px "JetBrains Mono", monospace`;
-    ctx.globalAlpha = ctx.globalAlpha * .7;
-    ctx.fillText(isRu() ? d.subRU : d.subEN, 0, startY + labels.length * lineH + 5);
-    ctx.globalAlpha = ctx.globalAlpha / .7;
-  }
-
-  function drawBottom(d, topH, botH) {
-    const rx = d.w / 2;
-    const grd = ctx.createLinearGradient(-rx, 0, rx, botH);
-    grd.addColorStop(0, d.colorTop);
-    grd.addColorStop(1, d.colorBot);
-    ctx.fillStyle = grd;
-
-    ctx.beginPath();
-    ctx.moveTo(-rx, 0);
-    ctx.lineTo(rx, 0);
-    // Round bottom: ellipse lower half
-    ctx.ellipse(0, botH * .35, rx * .95, botH * .72, 0, 0, Math.PI);
-    ctx.closePath();
-    ctx.fill();
-
-    // Border
-    ctx.strokeStyle = d.seam;
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.ellipse(0, botH * .35, rx * .95, botH * .72, 0, 0, Math.PI);
-    ctx.stroke();
-
-    // Seam line
-    ctx.strokeStyle = d.seam;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(-rx + 2, 0); ctx.lineTo(rx - 2, 0);
-    ctx.stroke();
-  }
-
-  function drawFace(d, cx, cy, rx) {
-    const sc   = Math.min(1, rx / 70);
-    const eGap = 16 * sc, eRx = 4 * sc, eRy = 5.5 * sc;
-
-    // Cheeks
-    ctx.fillStyle = isLight(d.colorTop) ? 'rgba(160,40,40,.15)' : 'rgba(255,140,110,.22)';
-    ctx.beginPath(); ctx.ellipse(cx - eGap - 3*sc, cy + eRy*2.2, eRx*2, eRy*.9, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx + eGap + 3*sc, cy + eRy*2.2, eRx*2, eRy*.9, 0, 0, Math.PI*2); ctx.fill();
-
-    // Eyes
-    ctx.fillStyle = isLight(d.colorTop) ? 'rgba(20,10,0,.75)' : 'rgba(255,255,255,.82)';
-    ctx.beginPath(); ctx.ellipse(cx - eGap, cy, eRx, eRy, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx + eGap, cy, eRx, eRy, 0, 0, Math.PI*2); ctx.fill();
-
-    // Mouth
-    ctx.strokeStyle = isLight(d.colorTop) ? 'rgba(20,10,0,.45)' : 'rgba(255,255,255,.55)';
-    ctx.lineWidth = 1.8 * sc;
-    ctx.beginPath();
-    ctx.arc(cx, cy + eRy * 3.5, 10 * sc, 0.2, Math.PI - 0.2);
-    ctx.stroke();
-  }
-
-  function lighten(hex, amt) {
-    const n = parseInt(hex.slice(1), 16);
-    const r = Math.min(255, (n >> 16) + Math.round(255 * amt));
-    const g = Math.min(255, ((n >> 8) & 0xff) + Math.round(255 * amt));
-    const b = Math.min(255, (n & 0xff) + Math.round(255 * amt));
-    return `rgb(${r},${g},${b})`;
-  }
-  function isLight(hex) {
-    const n = parseInt(hex.replace('#',''), 16);
-    const r = n >> 16, g = (n >> 8) & 0xff, bv = n & 0xff;
-    return (r * 299 + g * 587 + bv * 114) / 1000 > 140;
-  }
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    // Draw from innermost → outermost (so outer is on top when closed)
-    for (let i = DOLLS.length - 1; i >= 0; i--) {
-      drawDoll(i, state[i].openAmt);
-    }
-  }
-
-  // ── Animation loop ──
-  let animating = false;
-  function animate() {
-    let stillGoing = false;
-    DOLLS.forEach((_, i) => {
-      const s = state[i];
-      if (s.phase === 'opening') {
-        s.openAmt = Math.min(1, s.openAmt + .032);
-        if (s.openAmt >= 1) { s.phase = 'open'; s.openAmt = 1; }
-        else stillGoing = true;
-      }
-      // Glow pulse on active doll
-      const targetGlow = (i === currentActive) ? 1 : 0;
-      s.glowAmt += (targetGlow - s.glowAmt) * .12;
-      if (Math.abs(s.glowAmt - targetGlow) > .005) stillGoing = true;
-    });
-    render();
-    if (stillGoing) raf = requestAnimationFrame(animate);
-    else animating = false;
-  }
-
-  function startAnim() {
-    if (!animating) { animating = true; raf = requestAnimationFrame(animate); }
-  }
-
-  // ── Skill panel logic ──
-  const skills    = ['data', 'finance', 'urban', 'strategy'];
-  const panelIds  = ['skillData', 'skillFinance', 'skillUrban', 'skillStrategy'];
-  let currentActive = 0; // index into DOLLS (0=outermost)
+  const state = DOLLS.map((_, i) => ({ phase: 'closed', openAmt: 0, glowAmt: i === 0 ? 1 : 0 }));
+  const skills = ['outer', 'middle', 'inner', 'core'];
+  const panelIds = ['skillOuter', 'skillMiddle', 'skillInner', 'skillCore'];
+  let currentActive = 0;
   let openCount = 0;
+  let raf = null;
+  let animating = false;
+  let audioCtx = null;
+
+  function getAudio() {
+    if (!audioCtx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) audioCtx = new AC();
+    }
+    return audioCtx;
+  }
+
+  function playWoodOpenSound() {
+    const ac = getAudio();
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const now = ac.currentTime;
+
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(280, now);
+    osc.frequency.exponentialRampToValueAtTime(145, now + 0.12);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.055, now + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.17);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(now);
+    osc.stop(now + 0.18);
+
+    const buffer = ac.createBuffer(1, ac.sampleRate * 0.12, ac.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 2);
+    const noise = ac.createBufferSource();
+    const filter = ac.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 980;
+    filter.Q.value = 1.2;
+    const ng = ac.createGain();
+    ng.gain.setValueAtTime(0.0001, now);
+    ng.gain.exponentialRampToValueAtTime(0.032, now + 0.01);
+    ng.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+    noise.buffer = buffer;
+    noise.connect(filter).connect(ng).connect(ac.destination);
+    noise.start(now);
+    noise.stop(now + 0.11);
+  }
+
+  function updateHint() {
+    if (!hint) return;
+    const done = openCount >= DOLLS.length - 1;
+    hint.innerHTML = done ? (isRu() ? hint.dataset.openRu : hint.dataset.openEn) : (isRu() ? hint.dataset.closedRu : hint.dataset.closedEn);
+  }
 
   function activateSkill(idx) {
-    document.querySelectorAll('.skill-btn[data-skill]').forEach(b => {
-      const a = b.dataset.skill === skills[idx];
-      b.classList.toggle('active', a);
-      b.setAttribute('aria-selected', a);
+    document.querySelectorAll('.skill-btn[data-skill]').forEach(btn => {
+      const active = btn.dataset.skill === skills[idx];
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
-    panelIds.forEach(id => { const e = document.getElementById(id); if (e) e.classList.remove('visible'); });
-    const p = document.getElementById(panelIds[idx]);
-    if (p) p.classList.add('visible');
+    panelIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('visible');
+    });
+    const panel = document.getElementById(panelIds[idx]);
+    if (panel) panel.classList.add('visible');
     currentActive = idx;
     startAnim();
   }
 
+  function showCoreTooltip() {
+    if (coreTooltip) coreTooltip.classList.add('show');
+    activateSkill(3);
+  }
+  function hideCoreTooltip() { if (coreTooltip) coreTooltip.classList.remove('show'); }
+
   function openDoll(i) {
-    if (state[i].phase !== 'closed') return;
+    if (i >= DOLLS.length - 1 || state[i].phase !== 'closed') return;
+    hideCoreTooltip();
     state[i].phase = 'opening';
     openCount++;
-    // Next doll becomes active
-    const next = Math.min(i + 1, DOLLS.length - 1);
-    activateSkill(next);
-    if (openCount >= DOLLS.length - 1) {
-      // Last doll revealed
-      if (wrap) wrap.classList.add('all-opened');
-    }
+    playWoodOpenSound();
+    activateSkill(Math.min(i + 1, DOLLS.length - 1));
+    if (openCount >= DOLLS.length - 1) wrap.classList.add('all-opened');
+    updateHint();
     startAnim();
   }
 
   function reset() {
-    cancelAnimationFrame(raf);
-    DOLLS.forEach((_, i) => { state[i].phase = 'closed'; state[i].openAmt = 0; state[i].glowAmt = i === 0 ? 1 : 0; });
+    if (raf) cancelAnimationFrame(raf);
+    animating = false;
+    DOLLS.forEach((_, i) => {
+      state[i].phase = 'closed';
+      state[i].openAmt = 0;
+      state[i].glowAmt = i === 0 ? 1 : 0;
+    });
     openCount = 0;
     currentActive = 0;
-    if (wrap) wrap.classList.remove('all-opened');
+    wrap.classList.remove('all-opened');
+    hideCoreTooltip();
+    updateHint();
     activateSkill(0);
     render();
   }
 
-  // ── Click handling ──
-  canvas.addEventListener('click', () => {
-    // Open the next closed doll
+  function rgb(hex) {
+    const n = parseInt(hex.replace('#',''), 16);
+    return { r:(n>>16)&255, g:(n>>8)&255, b:n&255 };
+  }
+  function tint(hex, amt) {
+    const c = rgb(hex), m = v => Math.max(0, Math.min(255, Math.round(v + (255 - v) * amt)));
+    return `rgb(${m(c.r)},${m(c.g)},${m(c.b)})`;
+  }
+  function shade(hex, amt) {
+    const c = rgb(hex), m = v => Math.max(0, Math.min(255, Math.round(v * (1 - amt))));
+    return `rgb(${m(c.r)},${m(c.g)},${m(c.b)})`;
+  }
+  function palette(style) {
+    if (style === 'khokhloma') return { top:'#140B05', bot:'#221209', stroke:'#5c2905', hi:'#f7e5b5' };
+    if (style === 'constructivist') return { top:'#EDE8D8', bot:'#C7BDA4', stroke:'#111111', hi:'#ffffff' };
+    if (style === 'spaceage') return { top:'#dce2ea', bot:'#95a2b5', stroke:'#334455', hi:'#ffffff' };
+    return { top:'#c58d49', bot:'#8b5b24', stroke:'#6f4318', hi:'#fff3d5' };
+  }
+
+  function drawBackground() {
+    ctx.clearRect(0,0,W,H);
+    const bg = ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'rgba(255,252,245,0.82)');
+    bg.addColorStop(1,'rgba(234,224,203,0.92)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0,0,W,H);
+    ctx.save();
+    ctx.globalAlpha = .10;
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath();
+      ctx.ellipse(65 + i * 72, 56 + (i % 2) * 12, 22, 10, 0, 0, Math.PI * 2);
+      ctx.fillStyle = i % 2 ? '#CC1B22' : '#C4982A';
+      ctx.fill();
+    }
+    ctx.restore();
+    const wood = ctx.createLinearGradient(0,H-80,0,H);
+    wood.addColorStop(0,'rgba(185,155,104,0.18)');
+    wood.addColorStop(1,'rgba(120,84,41,0.22)');
+    ctx.fillStyle = wood;
+    ctx.fillRect(0,H-84,W,84);
+  }
+  function drawInnerGlow(rx, ry, hi) {
+    ctx.save();
+    ctx.globalAlpha = .14;
+    const g = ctx.createRadialGradient(-rx*.18,-ry*.5,6,0,-ry*.35,rx*1.2);
+    g.addColorStop(0, hi); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(0,0,rx*.94,ry*.94,0,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  function drawLabel(d, x, y, size) {
+    const lines = isRu() ? d.labelRU : d.labelEN;
+    const sub = isRu() ? d.subRU : d.subEN;
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,255,255,.95)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `700 ${size}px "Oswald", "Impact", sans-serif`;
+    const lh = size + 4;
+    lines.forEach((line, i) => ctx.fillText(line, x, y + (i - (lines.length - 1) / 2) * lh));
+    ctx.globalAlpha = .68;
+    ctx.font = '400 8px "JetBrains Mono", monospace';
+    ctx.fillText(sub, x, y + lines.length * lh * .58);
+    ctx.restore();
+  }
+  function drawStar(x, y, outer, points) {
+    const inner = outer * .46;
+    ctx.beginPath();
+    for (let i = 0; i < points * 2; i++) {
+      const r = i % 2 === 0 ? outer : inner;
+      const a = -Math.PI / 2 + (Math.PI / points) * i;
+      const px = x + Math.cos(a) * r;
+      const py = y + Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+  function drawKhokhloma(rx, ry, seamY, part, d) {
+    ctx.save();
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(233,196,96,.95)'; ctx.lineWidth = 3;
+    const stemY = part === 'top' ? seamY - 18 : seamY + 6;
+    ctx.beginPath();
+    ctx.moveTo(-rx*.34, stemY + 28);
+    ctx.bezierCurveTo(-rx*.20, stemY - 4, rx*.08, stemY - 6, rx*.28, stemY + 26);
+    ctx.stroke();
+    [[-30,0],[-8,-10],[18,-4],[38,10]].forEach(([dx,dy], i) => {
+      ctx.beginPath(); ctx.ellipse(dx, stemY + dy, 11, 6, i % 2 ? -.6 : .6, 0, Math.PI * 2); ctx.stroke();
+    });
+    const berries = part === 'top' ? [[-8,stemY+2],[14,stemY-4],[36,stemY+12]] : [[-24,stemY+18],[-2,stemY+30],[22,stemY+16],[42,stemY+30]];
+    berries.forEach(([bx,by]) => {
+      ctx.fillStyle = '#CC1B22'; ctx.beginPath(); ctx.arc(bx,by,8,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.beginPath(); ctx.arc(bx-2,by-2,2.2,0,Math.PI*2); ctx.fill();
+    });
+    if (part === 'top') {
+      ctx.fillStyle = '#F7ECCD'; ctx.beginPath(); ctx.arc(0,-ry*.34,22,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = 'rgba(45,18,0,.75)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(-8,-ry*.36,2.8,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(8,-ry*.36,2.8,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0,-ry*.30,7,.25,Math.PI-.25); ctx.stroke();
+      ctx.fillStyle = 'rgba(205,27,34,.20)';
+      ctx.beginPath(); ctx.ellipse(-15,-ry*.28,5,3,0,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(15,-ry*.28,5,3,0,0,Math.PI*2); ctx.fill();
+    }
+    drawLabel(d, 0, seamY + ry * .16, rx > 70 ? 13 : 11);
+    ctx.restore();
+  }
+  function drawConstructivist(rx, ry, seamY, part, d) {
+    ctx.save();
+    ctx.globalAlpha = .95;
+    ctx.fillStyle = '#CC1B22';
+    ctx.beginPath(); ctx.moveTo(-rx*.72,seamY+8); ctx.lineTo(-rx*.12,seamY-40); ctx.lineTo(-rx*.12,seamY+52); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#111'; ctx.fillRect(-rx*.06,seamY-54,rx*.18,116);
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(rx*.30,seamY-6,22,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#111'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-rx*.54,seamY-56); ctx.lineTo(rx*.56,seamY+48); ctx.stroke();
+    ctx.fillStyle = '#CC1B22'; ctx.fillRect(rx*.12,seamY+18,rx*.34,12);
+    ctx.save(); ctx.translate(0, part === 'top' ? -ry*.34 : seamY + ry*.20); ctx.rotate(-.22); ctx.fillStyle = 'rgba(17,17,17,.18)'; ctx.fillRect(-42,-10,84,20); ctx.restore();
+    drawLabel(d, 0, seamY + ry * .18, 11);
+    ctx.restore();
+  }
+  function drawSpaceAge(rx, ry, seamY, part, d) {
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255,255,255,.74)'; ctx.lineWidth = 1.8;
+    ctx.beginPath(); ctx.ellipse(0,seamY+10,rx*.56,ry*.20,-.18,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(0,seamY+10,rx*.36,ry*.12,.38,0,Math.PI*2); ctx.stroke();
+    const pts = [[-24,-22],[-6,-50],[26,-28],[18,-2],[-12,4]].map(([sx,sy]) => [sx, sy + seamY]);
+    ctx.fillStyle = '#CC1B22'; ctx.beginPath(); pts.forEach(([px,py],i)=>{ if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py); }); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(45,68,95,.55)'; ctx.lineWidth = 1.2;
+    [-32,-6,20].forEach(x => { ctx.beginPath(); ctx.arc(x,seamY+28,3,0,Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill(); ctx.beginPath(); ctx.moveTo(x,seamY+32); ctx.lineTo(x,seamY+52); ctx.stroke(); });
+    if (part === 'top') { ctx.fillStyle='rgba(255,255,255,.86)'; ctx.beginPath(); ctx.ellipse(0,-ry*.30,18,16,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#6fa4ff'; ctx.beginPath(); ctx.arc(0,-ry*.30,10,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(14,-ry*.44,2.2,0,Math.PI*2); ctx.fill(); }
+    drawLabel(d, 0, seamY + ry * .16, 10.5);
+    ctx.restore();
+  }
+  function drawCoreSymbols(rx, ry, d) {
+    ctx.save();
+    ctx.strokeStyle = 'rgba(111,67,24,.20)'; ctx.lineWidth = 1.2;
+    for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(-8,4,10 + i * 7,-1.3,1.2); ctx.stroke(); }
+    ctx.fillStyle = '#f2d690'; drawStar(0,-10,12,5); ctx.fill();
+    ctx.fillStyle = '#a3171d'; ctx.beginPath(); ctx.moveTo(0,10); ctx.bezierCurveTo(-10,-2,-20,14,0,28); ctx.bezierCurveTo(20,14,10,-2,0,10); ctx.fill();
+    drawLabel(d, 0, 34, 8.6);
+    ctx.restore();
+  }
+  function drawHalf(d, x, y, rx, ry, seamY, part) {
+    const p = palette(d.style);
+    ctx.save(); ctx.translate(x,y);
+    ctx.beginPath();
+    if (part === 'top') ctx.rect(-rx-2,-ry-2,rx*2+4,ry+seamY+4);
+    else ctx.rect(-rx-2,seamY-2,rx*2+4,ry*2-seamY+4);
+    ctx.clip();
+    const g = ctx.createLinearGradient(0,-ry,0,ry);
+    g.addColorStop(0,tint(p.top,.10)); g.addColorStop(.58,p.top); g.addColorStop(1,p.bot);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = p.stroke; ctx.lineWidth = 2.8; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2); ctx.stroke();
+    drawInnerGlow(rx, ry, p.hi);
+    if (d.style === 'khokhloma') drawKhokhloma(rx, ry, seamY, part, d);
+    else if (d.style === 'constructivist') drawConstructivist(rx, ry, seamY, part, d);
+    else if (d.style === 'spaceage') drawSpaceAge(rx, ry, seamY, part, d);
+    ctx.restore();
+  }
+  function drawFullCore(d, x, y, rx, ry) {
+    const p = palette('core');
+    ctx.save(); ctx.translate(x,y);
+    const g = ctx.createLinearGradient(0,-ry,0,ry); g.addColorStop(0,tint(p.top,.08)); g.addColorStop(1,p.bot);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = p.stroke; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2); ctx.stroke();
+    drawInnerGlow(rx, ry, p.hi); drawCoreSymbols(rx, ry, d); ctx.restore();
+  }
+  function shadow(cx, cy, w, h, a) { ctx.save(); ctx.fillStyle = `rgba(0,0,0,${a})`; ctx.beginPath(); ctx.ellipse(cx,cy,w,h,0,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+  function drawDoll(i, openAmt) {
+    const d = DOLLS[i];
+    if (state[i].phase === 'open' && i < DOLLS.length - 1) return;
+    const baseX = W / 2, baseY = 255;
+    const scale = 1 - openAmt * (i < DOLLS.length - 1 ? .06 : 0);
+    const alpha = 1 - openAmt * (i < DOLLS.length - 1 ? .25 : 0);
+    const gap = i === DOLLS.length - 1 ? 0 : openAmt * (24 + d.w * .05);
+    ctx.save(); ctx.translate(baseX, baseY - i * 4); ctx.scale(scale, scale); ctx.globalAlpha = alpha;
+    const glow = state[i].glowAmt;
+    if (glow > .02) {
+      ctx.save();
+      const halo = ctx.createRadialGradient(0,0,d.w*.15,0,0,d.w*1.1);
+      halo.addColorStop(0, `rgba(232,200,105,${.10 * glow})`); halo.addColorStop(.55, `rgba(204,27,34,${.06 * glow})`); halo.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = halo; ctx.beginPath(); ctx.ellipse(0,10,d.w*.78,d.h*.64,0,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+    shadow(0, d.h / 2 + 32, d.w * .46, 12, .10 + glow * .05);
+    if (i === DOLLS.length - 1) drawFullCore(d, 0, 0, d.w / 2, d.h / 2);
+    else {
+      drawHalf(d, 0, -gap, d.w / 2, d.h / 2, d.seamY, 'top');
+      drawHalf(d, 0,  gap, d.w / 2, d.h / 2, d.seamY, 'bottom');
+      if (openAmt < .04) {
+        ctx.save();
+        ctx.strokeStyle = shade(palette(d.style).stroke, .1); ctx.lineWidth = 2.6;
+        const seamX = (d.w / 2) * Math.sqrt(Math.max(0, 1 - Math.pow(d.seamY / (d.h / 2), 2)));
+        ctx.beginPath(); ctx.moveTo(-seamX + 4, d.seamY); ctx.lineTo(seamX - 4, d.seamY); ctx.stroke();
+        ctx.restore();
+      }
+    }
+    ctx.restore();
+  }
+  function render() { drawBackground(); for (let i = DOLLS.length - 1; i >= 0; i--) drawDoll(i, state[i].openAmt); }
+  function animate() {
+    let running = false;
+    DOLLS.forEach((_, i) => {
+      const s = state[i];
+      if (s.phase === 'opening') {
+        s.openAmt = Math.min(1, s.openAmt + .045);
+        if (s.openAmt >= 1) { s.phase = 'open'; s.openAmt = 1; } else running = true;
+      }
+      const target = i === currentActive ? 1 : 0;
+      s.glowAmt += (target - s.glowAmt) * .12;
+      if (Math.abs(s.glowAmt - target) > .005) running = true;
+    });
+    render();
+    if (running) raf = requestAnimationFrame(animate); else animating = false;
+  }
+  function startAnim() { if (!animating) { animating = true; raf = requestAnimationFrame(animate); } }
+  function primaryAction() {
     for (let i = 0; i < DOLLS.length - 1; i++) {
       if (state[i].phase === 'closed') { openDoll(i); return; }
     }
+    showCoreTooltip();
+  }
+  canvas.addEventListener('click', primaryAction);
+  wrap.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); primaryAction(); }
+    else if (e.key === 'Escape') hideCoreTooltip();
   });
-
-  if (resetBtn) resetBtn.addEventListener('click', (e) => { e.stopPropagation(); reset(); });
-
-  // Skill buttons also drive the canvas
+  wrap.addEventListener('click', e => { if (e.target === wrap) hideCoreTooltip(); });
+  if (coreTooltip) coreTooltip.addEventListener('click', e => e.stopPropagation());
+  if (resetBtn) resetBtn.addEventListener('click', e => { e.stopPropagation(); reset(); });
   document.querySelectorAll('.skill-btn[data-skill]').forEach(btn => {
     btn.addEventListener('click', () => {
       const idx = skills.indexOf(btn.dataset.skill);
       if (idx < 0) return;
-      // Auto-open all dolls up to this index
-      for (let i = 0; i < idx; i++) openDoll(i);
+      for (let i = 0; i < idx && i < DOLLS.length - 1; i++) openDoll(i);
       activateSkill(idx);
+      if (idx === DOLLS.length - 1 && openCount >= DOLLS.length - 1) showCoreTooltip(); else hideCoreTooltip();
+      updateHint();
     });
     btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
   });
-
-  // Tooltip on hover
-  canvas.addEventListener('mousemove', (e) => {
-    canvas.style.cursor = openCount < DOLLS.length - 1 ? 'pointer' : 'default';
-  });
-
-  // Re-render on language switch (labels change)
-  document.addEventListener('click', e => {
-    if (e.target.id === 'btnEn' || e.target.id === 'btnRu') setTimeout(render, 200);
-  });
-
-  // Init
-  activateSkill(0);
-  render();
+  canvas.addEventListener('mousemove', () => { canvas.style.cursor = openCount < DOLLS.length - 1 ? 'pointer' : 'help'; });
+  document.addEventListener('click', e => { if (e.target.id === 'btnEn' || e.target.id === 'btnRu') setTimeout(() => { updateHint(); render(); }, 200); });
+  activateSkill(0); updateHint(); render();
 })();
 
 /* ══════════════════════════════════════════
@@ -1490,6 +2199,129 @@ h1 .accent { color: var(--red); }
     obs.observe(panel);
   });
 })();
+
+/* ══════════════════════════════════════════
+   MOSCOW METRO NAVIGATION HOVER
+   ══════════════════════════════════════════ */
+(function () {
+  const overlay = document.getElementById('metroPalaceBg');
+  const title = document.getElementById('metroPalaceStation');
+  const stations = document.querySelectorAll('.metro-station');
+  if (!overlay || !title || !stations.length) return;
+  let hideTimer = null;
+
+  function show(station) {
+    clearTimeout(hideTimer);
+    title.textContent = station.dataset.station || station.textContent.trim();
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+  }
+  function hide() {
+    hideTimer = setTimeout(() => {
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+    }, 120);
+  }
+  stations.forEach(station => {
+    station.addEventListener('mouseenter', () => show(station));
+    station.addEventListener('focus', () => show(station));
+    station.addEventListener('mouseleave', hide);
+    station.addEventListener('blur', hide);
+  });
+})();
+
+/* ══════════════════════════════════════════
+   WINTER PALACE CLOCK — SOFT TICK ON HOVER
+   ══════════════════════════════════════════ */
+(function () {
+  const clock = document.querySelector('.clock');
+  if (!clock) return;
+  let audioCtx = null;
+  let timer = null;
+  let tick = false;
+  function getAudio() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!audioCtx) audioCtx = new AC();
+    return audioCtx;
+  }
+  function playTick() {
+    const ac = getAudio();
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume().catch(()=>{});
+    const now = ac.currentTime;
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = tick ? 'square' : 'triangle';
+    osc.frequency.setValueAtTime(tick ? 820 : 620, now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.018, now + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(now); osc.stop(now + 0.05);
+    tick = !tick;
+  }
+  function start() {
+    if (timer) return;
+    playTick();
+    timer = setInterval(playTick, 560);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+  clock.addEventListener('mouseenter', start);
+  clock.addEventListener('focusin', start);
+  clock.addEventListener('mouseleave', stop);
+  clock.addEventListener('focusout', stop);
+})();
+
+/* ══════════════════════════════════════════
+   LOBACHEVSKY + SAMOVAR + FIREBIRD
+   ══════════════════════════════════════════ */
+(function () {
+  const lob = document.getElementById('lobachevskyWidget');
+  if (lob) lob.addEventListener('click', () => lob.classList.toggle('active'));
+
+  const samovar = document.getElementById('samovarWidget');
+  if (samovar) samovar.addEventListener('click', () => samovar.classList.toggle('active'));
+
+  const firebird = document.getElementById('ambitions');
+  if (firebird && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => firebird.classList.toggle('firebird-awake', entry.isIntersecting));
+    }, { threshold: .28 });
+    obs.observe(firebird);
+  } else if (firebird) {
+    firebird.classList.add('firebird-awake');
+  }
+
+  const soundBtn = document.getElementById('firebirdSoundBtn');
+  if (!soundBtn) return;
+  soundBtn.addEventListener('click', () => {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ac = new AC();
+    const now = ac.currentTime;
+    const notes = [392, 494, 587, 740, 659, 523];
+    notes.forEach((freq, i) => {
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      const filter = ac.createBiquadFilter();
+      osc.type = 'sine';
+      filter.type = 'lowpass';
+      filter.frequency.value = 1800;
+      const t = now + i * .16;
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.035, t + .04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + .34);
+      osc.connect(filter).connect(gain).connect(ac.destination);
+      osc.start(t); osc.stop(t + .38);
+    });
+  });
+})();
+
 </script>
 </body>
 </html>

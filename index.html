@@ -924,6 +924,143 @@ h1 .accent { color: var(--red); }
   .lobachevsky-tooltip { left: -18px; }
 }
 
+
+/* ═══════════════════════════════════════════════
+   RESEARCH COMMAND BUREAU — PROFESSIONAL UPGRADE
+   ═══════════════════════════════════════════════ */
+.research-bureau {
+  position: relative;
+  overflow: hidden;
+  padding: 84px 0 96px;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(8,8,8,.065) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(0deg, rgba(8,8,8,.055) 1px, transparent 1px) 0 0 / 40px 40px,
+    radial-gradient(circle at 84% 8%, rgba(196,152,42,.18), transparent 28%),
+    linear-gradient(135deg, rgba(204,27,34,.08), transparent 32%),
+    var(--paper);
+  border-top: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+}
+.research-bureau::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -2;
+  background:
+    linear-gradient(118deg, transparent 0 11%, rgba(204,27,34,.18) 11% 13%, transparent 13% 100%),
+    linear-gradient(63deg, transparent 0 68%, rgba(8,8,8,.18) 68% 69.2%, transparent 69.2% 100%),
+    repeating-linear-gradient(135deg, rgba(204,27,34,.075) 0 1px, transparent 1px 22px);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.research-bureau::after {
+  content: "КБ-01";
+  position: absolute; right: clamp(18px, 6vw, 90px); top: 42px; z-index: -1;
+  font-family: var(--font-display); font-size: clamp(5rem, 16vw, 18rem); font-weight: 700;
+  letter-spacing: -.06em; color: rgba(8,8,8,.045); line-height: .72; pointer-events: none;
+}
+.bureau-field .beam { position: absolute; display:block; pointer-events:none; opacity:.75; }
+.bureau-field .beam-one { width: 58vw; height: 18px; left: -10vw; top: 25%; background: var(--red); transform: rotate(-17deg); box-shadow: 0 16px 0 rgba(8,8,8,.78); }
+.bureau-field .beam-two { width: 38vw; height: 10px; right: -8vw; top: 58%; background: var(--black); transform: rotate(12deg); }
+.bureau-field .beam-three { width: 26vw; height: 8px; left: 12vw; bottom: 10%; background: var(--gold); transform: rotate(28deg); }
+.bureau-topline { position: relative; z-index: 1; max-width: 1440px; margin: 0 auto 18px; padding: 0 24px; display:flex; justify-content:space-between; align-items:center; gap: 16px; }
+.bureau-stamp { display:inline-flex; align-items:center; gap:10px; padding: 9px 12px; background: var(--black); color: var(--cream); border-left: 7px solid var(--red); font-family: var(--font-mono); font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; box-shadow: 8px 8px 0 rgba(204,27,34,.82); }
+.noosphere-switch { display:inline-flex; align-items:center; gap:10px; padding: 10px 14px; background: var(--cream); color: var(--black); border: 2px solid var(--black); font-family: var(--font-display); font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; box-shadow: 6px 6px 0 var(--black); transition: transform .18s ease, background .18s ease, color .18s ease; }
+.noosphere-switch:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--black); }
+.switch-diode { width: 12px; height: 12px; border-radius: 999px; background: var(--red); box-shadow: 0 0 0 3px rgba(204,27,34,.15), 0 0 18px rgba(204,27,34,.85); }
+.bureau-head { max-width: 1440px; margin-left:auto; margin-right:auto; padding: 0 24px; }
+.bureau-head h2 { max-width: 980px; text-shadow: 0 1px 0 rgba(255,255,255,.45); }
+.bureau-thesis { margin-top: 18px; max-width: 880px; font-size: clamp(1.08rem, 1.4vw, 1.34rem); line-height: 1.78; color: rgba(30,30,30,.86); }
+.noosphere-note { margin-top: 14px; max-width: 720px; padding: 12px 14px; border-left: 5px solid var(--gold); background: rgba(255,255,255,.38); font-family: var(--font-mono); font-size:.78rem; line-height:1.65; color: rgba(30,30,30,.72); }
+.bureau-legend { max-width: 1440px; margin: 30px auto 0; padding: 0 24px; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+.bureau-legend span { position:relative; padding: 12px 12px 12px 18px; background: rgba(250,250,250,.48); border:1px solid rgba(8,8,8,.20); font-family: var(--font-display); font-size:.78rem; letter-spacing:.07em; text-transform:uppercase; font-weight:700; }
+.bureau-legend span::before { content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background: var(--red); }
+.bureau-dual-grid { max-width: 1440px; margin: 34px auto 0; padding: 0 24px; display:grid; grid-template-columns: minmax(0,1fr) 72px minmax(0,1fr); gap: 18px; align-items: stretch; }
+.bureau-panel { position: relative; min-height: 720px; padding: 26px 26px 28px 40px; border: 3px solid var(--black); background: rgba(245,240,228,.92); box-shadow: 13px 13px 0 rgba(8,8,8,.86); overflow:hidden; }
+.bureau-panel::before { content:""; position:absolute; inset: 14px; border: 1px dashed rgba(8,8,8,.28); pointer-events:none; }
+.bureau-panel::after { content:""; position:absolute; left:-18%; bottom:-8%; width:50%; height:38%; background: linear-gradient(135deg, rgba(204,27,34,.18), transparent 60%); transform: rotate(-18deg); pointer-events:none; }
+.material-panel { transform: rotate(-.35deg); }
+.mind-panel { transform: rotate(.35deg); background: linear-gradient(160deg, rgba(8,8,8,.98), rgba(16,19,29,.96) 58%, rgba(38,20,22,.94)); color: var(--white); border-color: var(--gold-light); box-shadow: 13px 13px 0 rgba(204,27,34,.86); }
+.mind-panel::before { border-color: rgba(232,200,105,.32); }
+.panel-rail { position:absolute; left:0; top:0; bottom:0; width: 24px; display:grid; place-items:center; writing-mode: vertical-rl; background: var(--black); color: var(--cream); font-family: var(--font-display); font-weight:700; letter-spacing:.18em; }
+.mind-panel .panel-rail { background: var(--red); color: #fff; }
+.panel-header { position:relative; z-index:1; }
+.panel-kicker { font-family: var(--font-mono); font-size:.76rem; color: var(--red-deep); letter-spacing:.14em; text-transform:uppercase; margin-bottom: 12px; }
+.mind-panel .panel-kicker { color: var(--gold-light); }
+.bureau-panel h3 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 3.25rem); line-height:.94; text-transform:uppercase; letter-spacing:-.02em; max-width: 620px; margin:0 0 12px; }
+.bureau-panel p { font-size: 1.02rem; line-height: 1.72; color: rgba(30,30,30,.78); }
+.mind-panel p { color: rgba(250,250,250,.78); }
+.dossier-strip { position:relative; z-index:1; display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 26px; }
+.dossier-tile { padding: 14px; background: rgba(255,255,255,.52); border: 1px solid rgba(8,8,8,.2); min-height: 152px; }
+.dossier-tile b { display:block; font-family: var(--font-display); font-size:.92rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom: 8px; color: var(--black); }
+.dossier-tile span { display:block; font-size:.94rem; line-height:1.55; color: rgba(30,30,30,.74); }
+.scoring-board { position:relative; z-index:1; margin-top: 18px; padding: 18px; background: rgba(8,8,8,.92); color: var(--cream); border: 1px solid var(--black); }
+.score-row { position:relative; display:grid; grid-template-columns: minmax(0,1fr) 55px; gap: 12px; align-items:center; padding: 10px 0 17px; font-family: var(--font-mono); font-size:.82rem; }
+.score-row + .score-row { border-top:1px solid rgba(255,255,255,.12); }
+.score-row b { text-align:right; color: var(--gold-light); }
+.score-row i { position:absolute; left:0; right:0; bottom:6px; height:4px; background: rgba(255,255,255,.14); overflow:hidden; }
+.score-row i::before { content:""; display:block; width: var(--w); height:100%; background: linear-gradient(90deg, var(--red), var(--gold-light)); }
+.casablanca-map-card { position:relative; z-index:1; margin-top: 20px; min-height: 250px; display:grid; grid-template-columns: 1fr 1.08fr; gap: 16px; padding: 18px; background: var(--cream); border: 2px solid var(--black); overflow:hidden; }
+.map-grid { position:relative; min-height: 206px; background: linear-gradient(90deg, rgba(8,8,8,.08) 1px, transparent 1px) 0 0/20px 20px, linear-gradient(0deg, rgba(8,8,8,.08) 1px, transparent 1px) 0 0/20px 20px, rgba(255,255,255,.42); border: 1px solid rgba(8,8,8,.18); }
+.route { position:absolute; display:block; background: var(--black); transform-origin:left center; }
+.r1 { width: 102%; height: 7px; left: 4%; top: 32%; transform: rotate(18deg); }
+.r2 { width: 88%; height: 6px; left: 7%; top: 62%; transform: rotate(-24deg); background: var(--red); }
+.r3 { width: 74%; height: 5px; left: 18%; top: 48%; transform: rotate(62deg); background: var(--gold); }
+.pin { position:absolute; width:16px; height:16px; border-radius:50%; background: var(--red); border:3px solid var(--cream); box-shadow: 0 0 0 4px rgba(204,27,34,.18), 0 0 24px rgba(204,27,34,.55); }
+.p1 { left: 56%; top: 22%; } .p2 { left: 38%; top: 48%; } .p3 { left: 68%; top: 64%; }
+.map-copy h4 { font-family:var(--font-display); font-size:1.08rem; text-transform:uppercase; margin-bottom: 8px; }
+.map-copy ol { margin-left: 20px; }
+.map-copy li { margin: 0 0 8px; font-size:.96rem; line-height:1.45; }
+.tsiolkovsky-watermark { position:absolute; right: -28px; bottom: -16px; width: 210px; opacity:.16; }
+.tsiolkovsky-watermark path, .tsiolkovsky-watermark circle { fill:none; stroke: var(--black); stroke-width: 4; stroke-linecap:round; stroke-linejoin:round; }
+.bureau-axis { display:flex; flex-direction:column; justify-content:space-around; align-items:center; min-height: 720px; position:relative; }
+.bureau-axis::before { content:""; position:absolute; top: 24px; bottom: 24px; left:50%; width:4px; transform:translateX(-50%); background: linear-gradient(180deg, var(--red), var(--gold), var(--black)); box-shadow: 0 0 18px rgba(204,27,34,.26); }
+.axis-node { position:relative; z-index:1; width:70px; height:70px; display:grid; place-items:center; border-radius:50%; background: var(--black); color: var(--cream); border:3px solid var(--gold); font-family: var(--font-display); font-size:.68rem; letter-spacing:.05em; text-transform:uppercase; box-shadow:0 0 0 6px var(--paper), 0 12px 20px rgba(0,0,0,.2); }
+.mendeleev-chamber { position:relative; z-index:1; min-height: 255px; margin-top: 24px; padding: 18px; border:1px solid rgba(232,200,105,.42); background: radial-gradient(circle at 50% 50%, rgba(232,200,105,.12), transparent 52%), rgba(255,255,255,.045); overflow:hidden; }
+.periodic-grid { position:absolute; inset:14px; display:grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 48px; gap: 8px; opacity:.26; }
+.periodic-grid span { display:grid; place-items:center; border:1px solid rgba(232,200,105,.42); color: var(--gold-light); font-family: var(--font-mono); font-size:.68rem; }
+.mendeleev-copy { position:absolute; left:50%; top:50%; width:min(82%, 600px); transform: translate(-50%, -50%); text-align:center; font-size: clamp(1rem, 1.35vw, 1.22rem); line-height:1.72; color: rgba(255,255,255,.92) !important; text-shadow: 0 0 18px rgba(232,200,105,.18); transition: filter .35s ease, letter-spacing .35s ease, opacity .35s ease; }
+.mendeleev-copy.is-chaos { filter: blur(2.2px) contrast(1.3); letter-spacing: .11em; opacity:.72; }
+.mendeleev-copy.is-ordered { filter: blur(0); letter-spacing: normal; opacity:1; }
+.mendeleev-tooltip { position:absolute; left:18px; right:18px; bottom:14px; transform: translateY(8px); opacity:0; pointer-events:none; padding: 10px 12px; border:1px solid rgba(232,200,105,.38); background:rgba(8,8,8,.86); color:var(--cream); font-size:.84rem; line-height:1.45; transition: .22s ease; }
+.mendeleev-chamber:hover .mendeleev-tooltip, .mendeleev-chamber:focus .mendeleev-tooltip, .mendeleev-chamber:focus-within .mendeleev-tooltip { opacity:1; transform:translateY(0); }
+.thesis-metrics { position:relative; z-index:1; display:grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+.metric-cell { padding: 13px 10px; background: rgba(255,255,255,.07); border:1px solid rgba(232,200,105,.28); }
+.metric-cell span { display:block; color: var(--gold-light); font-family: var(--font-display); font-size:1.25rem; font-weight:700; letter-spacing:.02em; }
+.metric-cell b { display:block; margin-top:3px; font-family:var(--font-display); font-size:.78rem; text-transform:uppercase; }
+.metric-cell small { display:block; margin-top:4px; color: rgba(255,255,255,.62); line-height:1.35; }
+.framework-layers { position:relative; z-index:1; display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+.framework-layers div { padding: 12px; border-left: 5px solid var(--red); background: rgba(255,255,255,.075); }
+.framework-layers b { display:block; color:var(--gold-light); font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; margin-bottom: 5px; }
+.framework-layers span { display:block; color:rgba(255,255,255,.78); font-size:.92rem; line-height:1.45; }
+.professor-verdict { position:relative; z-index:1; max-width: 1440px; margin: 34px auto 0; padding: 0 24px; }
+.professor-verdict p { position:relative; padding: 24px 28px 24px 34px; background: var(--black); color: var(--cream); font-size: clamp(1.06rem, 1.45vw, 1.32rem); line-height:1.78; border-left: 10px solid var(--red); box-shadow: 14px 14px 0 rgba(204,27,34,.72); max-width: 1120px; }
+.verdict-mark { display:inline-block; margin-bottom: 10px; padding: 7px 10px; background: var(--red); color:white; font-family: var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+body.noosphere-active .research-bureau { background: radial-gradient(circle at 22% 30%, rgba(232,200,105,.12), transparent 26%), radial-gradient(circle at 76% 44%, rgba(204,27,34,.14), transparent 30%), linear-gradient(135deg, rgba(6,9,18,.98), rgba(8,8,10,.96)); color: var(--white); }
+body.noosphere-active .research-bureau::before { background: radial-gradient(circle at 18% 38%, rgba(255,255,255,.78) 0 1px, transparent 2px), radial-gradient(circle at 62% 22%, rgba(232,200,105,.9) 0 1px, transparent 2px), radial-gradient(circle at 82% 72%, rgba(255,255,255,.75) 0 1px, transparent 2px), linear-gradient(110deg, transparent 0 20%, rgba(204,27,34,.16) 20% 21%, transparent 21% 100%); mix-blend-mode:screen; }
+body.noosphere-active .research-bureau::after { color: rgba(255,255,255,.045); }
+body.noosphere-active .bureau-thesis, body.noosphere-active .noosphere-note, body.noosphere-active .section-label, body.noosphere-active .bureau-head h2 { color: var(--white); }
+body.noosphere-active .noosphere-note { background: rgba(255,255,255,.055); border-left-color: var(--gold-light); }
+body.noosphere-active .bureau-legend span { background: rgba(255,255,255,.07); color: var(--cream); border-color: rgba(232,200,105,.25); }
+body.noosphere-active .material-panel { background: rgba(245,240,228,.94); color: var(--ink); }
+body.noosphere-active .axis-node { box-shadow:0 0 0 6px rgba(6,9,18,.98), 0 0 28px rgba(232,200,105,.22); }
+@media (max-width: 1100px) {
+  .bureau-dual-grid { grid-template-columns: 1fr; }
+  .bureau-axis { min-height: auto; flex-direction: row; flex-wrap: wrap; gap: 8px; justify-content:center; padding: 6px 0; }
+  .bureau-axis::before { left:24px; right:24px; top:50%; bottom:auto; width:auto; height:4px; transform:translateY(-50%); }
+  .axis-node { width:64px; height:64px; box-shadow:0 0 0 5px var(--paper), 0 10px 18px rgba(0,0,0,.18); }
+  .material-panel, .mind-panel { transform:none; }
+}
+@media (max-width: 760px) {
+  .bureau-topline { flex-direction:column; align-items:flex-start; }
+  .bureau-legend { grid-template-columns:1fr; }
+  .bureau-panel { min-height:auto; padding: 24px 18px 24px 34px; }
+  .dossier-strip, .thesis-metrics, .framework-layers, .casablanca-map-card { grid-template-columns:1fr; }
+  .casablanca-map-card { min-height:auto; }
+  .map-grid { min-height:180px; }
+  .mendeleev-chamber { min-height: 330px; }
+  .periodic-grid { grid-template-columns: repeat(2,1fr); }
+}
+
 </style>
 <!-- Enhanced from uploaded preview (1).html: Moscow Metro, Lobachevsky, Samovar, Firebird modules. -->
 </head>
@@ -1139,86 +1276,152 @@ h1 .accent { color: var(--red); }
     </div>
   </section>
 
-  <!-- ── RESEARCH ── -->
-  <section id="research" class="section" aria-labelledby="researchTitle">
-    <div class="section-head">
-      <div class="section-label"
-           data-ru="Научный вклад · От Ломоносова к прикладной аналитике">Scientific Contribution · From Lomonosov to Applied Analytics</div>
-      <h2 id="researchTitle"
-          data-ru="Дисциплина данных<br>на службе<br>будущего университета.">Data discipline<br>in service of<br>the university’s future.</h2>
+
+  <!-- ── RESEARCH / CONSTRUCTIVIST COMMAND BUREAU ── -->
+  <section id="research" class="section research-bureau" aria-labelledby="researchTitle">
+    <div class="bureau-field" aria-hidden="true">
+      <span class="beam beam-one"></span>
+      <span class="beam beam-two"></span>
+      <span class="beam beam-three"></span>
     </div>
 
-    <div class="research-grid">
-      <article class="research-card feature">
-        <div class="research-number">01</div>
-        <h3 data-ru="Основной исследовательский тезис">Core research thesis</h3>
-        <p data-ru="Моё исследовательское направление — создавать модели поддержки решений, которые соединяют физические потоки, финансовую эффективность, городскую инфраструктуру и стратегическое управление. Я хочу развить это направление в российском университете, где наука не отделена от национальной школы мышления, инженерной строгости и ответственности перед будущим.">My research direction is to build decision-support models that connect physical flows, financial performance, urban infrastructure, and strategic governance. I want to develop this path in a Russian university, where science is not separated from a national school of thought, engineering seriousness, and responsibility toward the future.</p>
-        <ul>
-          <li data-ru="<strong>В духе Ломоносова:</strong> относиться к науке как к вопросу достоинства, труда и интеллектуальной зрелости."><strong>In the spirit of Lomonosov:</strong> approach science as a matter of dignity, labor, and intellectual maturity.</li>
-          <li data-ru="<strong>В логике Менделеева:</strong> искать порядок в сложных системах, классифицировать переменные и превращать хаос в метод."><strong>In the logic of Mendeleev:</strong> seek order in complex systems, classify variables, and transform complexity into method.</li>
-          <li data-ru="<strong>В горизонте Гагарина:</strong> воспринимать технологический прогресс как смелое, коллективное и дисциплинированное движение вперёд."><strong>In the horizon of Gagarin:</strong> see technological progress as a courageous, collective, and disciplined movement forward.</li>
-        </ul>
-        <div class="research-axis">
-          <div class="axis">
+    <div class="bureau-topline">
+      <div class="bureau-stamp" data-ru="КБ‑01 · Исследовательское конструкторское бюро">KB‑01 · Research Design Bureau</div>
+      <button class="noosphere-switch" id="noosphereSwitch" type="button" aria-pressed="false" aria-describedby="noosphereNote">
+        <span class="switch-diode" aria-hidden="true"></span>
+        <span data-ru="Активировать ноосферу">Activate Noosphere</span>
+      </button>
+    </div>
+
+    <div class="section-head bureau-head">
+      <div class="section-label" data-ru="Научный вклад · От городской материи к теории решений">Scientific Contribution · From Urban Matter to Decision Theory</div>
+      <h2 id="researchTitle" data-ru="Я строю модели,<br>которые превращают<br>городскую сложность<br>в проверяемое решение.">
+        I build models<br>that turn urban<br>complexity into<br>verifiable decisions.
+      </h2>
+      <p class="bureau-thesis" data-ru="Мой исследовательский путь не состоит из двух разрозненных студенческих работ. Это единая траектория: сначала измерить физическую реальность города — трафик, локации, стоимость и регулирование; затем поднять эту логику до уровня интеллектуальной инфраструктуры — ИИ‑прогнозирование, углеродные сценарии, геоэкономический риск и многокритериальное ранжирование.">
+        My research path is not a set of disconnected academic exercises. It is one trajectory: first, measuring the physical reality of the city — traffic, locations, costs, and regulation; then elevating that logic into intelligent infrastructure — AI forecasting, carbon scenarios, geoeconomic risk, and multi-criteria ranking.
+      </p>
+      <p id="noosphereNote" class="noosphere-note" data-ru="Ноосферный режим меняет фон с инженерной бумаги на глобальную карту данных: локальный проект Касабланки соединяется с международной логикой умных городов.">
+        Noosphere mode transforms the blueprint paper into a global data map: the Casablanca applied project becomes connected to the larger logic of smart-city infrastructure decisions.
+      </p>
+    </div>
+
+    <div class="bureau-legend" aria-label="Research trajectory legend">
+      <span data-ru="Материя: трафик · город · стоимость">Matter: traffic · city · cost</span>
+      <span data-ru="Метод: симуляция · картография · финансы">Method: simulation · mapping · finance</span>
+      <span data-ru="Разум: ИИ · риск · ранжирование">Mind: AI · risk · ranking</span>
+      <span data-ru="Доказательство: аудит · чувствительность · воспроизводимость">Proof: audit · sensitivity · reproducibility</span>
+    </div>
+
+    <div class="bureau-dual-grid">
+      <article class="bureau-panel material-panel" aria-labelledby="materialTitle">
+        <div class="panel-rail">01</div>
+        <div class="panel-header">
+          <div class="panel-kicker" data-ru="Материя · Прикладная наука">The Material · Applied Science</div>
+          <h3 id="materialTitle" data-ru="PFE · Лаборатория рентабельности Касабланки">PFE · Casablanca Profitability Laboratory</h3>
+          <p data-ru="Оценка финансовой рентабельности наружной рекламы по трафику, социально‑экономическому контексту, затратам и ограничениям регулирования.">
+            Financial profitability assessment of outdoor advertising through traffic, socio-economic context, cost structure, and regulatory constraints.
+          </p>
+        </div>
+
+        <div class="dossier-strip" role="list" aria-label="PFE technical dossier">
+          <div class="dossier-tile" role="listitem">
+            <b data-ru="Проблема">Problem</b>
+            <span data-ru="Видимость больше не равна ценности: место должно быть доказано через поток, аудиторию, стоимость и закон.">Visibility is no longer value by itself: a location must be proven through flow, audience, cost, and legal exposure.</span>
+          </div>
+          <div class="dossier-tile" role="listitem">
             <b data-ru="Метод">Method</b>
-            <span data-ru="Измерение, проверка, воспроизводимость.">Measurement, verification, reproducibility.</span>
+            <span data-ru="SUMO, SIG/QGIS, CAPEX, OPEX, TCO, ROI и Индекс потенциальной рентабельности.">SUMO, GIS/QGIS, CAPEX, OPEX, TCO, ROI, and Potential Profitability Index.</span>
           </div>
-          <div class="axis">
-            <b data-ru="Инструмент">Tool</b>
-            <span data-ru="Модели, дашборды, симуляции, сценарии.">Models, dashboards, simulations, scenarios.</span>
+          <div class="dossier-tile" role="listitem">
+            <b data-ru="Результат">Output</b>
+            <span data-ru="Ранжирование локаций и инвестиционная логика для OOH/DOOH‑развертывания.">Location ranking and investment logic for OOH/DOOH deployment.</span>
           </div>
-          <div class="axis">
-            <b data-ru="Вклад">Contribution</b>
-            <span data-ru="Решения, которые помогают общему академическому труду.">Outputs that serve the shared academic work.</span>
+        </div>
+
+        <div class="scoring-board" aria-label="PFE scoring model">
+          <div class="score-row"><span data-ru="Потенциал аудитории">Audience Potential</span><b>40%</b><i style="--w:40%"></i></div>
+          <div class="score-row"><span data-ru="Эффективность затрат / CPM">Cost Efficiency / CPM</span><b>30%</b><i style="--w:30%"></i></div>
+          <div class="score-row"><span data-ru="Потенциал выручки / ROAS">Revenue Potential / ROAS</span><b>30%</b><i style="--w:30%"></i></div>
+        </div>
+
+        <div class="casablanca-map-card" tabindex="0" aria-label="Top Casablanca advertising opportunities">
+          <div class="map-grid" aria-hidden="true">
+            <span class="route r1"></span><span class="route r2"></span><span class="route r3"></span>
+            <span class="pin p1" title="Morocco Mall"></span><span class="pin p2" title="Rond-Point des Sports"></span><span class="pin p3" title="A3"></span>
           </div>
+          <div class="map-copy">
+            <h4 data-ru="Три доказанные точки запуска">Three proven launch points</h4>
+            <ol>
+              <li><strong>Morocco Mall façade</strong> · DOOH · weighted score <b>9.1/10</b></li>
+              <li><strong>Rond-Point des Sports</strong> · DOOH · weighted score <b>8.7/10</b></li>
+              <li><strong>Urban motorway axis A3</strong> · DOOH · weighted score <b>8.5/10</b></li>
+            </ol>
+          </div>
+          <svg class="tsiolkovsky-watermark" viewBox="0 0 360 220" aria-hidden="true">
+            <path d="M34 168 C92 110, 148 78, 252 52" />
+            <path d="M252 52 L322 26 L296 96 Z" />
+            <path d="M104 130 L162 154" />
+            <path d="M136 104 L198 126" />
+            <circle cx="236" cy="64" r="10" />
+            <path d="M60 178 L178 178 M60 194 L236 194" />
+          </svg>
         </div>
       </article>
 
-      <article class="research-card">
-        <div class="research-number">02</div>
-        <h3 data-ru="Проект 01 · Модель экспозиции Касабланки">Project 01 · Casablanca Exposure Model</h3>
-        <p data-ru="Мой проект по наружной рекламе в Касабланке показал, что городская видимость может быть измерена, смоделирована и переведена в инвестиционную логику. Это не просто локальный кейс; это первая форма метода, который можно развивать для анализа умной инфраструктуры.">My Casablanca outdoor-advertising project showed that urban visibility can be measured, modelled, and translated into investment logic. It is not only a local case; it is an early form of a method that can be extended toward smart-infrastructure analysis.</p>
-        <ul>
-          <li data-ru="Выходные данные SUMO FCD и пространственная логика QGIS.">SUMO FCD outputs and QGIS spatial reasoning.</li>
-          <li data-ru="ROI, CAPEX, OPEX, TCO и сценарное сравнение.">ROI, CAPEX, OPEX, TCO, and scenario comparison.</li>
-          <li data-ru="Переход от городской интуиции к проверяемой аналитике.">Shift from urban intuition to verifiable analytics.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">SUMO</span><span class="tag">QGIS</span>
-          <span class="tag" data-ru="Инвестиционная логика">Investment Logic</span>
-        </div>
-      </article>
+      <div class="bureau-axis" aria-hidden="true">
+        <span class="axis-node">SUMO</span>
+        <span class="axis-node">GIS</span>
+        <span class="axis-node">ROI</span>
+        <span class="axis-node">IRP</span>
+        <span class="axis-node">AI</span>
+        <span class="axis-node">MCDM</span>
+        <span class="axis-node">AROMAN</span>
+      </div>
 
-      <article class="research-card">
-        <div class="research-number">03</div>
-        <h3 data-ru="Проект 02 · Потоки, стоимость и решения">Project 02 · Flows, Cost, and Decisions</h3>
-        <p data-ru="Мой профиль в закупках и цепочках поставок учит меня видеть систему через потоки, ограничения, поставщиков, риски и стоимость обслуживания. В российской академической среде я хочу превратить эту компетенцию в более строгие модели промышленной устойчивости и инфраструктурной эффективности.">My procurement and supply-chain background trains me to see systems through flows, constraints, suppliers, risk, and cost-to-serve. In a Russian academic environment, I want to transform this competence into more rigorous models of industrial resilience and infrastructure performance.</p>
-        <ul>
-          <li data-ru="Общая стоимость владения и стоимость обслуживания.">Total cost of ownership and cost-to-serve reasoning.</li>
-          <li data-ru="KPI-архитектура для управленческих решений.">KPI architecture for managerial decisions.</li>
-          <li data-ru="Сценарии риска, устойчивости и приоритизации.">Risk, resilience, and prioritization scenarios.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">TCO</span><span class="tag">KPI</span>
-          <span class="tag" data-ru="Устойчивость">Resilience</span>
+      <article class="bureau-panel mind-panel" aria-labelledby="mindTitle">
+        <div class="panel-rail">02</div>
+        <div class="panel-header">
+          <div class="panel-kicker" data-ru="Разум · Теоретическая наука">The Mind · Theoretical Science</div>
+          <h3 id="mindTitle" data-ru="Финальная работа · ИИ‑MCDM скоринг инфраструктуры">Final Thesis · AI-MCDM Infrastructure Scorecard</h3>
+          <p data-ru="Многокритериальная модель ранжирования проектов умного города под воздействием цены энергии, углеродной стоимости и геоэкономического риска.">
+            Multi-criteria ranking of smart-city infrastructure under energy-price, carbon-cost, and geoeconomic-risk uncertainty.
+          </p>
         </div>
-      </article>
 
-      <article class="research-card">
-        <div class="research-number">04</div>
-        <h3 data-ru="Проект 03 · Кандидат, способный учиться глубоко">Project 03 · A candidate able to learn deeply</h3>
-        <p data-ru="Я знаю, что одного технического интеллекта недостаточно. Россия дала миру Пушкина, Достоевского, Толстого и Тютчева — напоминание о том, что человек, язык, совесть и внутренняя жизнь имеют значение. Поэтому мой академический проект — не только о моделях, но и о зрелости, ответственности и уважении к человеческой сложности.">I know that technical intelligence alone is not enough. Russia gave the world Pushkin, Dostoevsky, Tolstoy, and Tyutchev — a reminder that the human being, language, conscience, and inner life matter. My academic project is therefore not only about models, but about maturity, responsibility, and respect for human complexity.</p>
-        <ul>
-          <li data-ru="Учить русский язык как форму уважения, а не как формальность.">Learn the Russian language as respect, not as formality.</li>
-          <li data-ru="Соединять аналитическую строгость с человеческим пониманием.">Connect analytical rigor with human understanding.</li>
-          <li data-ru="Войти в университетскую культуру как участник, а не наблюдатель.">Enter university culture as a participant, not an observer.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag" data-ru="Пушкин">Pushkin</span>
-          <span class="tag" data-ru="Достоевский">Dostoevsky</span>
-          <span class="tag" data-ru="Ответственность">Responsibility</span>
+        <div class="mendeleev-chamber" tabindex="0" aria-label="Mendeleev chaos to order abstract">
+          <div class="periodic-grid" aria-hidden="true">
+            <span>GPR</span><span>ETS</span><span>DNPV</span><span>ROV</span><span>AHP</span><span>MEREC</span><span>AROMAN</span><span>TOPSIS</span>
+          </div>
+          <p class="mendeleev-copy" data-final-text="The thesis builds an AI-enabled investment scorecard that converts fragmented carbon, energy, financial, and geoeconomic variables into an auditable ranking system for smart-city infrastructure.">
+            The thesis builds an AI-enabled investment scorecard that converts fragmented carbon, energy, financial, and geoeconomic variables into an auditable ranking system for smart-city infrastructure.
+          </p>
+          <div class="mendeleev-tooltip" data-ru="Менделеев здесь — не украшение, а логика: порядок возникает только после классификации переменных, проверки модели и строгого ранжирования.">
+            Mendeleev here is not decoration; it is logic: order appears only after variables are classified, tested, and ranked.
+          </div>
+        </div>
+
+        <div class="thesis-metrics" role="list" aria-label="Final thesis evidence">
+          <div class="metric-cell" role="listitem"><span>−45.8%</span><b>MAE vs Ridge</b><small>XGBoost temporal validation</small></div>
+          <div class="metric-cell" role="listitem"><span>p = 0.0039</span><b>Wilcoxon test</b><small>Forecasting performance</small></div>
+          <div class="metric-cell" role="listitem"><span>12/25</span><b>Re-ranked projects</b><small>€150/tCO₂ Net Zero scenario</small></div>
+          <div class="metric-cell" role="listitem"><span>25/25</span><b>Different rankings</b><small>AROMAN vs NPV-only</small></div>
+        </div>
+
+        <div class="framework-layers" aria-label="Four-layer framework">
+          <div><b>Layer 1</b><span>GPR + EU ETS + energy scenarios</span></div>
+          <div><b>Layer 2</b><span>DNPV + Real Options valuation</span></div>
+          <div><b>Layer 3</b><span>Fuzzy-AHP + MEREC weighting</span></div>
+          <div><b>Layer 4</b><span>AROMAN ranking + sensitivity disclosure</span></div>
         </div>
       </article>
+    </div>
+
+    <div class="professor-verdict" aria-label="Professor-style portfolio interpretation">
+      <div class="verdict-mark">Профессорская оценка</div>
+      <p data-ru="Приёмная комиссия должна увидеть не две отдельные работы, а формирование исследовательской школы кандидата: от измерения уличного потока и городской стоимости до алгоритмического ранжирования инфраструктурных решений. Это переход от прикладной дисциплины к научной архитектуре решений.">
+        The committee should not see two isolated student projects. It should see the formation of a research line: from measuring street-level flows and urban cost structures to algorithmic ranking of infrastructure decisions. This is the movement from applied discipline to scientific decision architecture.
+      </p>
     </div>
   </section>
 
@@ -2320,6 +2523,61 @@ h1 .accent { color: var(--red); }
       osc.start(t); osc.stop(t + .38);
     });
   });
+})();
+
+
+/* ══════════════════════════════════════════
+   RESEARCH BUREAU INTERACTIONS
+   ══════════════════════════════════════════ */
+(function () {
+  const noosphere = document.getElementById('noosphereSwitch');
+  if (noosphere) {
+    noosphere.addEventListener('click', () => {
+      const active = document.body.classList.toggle('noosphere-active');
+      noosphere.setAttribute('aria-pressed', String(active));
+      const label = noosphere.querySelector('span:last-child');
+      if (label) {
+        label.textContent = active ? 'Noosphere Active' : 'Activate Noosphere';
+        label.setAttribute('data-ru', active ? 'Ноосфера активна' : 'Активировать ноосферу');
+      }
+    });
+  }
+
+  const text = document.querySelector('.mendeleev-copy');
+  if (!text) return;
+  const glyphs = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЭЮЯ0123456789#%ΣΔλπ';
+  function scrambleToOrder(el, duration) {
+    if (el.dataset.done === 'true') return;
+    const finalText = el.getAttribute('data-final-text') || el.textContent.trim();
+    const start = performance.now();
+    el.dataset.done = 'true';
+    el.classList.add('is-chaos');
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const ordered = Math.floor(progress * finalText.length);
+      el.textContent = finalText.split('').map((char, index) => {
+        if (char === ' ') return ' ';
+        if (index < ordered) return char;
+        return glyphs[Math.floor(Math.random() * glyphs.length)];
+      }).join('');
+      if (progress < 1) requestAnimationFrame(frame);
+      else { el.textContent = finalText; el.classList.remove('is-chaos'); el.classList.add('is-ordered'); }
+    }
+    requestAnimationFrame(frame);
+  }
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          scrambleToOrder(entry.target, 1500);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .55 });
+    observer.observe(text);
+  } else {
+    scrambleToOrder(text, 1500);
+  }
 })();
 
 </script>
